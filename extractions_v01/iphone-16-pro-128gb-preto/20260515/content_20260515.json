@@ -1,0 +1,591 @@
+[
+  {
+    "store": "Apple Brasil",
+    "url": "https://www.apple.com/br/shop/buy-iphone/iphone-16/tela-de-6,1-polegadas-128gb-preto",
+    "timestamp": "2026-05-15T18:07:35.703197",
+    "errors": [],
+    "schema": {
+      "raw_schemas": [
+        {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": "iPhone 16 de 128 GB – Preto",
+          "url": "https://www.apple.com/br/shop/buy-iphone/iphone-16/tela-de-6,1-polegadas-128gb-preto",
+          "mainEntityOfPage": "https://www.apple.com/br/shop/buy-iphone/iphone-16/tela-de-6,1-polegadas-128gb-preto",
+          "offers": [
+            {
+              "@type": "Offer",
+              "priceCurrency": "BRL",
+              "price": 6799.0,
+              "sku": "MYE73BR/A",
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                  "@type": "MonetaryAmount",
+                  "value": 0,
+                  "currency": "BRL"
+                }
+              }
+            }
+          ],
+          "image": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch-black?wid=5120&hei=2880&fmt=jpeg&qlt=90&.v=1723677130930",
+          "description": "Confira os novos iPhone 16 e iPhone 16 Plus da Apple. Compre online com frete grátis.",
+          "color": "Preto"
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": "1",
+              "item": {
+                "@id": "https://www.apple.com/br/iphone",
+                "url": "https://www.apple.com/br/iphone",
+                "name": "iPhone"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": "2",
+              "item": {
+                "@id": "https://www.apple.com/br/iphone-16",
+                "url": "https://www.apple.com/br/iphone-16",
+                "name": "iPhone 16"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": "3",
+              "name": "Comprar iPhone 16 e iPhone 16 Plus"
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Meu iPhone funcionará no mundo todo?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Os modelos de iPhone funcionam em praticamente todo o mundo. Não importa se você é cliente de uma operadora de rede GSM ou CDMA, você pode fazer roaming usando as redes GSM disponíveis em mais de 200 países ou regiões. Se você tiver financiado o iPhone com sua operadora, entre em contato para confirmar a possibilidade de roaming. \nA disponibilidade de dados de rede celular 5G e LTE varia em alguns países ou regiões e depende da compatibilidade da operadora com determinadas frequências de rádio 5G e LTE. Entre em contato com sua operadora para obter informações sobre as políticas e os valores praticados para roaming. Informações sobre a compatibilidade do iPhone com redes 5G e LTE por operadora e país ou região (o link abre em uma nova janela) "
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "É fácil transferir meus dados e configurar meu iPhone novo?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sim. O iCloud facilita a transferência das suas configurações, fotos, apps e documentos para um novo aparelho. Quando estiver configurando seu aparelho novo, basta iniciar a sessão no iCloud, acessar o backup do iCloud do aparelho antigo e, em alguns minutos, ele estará pronto para usar.\nFaltou espaço no iCloud para fazer um backup? O iCloud oferece armazenamento temporário suficiente para você fazer backup do seu aparelho e transferir todos os seus dados, sem custo (requer iOS 15).\nCom o Início Rápido, você pode restaurar seus dados e conteúdos no novo iPhone usando o backup do iCloud. Para telefones com iOS 12.4 ou posterior, o Início Rápido mostra a opção de usar a migração de aparelho para aparelho. Dessa forma, você pode transferir todos os seus dados do aparelho atual para o novo sem precisar de cabos.\nSe você estiver mudando do Android, baixe o app “Move to iOS” primeiro. Depois, siga o processo de configuração no iPhone novo.\nPara saber como transferir dados para seu novo iPhone, acesse support.apple.com/pt-br/HT201269 (o link abre em uma nova janela) ."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Quais operadoras oferecem o serviço de 5G?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "O iPhone 16, o iPhone 17e, o iPhone 17, o iPhone Air e o iPhone 17 Pro são compatíveis com 5G. Para ter acesso ao 5G, é preciso contratar uma operadora que ofereça esse serviço. Um plano de dados 5G ou um novo cartão SIM também pode ser necessário. Entre em contato com sua operadora para obter mais informações. Saiba mais sobre as operadoras no seu país aqui (o link abre em uma nova janela) ."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Por que devo comprar um iPhone sem cartão SIM em apple.com?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Quando você compra um iPhone no site da Apple, ele vem desbloqueado. Isso significa que ele não fica preso a uma operadora ou a um contrato de serviço de vários anos. Você pode escolher a operadora e o plano mais adequados para suas necessidades. Seu novo iPhone permanece desbloqueado depois de ativado, o que significa que você pode usar seu telefone com qualquer operadora que ofereça serviços para iPhone."
+              }
+            }
+          ]
+        }
+      ],
+      "fields_presence": {
+        "name": true,
+        "price": true,
+        "priceCurrency": true,
+        "availability": false,
+        "brand": false,
+        "description": true,
+        "aggregateRating": false,
+        "image": true,
+        "sku": true,
+        "gtin": false,
+        "offers": true
+      }
+    },
+    "basic_content": {
+      "title": "Comprar iPhone 16 de 128 GB – Preto - Apple (BR)",
+      "meta_description": "Confira os novos iPhone 16 e iPhone 16 Plus da Apple. Compre online com frete grátis.",
+      "h1": "Comprar iPhone 16",
+      "description_word_count": 2198,
+      "has_tech_specs_table": false
+    },
+    "llms_txt": {
+      "present": false,
+      "status_code": 404,
+      "content": null
+    }
+  },
+  {
+    "store": "iPlace",
+    "url": "https://www.iplace.com.br/iphone-16/100040PR?srsltid=AfmBOoq94XEdQXkLkR9q3lh71U15mJxzPzZpOYQpk452AX2MTfHgflaW",
+    "timestamp": "2026-05-15T18:07:38.016324",
+    "errors": [],
+    "schema": {
+      "raw_schemas": [
+        [
+          {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "iPhone 16",
+            "image": "http://www.iplace.com.br/ccstore/v1/images/?source=/file/v554332801356449571/products/100053737.00.639088173296776022-iphone-16.jpg&height=300&width=300",
+            "description": "iPhone 16",
+            "sku": "100053780",
+            "productId": "100040PR",
+            "brand": "Apple",
+            "color": "",
+            "offers": {
+              "@type": "Offer",
+              "url": "http://www.iplace.com.br/iphone-16/100040PR",
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            }
+          },
+          {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "iPhone 16",
+            "image": "http://www.iplace.com.br/ccstore/v1/images/?source=/file/v554332801356449571/products/100053737.00.639088173296776022-iphone-16.jpg&height=300&width=300",
+            "description": "iPhone 16",
+            "sku": "100053736",
+            "productId": "100040PR",
+            "brand": "Apple",
+            "color": "",
+            "offers": {
+              "@type": "Offer",
+              "url": "http://www.iplace.com.br/iphone-16/100040PR",
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            }
+          },
+          {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "iPhone 16",
+            "image": "http://www.iplace.com.br/ccstore/v1/images/?source=/file/v554332801356449571/products/100053737.00.639088173296776022-iphone-16.jpg&height=300&width=300",
+            "description": "iPhone 16",
+            "sku": "100053764",
+            "productId": "100040PR",
+            "brand": "Apple",
+            "color": "",
+            "offers": {
+              "@type": "Offer",
+              "url": "http://www.iplace.com.br/iphone-16/100040PR",
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            }
+          },
+          {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "iPhone 16",
+            "image": "http://www.iplace.com.br/ccstore/v1/images/?source=/file/v554332801356449571/products/100053737.00.639088173296776022-iphone-16.jpg&height=300&width=300",
+            "description": "iPhone 16",
+            "sku": "100053768",
+            "productId": "100040PR",
+            "brand": "Apple",
+            "color": "",
+            "offers": {
+              "@type": "Offer",
+              "url": "http://www.iplace.com.br/iphone-16/100040PR",
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            }
+          },
+          {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "iPhone 16",
+            "image": "http://www.iplace.com.br/ccstore/v1/images/?source=/file/v554332801356449571/products/100053737.00.639088173296776022-iphone-16.jpg&height=300&width=300",
+            "description": "iPhone 16",
+            "sku": "100053781",
+            "productId": "100040PR",
+            "brand": "Apple",
+            "color": "",
+            "offers": {
+              "@type": "Offer",
+              "url": "http://www.iplace.com.br/iphone-16/100040PR",
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            }
+          },
+          {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "iPhone 16",
+            "image": "http://www.iplace.com.br/ccstore/v1/images/?source=/file/v554332801356449571/products/100053737.00.639088173296776022-iphone-16.jpg&height=300&width=300",
+            "description": "iPhone 16",
+            "sku": "100053762",
+            "productId": "100040PR",
+            "brand": "Apple",
+            "color": "",
+            "offers": {
+              "@type": "Offer",
+              "url": "http://www.iplace.com.br/iphone-16/100040PR",
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            }
+          },
+          {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "iPhone 16",
+            "image": "http://www.iplace.com.br/ccstore/v1/images/?source=/file/v554332801356449571/products/100053737.00.639088173296776022-iphone-16.jpg&height=300&width=300",
+            "description": "iPhone 16",
+            "sku": "100053761",
+            "productId": "100040PR",
+            "brand": "Apple",
+            "color": "",
+            "offers": {
+              "@type": "Offer",
+              "url": "http://www.iplace.com.br/iphone-16/100040PR",
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            }
+          },
+          {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "iPhone 16",
+            "image": "http://www.iplace.com.br/ccstore/v1/images/?source=/file/v554332801356449571/products/100053737.00.639088173296776022-iphone-16.jpg&height=300&width=300",
+            "description": "iPhone 16",
+            "sku": "100053769",
+            "productId": "100040PR",
+            "brand": "Apple",
+            "color": "",
+            "offers": {
+              "@type": "Offer",
+              "url": "http://www.iplace.com.br/iphone-16/100040PR",
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            }
+          },
+          {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "iPhone 16",
+            "image": "http://www.iplace.com.br/ccstore/v1/images/?source=/file/v554332801356449571/products/100053737.00.639088173296776022-iphone-16.jpg&height=300&width=300",
+            "description": "iPhone 16",
+            "sku": "100053765",
+            "productId": "100040PR",
+            "brand": "Apple",
+            "color": "",
+            "offers": {
+              "@type": "Offer",
+              "url": "http://www.iplace.com.br/iphone-16/100040PR",
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            }
+          },
+          {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "iPhone 16",
+            "image": "http://www.iplace.com.br/ccstore/v1/images/?source=/file/v554332801356449571/products/100053737.00.639088173296776022-iphone-16.jpg&height=300&width=300",
+            "description": "iPhone 16",
+            "sku": "100053738",
+            "productId": "100040PR",
+            "brand": "Apple",
+            "color": "",
+            "offers": {
+              "@type": "Offer",
+              "url": "http://www.iplace.com.br/iphone-16/100040PR",
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            }
+          },
+          {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "iPhone 16",
+            "image": "http://www.iplace.com.br/ccstore/v1/images/?source=/file/v554332801356449571/products/100053737.00.639088173296776022-iphone-16.jpg&height=300&width=300",
+            "description": "iPhone 16",
+            "sku": "100053766",
+            "productId": "100040PR",
+            "brand": "Apple",
+            "color": "",
+            "offers": {
+              "@type": "Offer",
+              "url": "http://www.iplace.com.br/iphone-16/100040PR",
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            }
+          },
+          {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "iPhone 16",
+            "image": "http://www.iplace.com.br/ccstore/v1/images/?source=/file/v554332801356449571/products/100053737.00.639088173296776022-iphone-16.jpg&height=300&width=300",
+            "description": "iPhone 16",
+            "sku": "100053763",
+            "productId": "100040PR",
+            "brand": "Apple",
+            "color": "",
+            "offers": {
+              "@type": "Offer",
+              "url": "http://www.iplace.com.br/iphone-16/100040PR",
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            }
+          },
+          {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "iPhone 16",
+            "image": "http://www.iplace.com.br/ccstore/v1/images/?source=/file/v554332801356449571/products/100053737.00.639088173296776022-iphone-16.jpg&height=300&width=300",
+            "description": "iPhone 16",
+            "sku": "100053739",
+            "productId": "100040PR",
+            "brand": "Apple",
+            "color": "",
+            "offers": {
+              "@type": "Offer",
+              "url": "http://www.iplace.com.br/iphone-16/100040PR",
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            }
+          },
+          {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "iPhone 16",
+            "image": "http://www.iplace.com.br/ccstore/v1/images/?source=/file/v554332801356449571/products/100053737.00.639088173296776022-iphone-16.jpg&height=300&width=300",
+            "description": "iPhone 16",
+            "sku": "100053760",
+            "productId": "100040PR",
+            "brand": "Apple",
+            "color": "",
+            "offers": {
+              "@type": "Offer",
+              "url": "http://www.iplace.com.br/iphone-16/100040PR",
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            }
+          },
+          {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "iPhone 16",
+            "image": "http://www.iplace.com.br/ccstore/v1/images/?source=/file/v554332801356449571/products/100053737.00.639088173296776022-iphone-16.jpg&height=300&width=300",
+            "description": "iPhone 16",
+            "sku": "100053737",
+            "productId": "100040PR",
+            "brand": "Apple",
+            "color": "",
+            "offers": {
+              "@type": "Offer",
+              "url": "http://www.iplace.com.br/iphone-16/100040PR",
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            }
+          }
+        ]
+      ],
+      "fields_presence": {
+        "name": true,
+        "price": false,
+        "priceCurrency": false,
+        "availability": true,
+        "brand": true,
+        "description": true,
+        "aggregateRating": false,
+        "image": true,
+        "sku": true,
+        "gtin": false,
+        "offers": true
+      }
+    },
+    "basic_content": {
+      "title": "iPhone 16",
+      "meta_description": "Conheça o iPhone 16 128GB Preto feito para Apple Intelligence, câmera fusion de 48MP, botão de ação e chip A18. Garanta já o seu na iPlace!",
+      "h1": null,
+      "description_word_count": 0,
+      "has_tech_specs_table": false
+    },
+    "llms_txt": {
+      "present": false,
+      "status_code": 404,
+      "content": null
+    }
+  },
+  {
+    "store": "Fast Shop",
+    "url": "https://site.fastshop.com.br/iphone-16-apple--128gb--preto--tela-de-6-1---5g-e-camera-de-48mp-aemye73brapto_prd/p",
+    "timestamp": "2026-05-15T18:07:40.696513",
+    "errors": [],
+    "schema": {
+      "raw_schemas": [
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": "https://site.fastshop.com.br/apple/",
+              "name": "Apple"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": "https://site.fastshop.com.br/apple/iphone/",
+              "name": "iPhone"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "item": "https://site.fastshop.com.br/iphone-16-apple--128gb--preto--tela-de-6-1---5g-e-camera-de-48mp-aemye73brapto_prd-66785/p",
+              "name": "iPhone 16 Apple (128GB) Preto, Tela de 6,1&quot;, 5G e Câmera de 48MP"
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "@id": "https://site.fastshop.com.br/iphone-16-apple--128gb--preto--tela-de-6-1---5g-e-camera-de-48mp-aemye73brapto_prd/p",
+          "mainEntityOfPage": "https://site.fastshop.com.br/iphone-16-apple--128gb--preto--tela-de-6-1---5g-e-camera-de-48mp-aemye73brapto_prd/p",
+          "description": "&lt;p&gt;&lt;br /&gt;&lt;strong&gt;Características&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Sistema Operacional&lt;/strong&gt;&lt;br /&gt;iOS 18&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Tela&lt;/strong&gt;&lt;br /&gt;Tamanho: 6.1&quot;&lt;br /&gt;Material: Super Retina XDR &lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Conectividade&lt;/strong&gt;&lt;br /&gt;5G&lt;br /&gt;Wi-Fi&lt;br /&gt;Bluetooth&lt;br /&gt;EDGE&lt;br /&gt;NFC&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Capacidade&lt;/strong&gt;&lt;br /&gt;128GB*&lt;br /&gt;*&lt;em&gt; Parte da memória interna já é utilizada pelo sistema operacional e aplicativos pré-instalados&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Processador&lt;/strong&gt;&lt;br /&gt;Chip A18&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Câmera Traseira&lt;/strong&gt;&lt;br /&gt;usion de 48 MP: 26 mm, abertura ƒ/1.6, estabilização óptica de imagem por deslocamento de sensor, Focus Pixels a 100%, suporte a fotos em altíssima resolução (24 MP e 48 MP)&lt;br /&gt;Flash&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Câmera Frontal&lt;/strong&gt;&lt;br /&gt;Câmera de 12 MP&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Vídeo (Resolução)&lt;/strong&gt;&lt;br /&gt;4K video recording at 24 fps, 25 fps, 30 fps, or 60 fps&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Outros Recursos&lt;/strong&gt;&lt;br /&gt;Dual SIM (eSIM e nano SIM)&lt;br /&gt;Tipo de Chip: Dual SIM: nano SIM e eSIM. Para ativar o eSIM entre em contato com a sua operadora&lt;br /&gt;GPS&lt;br /&gt;MP3&lt;br /&gt;Viva-voz&lt;br /&gt;Tela Touch&lt;br /&gt;Alerta vibratório&lt;br /&gt;Recursos de Som: Alto-falante estéreo&lt;br /&gt;Banda: FDD‑5G NR (Bandas n1, n2, n3, n5, n7, n8, n12, n20, n25, n26, n28, n29, n66, n70, n75, n76) TDD‑5G NR (Bandas n38, n40, n41, n48, n53, n77, n78, n79) FDD‑LTE (Bandas 1, 2, 3, 4, 5, 7, 8, 12, 13, 14, 17, 18, 19, 20, 25, 26, 28, 29, 30, 32, 66, 71) TDD‑LTE (Bandas 34, 38, 39, 40, 41, 42, 48, 53) UMTS/HSPA+/DC‑HSDPA (850, 900, 1700/2100, 1900, 2100 MHz) GSM/EDGE (850, 900, 1800, 1900 MHz)&lt;br /&gt;Idiomas do Menu: Alemão, árabe, catalão, chinês (simplificado, tradicional, tradicional de Hong Kong), coreano, croata, dinamarquês, eslovaco, espanhol (América Latina, Espanha, México), finlandês, francês (Canadá, França), grego, hebraico, hindi, holandês, húngaro, indonésio, inglês (Austrália, EUA, Reino Unido), italiano, japonês, malaio, norueguês, polonês, português (Brasil, Portugal), romeno, russo, sueco, tailandês, tcheco, turco, ucraniano, vietnamita&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Bateria  &lt;/strong&gt;&lt;br /&gt;Bateria interna recarregável de íon de lítio&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Cor&lt;/strong&gt;&lt;br /&gt;Preto&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;EAN&lt;/strong&gt;&lt;br /&gt;195949824951&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Especificações Técnicas&lt;/strong&gt;&lt;br /&gt;Modelo: MYE73BR/A&lt;br /&gt;Garantia: 12 meses&lt;br /&gt;Certificado de Homologação da ANATEL: 06840-24-01993&lt;/p&gt;\n&lt;p&gt;Dimensões e Peso&lt;br /&gt;Dimensões do produto sem embalagem (AxLxP): 147,6x71,6x7,8 mm&lt;br /&gt;Dimensões do produto com embalagem (AxLxP): 169,4x90,1x27,7 mm&lt;br /&gt;Peso do produto sem embalagem: 0,17 kg&lt;br /&gt;Peso do produto com embalagem: 0,32 kg&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Itens Inclusos&lt;/strong&gt;&lt;br /&gt;01 iPhone com iOS 18&lt;br /&gt;01 Cabo para recarga com conector USB-C (1m) &lt;br /&gt;Documentação&lt;br /&gt;Fone e carregador vendidos separadamente&lt;/p&gt;",
+          "sku": "66785",
+          "gtin": "7908317391275",
+          "releaseDate": "1727827200000",
+          "category": "Apple",
+          "image": [
+            "https://fastshopbr.vtexassets.com/arquivos/ids/4611428/0_0_675b42d3447c42f8bd09ecfd.jpg?v=639120556016770000",
+            "https://fastshopbr.vtexassets.com/arquivos/ids/4611429/1_1_675b42d3447c42f8bd09ecfd.jpg?v=639120556031070000",
+            "https://fastshopbr.vtexassets.com/arquivos/ids/4611430/2_2_675b42d3447c42f8bd09ecfd.jpg?v=639120556037730000",
+            "https://fastshopbr.vtexassets.com/arquivos/ids/4611431/3_3_675b42d3447c42f8bd09ecfd.jpg?v=639120556042270000",
+            "https://fastshopbr.vtexassets.com/arquivos/ids/4611432/4_4_675b42d3447c42f8bd09ecfd.jpg?v=639120556048100000",
+            "https://fastshopbr.vtexassets.com/arquivos/ids/4611433/5_5_675b42d3447c42f8bd09ecfd.jpg?v=639120556059930000",
+            "https://fastshopbr.vtexassets.com/arquivos/ids/4611434/6_6_675b42d3447c42f8bd09ecfd.jpg?v=639120556065400000",
+            "https://fastshopbr.vtexassets.com/arquivos/ids/4611435/7_7_675b42d3447c42f8bd09ecfd.jpg?v=639120556068830000",
+            "https://fastshopbr.vtexassets.com/arquivos/ids/4611436/8_8_675b42d3447c42f8bd09ecfd.jpg?v=639120556072830000"
+          ],
+          "brand": {
+            "@type": "Brand",
+            "name": "APPLE"
+          },
+          "offers": {
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition",
+            "price": 4899,
+            "priceCurrency": "BRL",
+            "priceValidUntil": "2027-05-15T20:39:03Z",
+            "listPriceWithTaxes": 5523.11,
+            "priceWithTaxes": 4899,
+            "quantity": 10000,
+            "url": "https://site.fastshop.com.br/iphone-16-apple--128gb--preto--tela-de-6-1---5g-e-camera-de-48mp-aemye73brapto_prd/p",
+            "@type": "Offer",
+            "seller": {
+              "@type": "Organization"
+            }
+          },
+          "name": "iPhone 16 Apple (128GB) Preto, Tela de 6,1&quot;, 5G e Câmera de 48MP"
+        }
+      ],
+      "fields_presence": {
+        "name": true,
+        "price": true,
+        "priceCurrency": true,
+        "availability": true,
+        "brand": true,
+        "description": true,
+        "aggregateRating": false,
+        "image": true,
+        "sku": true,
+        "gtin": true,
+        "offers": true
+      }
+    },
+    "basic_content": {
+      "title": "iPhone 16 Apple (128GB) Preto, Tela de 6,1\", 5G e Câmera de 48MP | Fastshop",
+      "meta_description": "<p><br /><strong>Características</strong></p>\n<p><strong>Sistema Operacional</strong><br />iOS 18</p>\n<p><strong>Tela</strong><br />Tamanho: 6.1\"<br />Material: Super Retina XDR </p>\n<p><strong>Conectividade</strong><br />5G<br />Wi-Fi<br />Bluetooth<br />EDGE<br />NFC</p>\n<p><strong>Capacidade</strong><br />128GB*<br />*<em> Parte da memória interna já é utilizada pelo sistema operacional e aplicativos pré-instalados</em></p>\n<p><strong>Processador</strong><br />Chip A18</p>\n<p><strong>Câmera Traseira</strong><br />usion de 48 MP: 26 mm, abertura ƒ/1.6, estabilização óptica de imagem por deslocamento de sensor, Focus Pixels a 100%, suporte a fotos em altíssima resolução (24 MP e 48 MP)<br />Flash</p>\n<p><strong>Câmera Frontal</strong><br />Câmera de 12 MP</p>\n<p><strong>Vídeo (Resolução)</strong><br />4K video recording at 24 fps, 25 fps, 30 fps, or 60 fps</p>\n<p><strong>Outros Recursos</strong><br />Dual SIM (eSIM e nano SIM)<br />Tipo de Chip: Dual SIM: nano SIM e eSIM. Para ativar o eSIM entre em contato com a sua operadora<br />GPS<br />MP3<br />Viva-voz<br />Tela Touch<br />Alerta vibratório<br />Recursos de Som: Alto-falante estéreo<br />Banda: FDD‑5G NR (Bandas n1, n2, n3, n5, n7, n8, n12, n20, n25, n26, n28, n29, n66, n70, n75, n76) TDD‑5G NR (Bandas n38, n40, n41, n48, n53, n77, n78, n79) FDD‑LTE (Bandas 1, 2, 3, 4, 5, 7, 8, 12, 13, 14, 17, 18, 19, 20, 25, 26, 28, 29, 30, 32, 66, 71) TDD‑LTE (Bandas 34, 38, 39, 40, 41, 42, 48, 53) UMTS/HSPA+/DC‑HSDPA (850, 900, 1700/2100, 1900, 2100 MHz) GSM/EDGE (850, 900, 1800, 1900 MHz)<br />Idiomas do Menu: Alemão, árabe, catalão, chinês (simplificado, tradicional, tradicional de Hong Kong), coreano, croata, dinamarquês, eslovaco, espanhol (América Latina, Espanha, México), finlandês, francês (Canadá, França), grego, hebraico, hindi, holandês, húngaro, indonésio, inglês (Austrália, EUA, Reino Unido), italiano, japonês, malaio, norueguês, polonês, português (Brasil, Portugal), romeno, russo, sueco, tailandês, tcheco, turco, ucraniano, vietnamita</p>\n<p><strong>Bateria  </strong><br />Bateria interna recarregável de íon de lítio</p>\n<p><strong>Cor</strong><br />Preto</p>\n<p><strong>EAN</strong><br />195949824951</p>\n<p><strong>Especificações Técnicas</strong><br />Modelo: MYE73BR/A<br />Garantia: 12 meses<br />Certificado de Homologação da ANATEL: 06840-24-01993</p>\n<p>Dimensões e Peso<br />Dimensões do produto sem embalagem (AxLxP): 147,6x71,6x7,8 mm<br />Dimensões do produto com embalagem (AxLxP): 169,4x90,1x27,7 mm<br />Peso do produto sem embalagem: 0,17 kg<br />Peso do produto com embalagem: 0,32 kg</p>\n<p><strong>Itens Inclusos</strong><br />01 iPhone com iOS 18<br />01 Cabo para recarga com conector USB-C (1m) <br />Documentação<br />Fone e carregador vendidos separadamente</p>",
+      "h1": "iPhone 16 Apple (128GB) Preto, Tela de 6,1\", 5G e Câmera de 48MP",
+      "description_word_count": 287,
+      "has_tech_specs_table": false
+    },
+    "llms_txt": {
+      "present": false,
+      "status_code": 404,
+      "content": null
+    }
+  },
+  {
+    "store": "Amazon Brasil",
+    "url": "https://www.amazon.com.br/Apple-iPhone-16-128-GB/dp/B0DJFTJ6LX?th=1",
+    "timestamp": "2026-05-15T18:07:42.278234",
+    "errors": [],
+    "schema": {
+      "raw_schemas": [],
+      "fields_presence": {
+        "name": false,
+        "price": false,
+        "priceCurrency": false,
+        "availability": false,
+        "brand": false,
+        "description": false,
+        "aggregateRating": false,
+        "image": false,
+        "sku": false,
+        "gtin": false,
+        "offers": false
+      }
+    },
+    "basic_content": {
+      "title": "Amazon.com.br",
+      "meta_description": null,
+      "h1": null,
+      "description_word_count": 18,
+      "has_tech_specs_table": false
+    },
+    "llms_txt": {
+      "present": false,
+      "status_code": 404,
+      "content": null
+    }
+  },
+  {
+    "store": "Mercado Livre",
+    "url": "https://www.mercadolivre.com.br/apple-iphone-16-128-gb-preto-distribuidor-autorizado/p/MLB1040287808",
+    "timestamp": "2026-05-15T18:07:43.052000",
+    "errors": [],
+    "schema": {
+      "raw_schemas": [],
+      "fields_presence": {
+        "name": false,
+        "price": false,
+        "priceCurrency": false,
+        "availability": false,
+        "brand": false,
+        "description": false,
+        "aggregateRating": false,
+        "image": false,
+        "sku": false,
+        "gtin": false,
+        "offers": false
+      }
+    },
+    "basic_content": {
+      "title": "Apple iPhone 16 (128 GB) - Preto - Distribuidor Autorizado",
+      "meta_description": "iPhone 16. Novo Controle da Câmera, câmera Fusion de 48 MP, cinco cores lindas e o chip A18.• O CONTROLE DA CÂMERA É SEU — O Controle da Câmera dá acesso mais fácil e rápido às ferramentas, como zoom ou profundidade de campo, para suas fotos e vídeos arrasarem também no quesito agilidade.• FOTOS QUE VÃO ALÉM E CHEGAM MAIS PERTO — A câmera ultra-angular com foco automático foi aprimorada para você fazer fotos e vídeos macro com detalhes nítidos e surpreendentes. Use a câmera Fusion de 48 MP e capture imagens em alta resolução de tirar o fôlego ou abuse do zoom com a qualidade óptica da teleobjetiva de 2x.• ESTILOS FOTOGRÁFICOS — A nova geração de Estilos Fotográficos dá mais flexibilidade do que nunca para criar e deixar cada foto ainda mais autoral. E você sempre tem a opção de reverter os estilos quando quiser.  • CHIP A18 SUPERINTELIGENTE — O A18 está duas gerações à frente do chip A16 Bionic do iPhone 15. Ele é o grande responsável por recursos avançados para fotos e vídeos e faz seu aparelho praticamente virar um videogame. Tudo com eficiência excepcional no consumo de energia.• MAIOR DURAÇÃO DA BATERIA — O iPhone 16 trabalha em conjunto com o chip A18 e dá um grande salto na bateria, com até 22 horas de reprodução de vídeo¹. As recargas podem ser via USB-C ou com um carregador MagSafe, para recargas sem fio ainda mais rápidas².• FEITO PARA DURAR — O iPhone 16 tem design resistente em alumínio aeroespacial com tela Super Retina XDR de 6,1 polegadas³. A parte frontal é em Ceramic Shield de última geração, duas vezes mais resistente que qualquer vidro de smartphone.• EXPERIMENTE O BOTÃO DE AÇÃO — Ele leva você direto ao seu recurso favorito. Mantenha pressionado para acender a lanterna, gravar um lembrete, ativar o modo Silencioso ou o que quiser.• PERSONALIZE SEU IPHONE — Com o iOS 18, você escolhe a cor dos ícones da Tela de Início e encontra seus cliques favoritos no novo app Fotos com mais rapidez. Também dá para aplicar efeitos animados e divertidos a qualquer palavra, frase ou emoji no iMessage.• RECURSO ESSENCIAL DE SEGURANÇA — Com a Detecção de Acidente, o iPhone é capaz de identificar um acidente grave de carro e ligar para a emergência se você não puder.Aviso legal1. A duração da bateria varia de acordo com o uso e a configuração. Consulte apple.com/br/batteries para obter mais informações.2. Acessórios vendidos separadamente.3. As telas têm bordas arredondadas. Quando medida como um retângulo, a tela tem 6,12 polegadas (iPhone 16), 6,69 polegadas (iPhone 16 Plus), 6,27 polegadas (iPhone 16 Pro) ou 6,86 polegadas (iPhone 16 Pro Max) na diagonal. A área real de visualização é menor.4. Alguns recursos podem não estar disponíveis em todos os países ou regiões.5. O iPhone 16 e o iPhone 16 Pro são capazes de identificar um acidente grave de carro e ligar para os serviços de emergência. Requer uma conexão de rede celular ou chamadas Wi-Fi.O que vem na embalagem: iPhone, Cabo de carregamento USB do tipo C (USB-C) e documentação.",
+      "h1": "Apple iPhone 16 (128 GB) - Preto - Distribuidor Autorizado",
+      "description_word_count": 23,
+      "has_tech_specs_table": false
+    },
+    "llms_txt": {
+      "present": false,
+      "status_code": 403,
+      "content": null
+    }
+  }
+]

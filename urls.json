@@ -1,0 +1,141 @@
+{
+  "iphone-17-pro": [
+    {
+      "store": "Apple Brasil",
+      "url": "https://www.apple.com/br/shop/buy-iphone/iphone-17-pro/tela-de-6,3-polegadas-512gb-laranja-c%C3%B3smico"
+    },
+    {
+      "store": "Vivo",
+      "url": "https://store.vivo.com.br/apple-iphone-17-pro-512gb-laranja-cosmico-5g-tela-6-3-cam-traseira-48-48-48mp-frontal-18mp/p/DGAP275U"
+    },
+    {
+      "store": "Fastshop",
+      "url": "https://site.fastshop.com.br/iphone-17-pro-512gb-laranja-cosmico-118310/p"
+    },
+    {
+      "store": "Americanas",
+      "url": "https://www.americanas.com.br/apple-iphone-17-pro-512gb-laranja-cosmico-63--48mp-ios-5g-8296891/p"
+    },
+    {
+      "store": "Kabum",
+      "url": "https://www.kabum.com.br/produto/928963/apple-iphone-17-pro-512gb-laranja-cosmico"
+    }
+  ],
+  "samsung-galaxy-s26-512gb-12gb-ram-preto": [
+    {
+      "store": "Vivo",
+      "url": "https://store.vivo.com.br/smartphone-samsung-galaxy-s26-ultra-5g-512gb-preto-12gb-ram-tela-6-9%22-c%C3%A2m.-traseira-50-10-5mp-frontal-12mp/p/TGSA5976"
+    },
+    {
+      "store": "Amazon Brasil",
+      "url": "https://www.amazon.com.br/Celular-Samsung-Galaxy-C%C3%A2mera-Qu%C3%A1drupla/dp/B0GKQBYWTY?th=1"
+    },
+    {
+      "store": "Samsung",
+      "url": "https://shop.samsung.com/br/galaxy-s26-ultra-512gb/p"
+    },
+    {
+      "store": "Kabum",
+      "url": "https://www.kabum.com.br/produto/1007598/samsung-galaxy-s26-ultra-5g-512gb-galaxy-ai-6-9-12gb-ram-cam-quadrupla-200-50-10-50mp-bateria-5000mah-dual-chip-preto"
+    },
+    {
+      "store": "Magazine Luiza",
+      "url": "https://www.magazineluiza.com.br/samsung-galaxy-s26-ultra-5g-512gb-galaxy-ai-preto-69-12gb-ram-cam-quadrupla-200-50-10-50mp-bateria-5000mah-dual-chip/p/241159000/te/g26u/?seller_id=magazineluiza"
+    }
+  ],
+  "motorola-edge-60-5g-512gb-azul-marinho-12gb-ram": [
+    {
+      "store": "Vivo",
+      "url": "https://store.vivo.com.br/smartphone-samsung-galaxy-a56-5g-256gb-preto-8gb-ram-tela-6-7%22-c%C3%A2m.-traseira-50-12-5mp-frontal-12mp/p/TGSA5636",
+      "type": "D2C marca"
+    },
+    {
+      "store": "Samsung",
+      "url": "https://shop.samsung.com/br/galaxy-a56-256gb/p?idsku=8766&skuId=8766",
+      "type": "Marketplace"
+    },
+    {
+      "store": "Amazon Brasil",
+      "url": "https://www.amazon.com.br/Smartphone-Samsung-Galaxy-C%C3%A2mera-Recursos/dp/B0DYVPCX34?th=1",
+      "type": "Marketplace"
+    },
+    {
+      "store": "Mercado Livre",
+      "url": "https://www.mercadolivre.com.br/smartphone-samsung-galaxy-a56-5g-preto-256gb-8gb-ram-preto/p/MLB61698753",
+      "type": "Especialista/varejo"
+    },
+    {
+      "store": "Magazine Luiza",
+      "url": "https://www.magazineluiza.com.br/smartphone-samsung-galaxy-a56-256gb-5g-8gb-ram-preto-67-cam-tripla-selfie-12mp/p/240096100/te/ga56/?seller_id=magazineluiza",
+      "type": "Marketplace"
+    }
+  ],
+  "natura-serum-intensivo-antioxidante-chronos-15ml-vitamina-c-15": [
+    {
+      "store": "Natura Brasil",
+      "url": "https://natura.com.br/p/vitamina-c-natura/NATBRA-80060",
+      "type": "D2C marca"
+    },
+    {
+      "store": "Amazon Brasil",
+      "url": "https://www.amazon.com.br/S%C3%A9rum-Intensivo-Antioxidante-Chronos-15/dp/B0CCLVLGS5",
+      "type": "Marketplace"
+    },
+    {
+      "store": "Mercado Livre",
+      "url": "https://www.mercadolivre.com.br/natura-chronos-serum-intensivo-antioxidante-15ml/up/MLBU1468687669",
+      "type": "Especialista"
+    }
+  ],
+  "la-roche-posay-pure-vitamin-c12-serum-30ml": [
+    {
+      "store": "La Roche-Posay Brasil",
+      "url": "https://laroche-posay.com.br/vitamin-c/pure-vitamin-c12-serum",
+      "type": "D2C marca"
+    },
+    {
+      "store": "Droga Raia",
+      "url": "https://www.drogaraia.com.br/la-roche-posay-pure-vitamin-c12-oil-control-serum-anti-rugas-para-peles-oleosas-30ml-1168041.html",
+      "type": "Especialista"
+    },
+    {
+      "store": "Cosmetis",
+      "url": "https://www.cosmetis.com.br/la-roche-posay-pure-vitamin-c12-serum-vitamina-c-30ml.html?srsltid=AfmBOopvQJ9RyJ4PgGoHsHj1sTVQSnx-BZlWze-adGL0RdiP6TsplOWU",
+      "type": "Farma/especialista"
+    }
+  ],
+  "neutrogena-hydro-boost-water-gel-50g": [
+    {
+      "store": "Amazon Brasil",
+      "url": "https://amazon.com.br/Hidratante-Facial-Neutrogena-Hydro-Boost/dp/B06XQ27YLL",
+      "type": "D2C DNVB"
+    },
+    {
+      "store": "Neutrogena",
+      "url": "https://www.neutrogena.com.br/cuidado-facial/hidratantes/water-gel-hydro-boost",
+      "type": "Marketplace"
+    },
+    {
+      "store": "Mercado Livre",
+      "url": "https://www.mercadolivre.com.br/hidratante-facial-hydro-boost-water-gel-50g-neutrogena/p/MLB19899495",
+      "type": "Especialista"
+    }
+  ],
+  "boticario-botik-serum-alta-potencia-vitamina-c-10-30ml": [
+    {
+      "store": "Boticário (D2C)",
+      "url": "https://boticario.com.br/serum-de-alta-potencia-vitamina-c-10-botik-30ml-v2/",
+      "type": "D2C marca"
+    },
+    {
+      "store": "Mercado Livre",
+      "url": "https://www.mercadolivre.com.br/o-boticario-botik-serum-de-alta-potncia-vitamina-c-10-30ml-momento-de-aplicaco-dianoite-tipo-de-pele-de-os-tipos/p/MLB26997958",
+      "type": "Especialista"
+    },
+    {
+      "store": "Amazon Brasil",
+      "url": "https://www.amazon.com.br/Botik-Vitamina-S%C3%A9rum-Pot%C3%AAncia-Botic%C3%A1rio/dp/B08L9KHWR3",
+      "type": "Marketplace"
+    }
+  ]
+}

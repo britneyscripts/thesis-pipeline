@@ -1,0 +1,137 @@
+[
+  {
+    "store": "Apple Brasil",
+    "url": "https://www.apple.com/br/shop/buy-iphone/iphone-16/tela-de-6,1-polegadas-128gb-preto",
+    "timestamp": "2026-05-20T11:41:17.196316",
+    "crux": {
+      "mobile": {
+        "source": "url",
+        "metrics": {
+          "LCP": 3658,
+          "CLS": "0.15",
+          "INP": 163,
+          "FCP": 2164,
+          "TTFB": 1351
+        }
+      },
+      "desktop": {
+        "source": "url",
+        "metrics": {
+          "LCP": 2330,
+          "CLS": "0.00",
+          "INP": 64,
+          "FCP": 1580,
+          "TTFB": 1257
+        }
+      }
+    }
+  },
+  {
+    "store": "iPlace",
+    "url": "https://www.iplace.com.br/iphone-16/100040PR?srsltid=AfmBOoq94XEdQXkLkR9q3lh71U15mJxzPzZpOYQpk452AX2MTfHgflaW",
+    "timestamp": "2026-05-20T11:41:19.962155",
+    "crux": {
+      "mobile": {
+        "source": "url",
+        "metrics": {
+          "LCP": 6850,
+          "CLS": "0.16",
+          "INP": 417,
+          "FCP": 5436,
+          "TTFB": 1766
+        }
+      },
+      "desktop": {
+        "source": "url",
+        "metrics": {
+          "LCP": 6026,
+          "CLS": "0.09",
+          "INP": 241,
+          "FCP": 4210,
+          "TTFB": 1387
+        }
+      }
+    }
+  },
+  {
+    "store": "Fast Shop",
+    "url": "https://site.fastshop.com.br/iphone-16-apple--128gb--preto--tela-de-6-1---5g-e-camera-de-48mp-aemye73brapto_prd/p",
+    "timestamp": "2026-05-20T11:41:21.907246",
+    "crux": {
+      "mobile": {
+        "source": "url",
+        "metrics": {
+          "LCP": 3002,
+          "CLS": "0.72",
+          "INP": 265,
+          "FCP": 1587,
+          "TTFB": 576
+        }
+      },
+      "desktop": {
+        "source": "url",
+        "metrics": {
+          "LCP": 2250,
+          "CLS": "0.51",
+          "INP": 154,
+          "FCP": 1234,
+          "TTFB": 532
+        }
+      }
+    }
+  },
+  {
+    "store": "Amazon Brasil",
+    "url": "https://www.amazon.com.br/Apple-iPhone-16-128-GB/dp/B0DJFTJ6LX?th=1",
+    "timestamp": "2026-05-20T11:41:24.555484",
+    "crux": {
+      "mobile": {
+        "source": "url",
+        "metrics": {
+          "LCP": 1964,
+          "CLS": "0.13",
+          "INP": 287,
+          "FCP": 1477,
+          "TTFB": 648
+        }
+      },
+      "desktop": {
+        "source": "url",
+        "metrics": {
+          "LCP": 2578,
+          "CLS": "0.32",
+          "INP": 76,
+          "FCP": 1040,
+          "TTFB": 501
+        }
+      }
+    }
+  },
+  {
+    "store": "Mercado Livre",
+    "url": "https://www.mercadolivre.com.br/apple-iphone-16-128-gb-preto-distribuidor-autorizado/p/MLB1040287808",
+    "timestamp": "2026-05-20T11:41:27.445098",
+    "crux": {
+      "mobile": {
+        "source": "url",
+        "metrics": {
+          "LCP": 2678,
+          "CLS": "0.00",
+          "INP": 196,
+          "FCP": 2295,
+          "TTFB": 1587
+        }
+      },
+      "desktop": {
+        "source": "url",
+        "metrics": {
+          "LCP": 2097,
+          "CLS": "0.06",
+          "INP": 96,
+          "FCP": 1607,
+          "TTFB": 1200
+        }
+      }
+    }
+  }
+]

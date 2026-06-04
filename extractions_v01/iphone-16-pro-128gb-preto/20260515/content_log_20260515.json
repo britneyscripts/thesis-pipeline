@@ -1,0 +1,59 @@
+{
+  "Apple Brasil": {
+    "status": "success",
+    "errors": [],
+    "schema_fields_found": [
+      "name",
+      "price",
+      "priceCurrency",
+      "description",
+      "image",
+      "sku",
+      "offers"
+    ],
+    "schema_change_detected": false
+  },
+  "iPlace": {
+    "status": "success",
+    "errors": [],
+    "schema_fields_found": [
+      "name",
+      "availability",
+      "brand",
+      "description",
+      "image",
+      "sku",
+      "offers"
+    ],
+    "schema_change_detected": false
+  },
+  "Fast Shop": {
+    "status": "success",
+    "errors": [],
+    "schema_fields_found": [
+      "name",
+      "price",
+      "priceCurrency",
+      "availability",
+      "brand",
+      "description",
+      "image",
+      "sku",
+      "gtin",
+      "offers"
+    ],
+    "schema_change_detected": false
+  },
+  "Amazon Brasil": {
+    "status": "success",
+    "errors": [],
+    "schema_fields_found": [],
+    "schema_change_detected": false
+  },
+  "Mercado Livre": {
+    "status": "success",
+    "errors": [],
+    "schema_fields_found": [],
+    "schema_change_detected": false
+  }
+}

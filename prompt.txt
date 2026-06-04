@@ -1,0 +1,91 @@
+Create a Python script named `extract_iphone_pdps.py` inside `~/mba_thesis`.
+
+The script should extract data from 5 PDPs (Product Detail Pages) of the iPhone 16 Pro 128GB Black Titanium and save it in a local JSON file.
+
+URLs to extract:
+1. Apple Brasil: https://www.apple.com/br/shop/buy-iphone/iphone-16/tela-de-6,1-polegadas-128gb-preto
+2. iPlace: https://www.iplace.com.br/iphone-16/100040PR?srsltid=AfmBOoq94XEdQXkLkR9q3lh71U15mJxzPzZpOYQpk452AX2MTfHgflaW
+3. Fast Shop: https://site.fastshop.com.br/iphone-16-apple--128gb--preto--tela-de-6-1---5g-e-camera-de-48mp-aemye73brapto_prd/p
+4. Amazon Brasil: https://www.amazon.com.br/Apple-iPhone-16-128-GB/dp/B0DJFTJ6LX?th=1
+5. Mercado Livre: https://www.mercadolivre.com.br/apple-iphone-16-128-gb-preto-distribuidor-autorizado/p/MLB1040287808
+
+For each URL, collect:
+
+BLOCK 1 — CrUX API (use my API key from .env as CRUX_API_KEY):
+- LCP, CLS, INP, FCP, TTFB (p75 mobile and desktop)
+- Form factor: separate phone and desktop
+- Endpoint: https://chromeuxreport.googleapis.com/v1/records:queryRecord
+- Query by exact URL first, fallback to origin if the URL does not have sufficient data
+- Record whether the data came from URL or origin
+
+BLOCK 2 — PageSpeed Insights API (use my API key from .env as PAGESPEED_API_KEY):
+- LCP, CLS, INP, FCP, TTFB (p75 mobile)
+- Performance score mobile
+- Performance score desktop
+
+BLOCK 3 — Schema.org via requests + BeautifulSoup:
+- Extract full JSON-LD from the page
+- Check for presence of fields: name, price, priceCurrency, availability, brand, description, aggregateRating, image, sku, gtin, offers
+
+BLOCK 4 — Basic page content:
+- Title tag
+- Meta description
+- H1
+- Word count of the product description
+- Presence of technical specifications table (yes/no)
+
+BLOCK 5 — llms.txt:
+- Verify presence of /llms.txt at the root of each domain
+- If present: capture content
+- Record: present/absent + status code
+
+Output: save to `iphone_pdp_extraction_YYYYMMDD.json` with timestamp, one object per URL.
+
+Use requests for CrUX API, PageSpeed API, and llms.txt.
+Use requests + BeautifulSoup for schema and content.
+Handle errors per URL individually — if one fails, continue the others and record the error in the JSON.
+Add structured log: generate `extraction_log_YYYYMMDD.json` with the status of each field per URL. If a field present in the previous extraction is missing, record `schema_change_detected: true`.
+Print progress in the terminal: "Extracting [store name]..."
+
+Before starting, consider:
+- this file will scale to have more SKUs and therefore more URLs.
+- for this, consider creating a file to add URLs as needed.
+- also consider creating a .env file for the keys
+- consider creating directories for the extractions. You have two choices: directories by timestamp or directories by SKU + subdirectories by timestamp
+
+### Scaling, Normalization & Logging Guidelines
+
+1. **URL Normalization**:
+   - Raw input lists can contain domains without protocols (e.g., `domain.com/path`).
+   - The ingestion/first-stage parsing process must validate and automatically prepend `https://` to ensure down-stream Python scripts do not crash with `MissingSchema` exceptions during execution.
+
+2. **SKU Slugification & Directory Structure**:
+   - SKU names should be converted into clean, filesystem-safe slugs (e.g., `"SKU 1 — iPhone 17 Pro"` -> `iphone-17-pro`).
+   - Slugs should be lowercase, accent-free, and hyphenated, serving as the subdirectory names under the `extractions/` folder.
+   - When scaling or modifying the SKU list substantially, old extraction folders should be versioned and archived (e.g., renamed to `extractions_v01`) to maintain clean run states.
+
+3. **Unified Structured Logging**:
+   - Each script (content, crux, pagespeed) must produce a companion log file (`*_log_YYYYMMDD.json`) inside the date-specific subdirectory for the SKU.
+   - All logs must adhere to a strict, standardized pattern to simplify parsing and analysis:
+     ```json
+     {
+       "Store Name": {
+         "status": "success" | "error",
+         "errors": ["Detailed error string if failed"],
+         "duration_seconds": 12.34,
+         "metrics_found": ["LCP", "CLS", ...]
+       }
+     }
+     ```
+
+4. **Performance & Timeout Monitoring**:
+   - PageSpeed Insights online queries are synchronous, sequential, and run full Lighthouse audits. 
+   - A single run over a high quantity of URLs (e.g., 27 URLs with mobile and desktop strategies) can take 35–45 minutes due to regular 60-second read timeouts when bot-protection filters (e.g. Cloudflare, Akamai) block the Google Lighthouse runner.
+   - Logging `duration_seconds` and timeout exceptions is critical to identify and isolate slow retailers from normal API latency.
+
+5. **GCP Migration & Cloud Storage Integration**:
+   - **Hybrid Environment Configuration**: The helper `scripts/config.py` acts as a unified secrets provider. It reads local `.env` first, falling back to Google Cloud Secret Manager (`projects/{GCP_PROJECT_ID}/secrets/{SECRET}/versions/latest`) when deployed to GCP.
+   - **Cloud Storage (GCS) Integration & Local Fallback**: The `save_json(data, blob_path)` function dynamically detects the environment by checking for the presence of the `GOOGLE_CLOUD_PROJECT` environment variable:
+     - Local Mode: Automatically directory-structures and writes the JSON files locally matching the original nested structures (`extractions/{blob_path}`) if the variable is not set.
+     - GCS Mode: Uploads the JSON directly to a Google Cloud Storage bucket (defaulting to `ghostprod-extractions` or customized via `GCS_BUCKET_NAME` environment variable) using the google-cloud-storage client if the variable is set.
+   - **Sequenced Pipeline Execution**: The master script `scripts/run_pipeline.py` executes scripts sequentially and records individual process exit codes, logging details of each script run (success, duration, error) to `extractions/pipeline_runs.log`, and terminating with a representative code (0 for complete success, 1 for partial success, 2 for complete failure).

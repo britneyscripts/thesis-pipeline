@@ -1,0 +1,7 @@
+# Career-ops auto-scan
+0 6 * * * cd ~/projects/career-ops && ./scan-auto.sh  # 06:00
+0 14 * * * cd ~/projects/career-ops && ./scan-auto.sh  # 14:00
+0 20 * * * cd ~/projects/career-ops && ./scan-auto.sh  # 20:00
+
+# MBA Thesis E-commerce Extraction Pipeline (Runs at 10:00, 15:00, and 21:00 BRT daily)
+0 10,15,21 * * * cd /Users/evapaula/mba_thesis && ./venv/bin/python scripts/run_pipeline.py >> /Users/evapaula/mba_thesis/extractions/pipeline_cron.log 2>&1
