@@ -218,7 +218,7 @@ def process_pagespeed_json(data, run_str, sku, category, existing_keys):
         
     return new_rows, skipped_count
 
-def main():
+def load_all():
     load_dotenv()
     
     # Initialize clients
@@ -415,4 +415,4 @@ def main():
     print("================================")
 
 if __name__ == "__main__":
-    main()
+    load_all()

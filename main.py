@@ -10,6 +10,7 @@ if scripts_dir not in sys.path:
 from extract_content import main as run_content
 from extract_crux import main as run_crux  
 from extract_pagespeed import main as run_pagespeed
+from load_to_bigquery import load_all as run_bigquery_load
 
 from datetime import datetime
 
@@ -30,5 +31,13 @@ def run_pipeline(request):
             logging.error(f"{name} FAILED: {str(e)}")
             # Continue running remaining scripts — partial data is better than none
             
+    # Load new data to BigQuery after all extractions
+    try:
+        logging.info("Running BigQuery load...")
+        run_bigquery_load()
+        logging.info("BigQuery load: SUCCESS")
+    except Exception as e:
+        logging.error(f"BigQuery load FAILED: {str(e)}")
+
     logging.info("=== PIPELINE FINISHED ===")
     return "Pipeline completed", 200
