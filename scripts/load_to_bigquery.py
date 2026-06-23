@@ -414,5 +414,110 @@ def load_all():
     print(f"PageSpeed: Inserted = {pagespeed_inserted:4d} | Skipped = {pagespeed_skipped:4d}")
     print("================================")
 
+# ---------------------------------------------------------------------------
+# Agent responses loader
+# ---------------------------------------------------------------------------
+
+AGENT_RESPONSES_SCHEMA = [
+    bigquery.SchemaField("run_str", "STRING", mode="REQUIRED"),
+    bigquery.SchemaField("agent", "STRING", mode="REQUIRED"),
+    bigquery.SchemaField("model_used", "STRING", mode="REQUIRED"),
+    bigquery.SchemaField("fallback_used", "BOOLEAN", mode="REQUIRED"),
+    bigquery.SchemaField("query_type", "STRING", mode="REQUIRED"),
+    bigquery.SchemaField("product", "STRING", mode="REQUIRED"),
+    bigquery.SchemaField("category", "STRING", mode="REQUIRED"),
+    bigquery.SchemaField("query", "STRING", mode="REQUIRED"),
+    bigquery.SchemaField("response_text", "STRING", mode="NULLABLE"),
+    bigquery.SchemaField("response_length", "INTEGER", mode="NULLABLE"),
+    bigquery.SchemaField("latency_ms", "INTEGER", mode="NULLABLE"),
+    bigquery.SchemaField("error", "STRING", mode="NULLABLE"),
+    bigquery.SchemaField("timestamp", "TIMESTAMP", mode="REQUIRED"),
+]
+
+
+def get_existing_agent_keys(bq_client, table_id):
+    """Return a set of (run_str, agent, product, query_type) tuples already in BigQuery."""
+    try:
+        query = f"SELECT DISTINCT run_str, agent, product, query_type FROM `{table_id}`"
+        results = bq_client.query(query).result()
+        return {(row.run_str, row.agent, row.product, row.query_type) for row in results}
+    except Exception as e:
+        print(f"Notice: Could not read existing keys from {table_id} (might be empty/new): {str(e)}")
+        return set()
+
+
+def process_agent_responses(data, existing_keys):
+    """Filter out already-loaded rows and return new rows ready for BigQuery insertion."""
+    new_rows = []
+    skipped_count = 0
+
+    for item in data:
+        key = (item.get("run_str"), item.get("agent"), item.get("product"), item.get("query_type"))
+        if key in existing_keys:
+            skipped_count += 1
+            continue
+
+        # Coerce types to match BigQuery schema
+        row = {
+            "run_str": item.get("run_str"),
+            "agent": item.get("agent"),
+            "model_used": item.get("model_used"),
+            "fallback_used": bool(item.get("fallback_used", False)),
+            "query_type": item.get("query_type"),
+            "product": item.get("product"),
+            "category": item.get("category"),
+            "query": item.get("query"),
+            "response_text": item.get("response_text"),
+            "response_length": int(item.get("response_length") or 0),
+            "latency_ms": int(item.get("latency_ms") or 0),
+            "error": item.get("error"),
+            "timestamp": item.get("timestamp"),
+        }
+        new_rows.append(row)
+
+    return new_rows, skipped_count
+
+
+def load_agent_responses(results):
+    """
+    Load a list of agent-response dicts (produced by extract_agent_responses.py)
+    into BigQuery table thesisusp.agent_responses.
+
+    Deduplication key: (run_str, agent, product, query_type)
+    """
+    load_dotenv()
+
+    bq_client = bigquery.Client()
+    project_id = bq_client.project
+    dataset_name = "thesisusp"
+    dataset_ref = f"{project_id}.{dataset_name}"
+
+    # Ensure dataset exists
+    dataset = bigquery.Dataset(dataset_ref)
+    dataset.location = "southamerica-east1"
+    bq_client.create_dataset(dataset, exists_ok=True)
+
+    table_id = f"{dataset_ref}.agent_responses"
+    ensure_table(bq_client, table_id, AGENT_RESPONSES_SCHEMA)
+    print(f"Ensured BigQuery table {table_id} exists.")
+
+    existing_keys = get_existing_agent_keys(bq_client, table_id)
+    print(f"Fetched {len(existing_keys)} existing agent-response keys from BigQuery.")
+
+    new_rows, skipped = process_agent_responses(results, existing_keys)
+
+    inserted = 0
+    if new_rows:
+        errors = bq_client.insert_rows_json(table_id, new_rows)
+        if errors:
+            print(f"Errors inserting agent_responses into BigQuery: {errors}")
+        else:
+            inserted = len(new_rows)
+
+    print("\n=== AGENT RESPONSES LOAD STATISTICS ===")
+    print(f"Inserted: {inserted:4d} | Skipped (duplicates): {skipped:4d}")
+    print("========================================")
+
+
 if __name__ == "__main__":
     load_all()
