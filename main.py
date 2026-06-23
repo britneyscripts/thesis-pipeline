@@ -11,6 +11,7 @@ from extract_content import main as run_content
 from extract_crux import main as run_crux  
 from extract_pagespeed import main as run_pagespeed
 from load_to_bigquery import load_all as run_bigquery_load
+from extract_agent_responses import main as run_agents
 
 from datetime import datetime
 
@@ -21,7 +22,8 @@ def run_pipeline(request):
     for name, fn in [
         ("Content Extraction", run_content),
         ("CrUX Extraction", run_crux),
-        ("PageSpeed Extraction", run_pagespeed)
+        ("PageSpeed Extraction", run_pagespeed),
+        ("Agent Responses Extraction", run_agents)
     ]:
         try:
             logging.info(f"Running {name}...")

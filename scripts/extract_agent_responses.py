@@ -13,27 +13,21 @@ from config import get_api_key, save_json
 # ---------------------------------------------------------------------------
 
 AGENTS = {
-    # "claude": {
-    #     "model": "claude-sonnet-4-6",
-    #     "fallback": "claude-haiku-4-5-20251001",
-    #     "client": "anthropic"
-    # },
-    "gemini": {
+    "gemini-2.5-flash": {
         "model": "gemini-2.5-flash",
         "fallback": "gemini-2.5-flash-lite",
         "client": "google"
     },
-    # chatgpt and perplexity — to be added later
-    # "chatgpt": {
-    #     "model": "gpt-4o-mini",
-    #     "fallback": "gpt-3.5-turbo",
-    #     "client": "openai"
-    # },
-    # "perplexity": {
-    #     "model": "sonar",
-    #     "fallback": "sonar-pro",
-    #     "client": "perplexity"
-    # }
+    "gemini-2.5-pro": {
+        "model": "gemini-2.5-pro",
+        "fallback": "gemini-2.5-flash",
+        "client": "google"
+    },
+    "gemini-1.5-flash": {
+        "model": "gemini-1.5-flash",
+        "fallback": "gemini-1.5-flash-lite",
+        "client": "google"
+    }
 }
 
 # ---------------------------------------------------------------------------
