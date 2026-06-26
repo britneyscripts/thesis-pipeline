@@ -24,7 +24,6 @@ def fetch_linear_data():
         "Authorization": api_key
     }
     
-    # GraphQL Query pulling viewer, projects, milestones, and issues with parent/child relationships
     query = """
     query {
       viewer {
@@ -165,7 +164,6 @@ def process_data(data):
         # Build children list (subtasks)
         subtasks = []
         raw_children = issue.get("children", {}).get("nodes", [])
-        # Sort subtasks by identifier/name
         raw_children_sorted = sorted(raw_children, key=lambda x: x["identifier"])
         for child in raw_children_sorted:
             subtasks.append({
@@ -225,15 +223,12 @@ def process_data(data):
         
         active_milestones = []
         for ms in p_info["milestones"]:
-            # Sort top-level milestone tasks alphabetically/numerically by title to follow coursework sequence
             ms["issues"] = sorted(ms["issues"], key=lambda x: x["title"])
             
             total_ms = 0
             completed_ms = 0
             
             for issue in ms["issues"]:
-                # If a parent issue has subtasks, progress counts the subtasks.
-                # If it doesn't, it counts the parent task itself.
                 if issue["subtasks"]:
                     sub_total = len(issue["subtasks"])
                     sub_completed = sum(1 for sub in issue["subtasks"] if sub["state_type"] == "completed")
@@ -285,7 +280,7 @@ def generate_html(data, output_path):
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS (via CDN) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -337,10 +332,17 @@ def generate_html(data, output_path):
         ::-webkit-scrollbar-thumb:hover {
             background: #3f3f46;
         }
+        
+        /* Fixed and sticky header syncing */
+        .timeline-headers-container {
+            position: sticky;
+            left: 0;
+            z-index: 20;
+        }
     </style>
 </head>
 <body class="text-zinc-200 min-h-screen pb-16">
-    <div id="app" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+    <div id="app" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         
         <!-- Header -->
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 bg-zinc-900/40 border border-zinc-800/80 rounded-2xl p-6 backdrop-blur-xl">
@@ -353,8 +355,8 @@ def generate_html(data, output_path):
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-bold font-heading text-white tracking-tight">Timeline MBA USP</h1>
-                    <p class="text-sm text-zinc-400">Marcos Cronológicos, Aulas e Subtarefas do Programa</p>
+                    <h1 class="text-2xl font-bold font-heading text-white tracking-tight">Timeline & Roadmap MBA USP</h1>
+                    <p class="text-sm text-zinc-400">Controle visual e cronograma de cursos, aulas e subtarefas</p>
                 </div>
             </div>
             
@@ -373,7 +375,7 @@ def generate_html(data, output_path):
         <!-- Stats Panel -->
         <section id="stats-panel" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-5 backdrop-blur-xl">
-                <span class="text-xs font-medium text-zinc-400 tracking-wider uppercase mb-1 block">Progresso Geral</span>
+                <span class="text-xs font-medium text-zinc-400 tracking-wider uppercase mb-1 block">Progresso do Projeto</span>
                 <div class="flex items-baseline gap-2 mb-2">
                     <span id="project-pct" class="text-3xl font-bold font-heading text-white">0%</span>
                     <span class="text-xs text-zinc-500">completado</span>
@@ -383,10 +385,10 @@ def generate_html(data, output_path):
                 </div>
             </div>
             <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-5 backdrop-blur-xl flex flex-col justify-center">
-                <span class="text-xs font-medium text-zinc-400 tracking-wider uppercase mb-1 block">Módulos Concluídos</span>
+                <span class="text-xs font-medium text-zinc-400 tracking-wider uppercase mb-1 block">Matérias / Milestones</span>
                 <div class="flex items-baseline gap-2">
                     <span id="courses-completed" class="text-3xl font-bold font-heading text-white">0</span>
-                    <span class="text-xs text-zinc-500">/ <span id="total-courses-count">0</span> concluídos</span>
+                    <span class="text-xs text-zinc-500">/ <span id="total-courses-count">0</span> concluídas</span>
                 </div>
             </div>
             <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-5 backdrop-blur-xl flex flex-col justify-center">
@@ -403,50 +405,247 @@ def generate_html(data, output_path):
             <!-- Tabs dynamically injected -->
         </nav>
 
-        <!-- Controls -->
-        <section class="flex flex-col md:flex-row gap-4 items-center justify-between mb-8">
-            <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
-                <button onclick="setFilter('all')" id="btn-filter-all" class="px-4 py-2 text-xs font-medium rounded-xl border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 transition-all">
-                    Tudo
-                </button>
-                <button onclick="setFilter('pending')" id="btn-filter-pending" class="px-4 py-2 text-xs font-medium rounded-xl border border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-zinc-200 transition-all">
-                    Pendentes
-                </button>
-                <button onclick="setFilter('completed')" id="btn-filter-completed" class="px-4 py-2 text-xs font-medium rounded-xl border border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-zinc-200 transition-all">
-                    Concluídos
-                </button>
+        <!-- Top Controls: Mode Toggle, Filters, Search -->
+        <section class="flex flex-col lg:flex-row gap-4 items-center justify-between mb-6">
+            <div class="flex items-center gap-3 w-full lg:w-auto">
+                <!-- Mode Switcher -->
+                <div class="bg-zinc-900 border border-zinc-800 p-1 rounded-xl flex gap-1">
+                    <button onclick="setMode('timeline')" id="btn-mode-timeline" class="px-3.5 py-1.5 text-xs font-medium rounded-lg transition-all bg-indigo-500 text-white shadow-md">
+                        Modo Timeline (Jira)
+                    </button>
+                    <button onclick="setMode('list')" id="btn-mode-list" class="px-3.5 py-1.5 text-xs font-medium rounded-lg transition-all text-zinc-400 hover:text-zinc-200">
+                        Modo Árvore / Lista
+                    </button>
+                </div>
+                
+                <!-- Quick filter buttons -->
+                <div class="flex items-center gap-1.5">
+                    <button onclick="setFilter('all')" id="btn-filter-all" class="px-3 py-1.5 text-xs font-medium rounded-lg border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 transition-all">
+                        Tudo
+                    </button>
+                    <button onclick="setFilter('pending')" id="btn-filter-pending" class="px-3 py-1.5 text-xs font-medium rounded-lg border border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-zinc-200 transition-all">
+                        Pendentes
+                    </button>
+                </div>
             </div>
 
-            <div class="flex items-center gap-3 w-full md:w-auto">
-                <div class="relative w-full md:w-64">
-                    <input type="text" id="search-input" oninput="handleSearch(this.value)" placeholder="Buscar aulas ou subtarefas..." class="w-full pl-9 pr-4 py-2 text-xs bg-zinc-900 border border-zinc-800 rounded-xl text-zinc-200 focus:outline-none focus:border-indigo-500 transition-colors placeholder-zinc-500">
+            <div class="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+                <div class="relative w-full sm:w-64">
+                    <input type="text" id="search-input" oninput="handleSearch(this.value)" placeholder="Buscar aulas ou tarefas..." class="w-full pl-9 pr-4 py-2 text-xs bg-zinc-900 border border-zinc-800 rounded-xl text-zinc-200 focus:outline-none focus:border-indigo-500 transition-colors placeholder-zinc-500">
                     <svg class="absolute left-3 top-2.5 w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                 </div>
+                
+                <!-- Calendar Zoom info -->
+                <span class="text-[10px] text-zinc-500 hidden" id="calendar-zoom-info">
+                    💡 Clique em uma barra para agendar datas
+                </span>
             </div>
         </section>
 
-        <!-- Vertical Timeline Path -->
-        <main class="relative pl-6 sm:pl-10">
+        <!-- CONTAINER PRINCIPAL DOS DADOS -->
+        
+        <!-- MODO TIMELINE (JIRA GANTT) -->
+        <div id="timeline-view" class="w-full border border-zinc-800 bg-zinc-900/10 rounded-2xl overflow-hidden backdrop-blur-xl flex select-none">
+            <!-- Left Header Pane -->
+            <div class="w-[260px] sm:w-[350px] shrink-0 border-r border-zinc-800 bg-zinc-950/80 sticky left-0 z-30 flex flex-col">
+                <div class="h-14 border-b border-zinc-800 flex items-center px-4 font-heading text-[10px] font-bold uppercase tracking-wider text-zinc-400 bg-zinc-950">
+                    Marcos & Aulas (Linear)
+                </div>
+                <div class="flex flex-col divide-y divide-zinc-900/60" id="gantt-headers">
+                    <!-- Left headers injected here -->
+                </div>
+            </div>
+            
+            <!-- Right Timeline Sheet -->
+            <div class="flex-1 overflow-x-auto bg-zinc-950/20 flex flex-col" id="gantt-sheet-container">
+                <!-- Header Calendar weeks -->
+                <div class="h-14 border-b border-zinc-800 flex flex-col shrink-0 bg-zinc-950/80" id="gantt-calendar-header">
+                    <!-- Month Row -->
+                    <div class="flex border-b border-zinc-900/80 h-7 text-[10px] font-semibold text-zinc-500 uppercase tracking-wider" id="calendar-month-row"></div>
+                    <!-- Week Row -->
+                    <div class="flex h-7 text-[9px] font-medium text-zinc-600 tracking-tight" id="calendar-week-row"></div>
+                </div>
+                <!-- Rows of Grid Tracks -->
+                <div class="flex-1 flex flex-col divide-y divide-zinc-900/60" id="gantt-tracks">
+                    <!-- Right track bars injected here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- MODO LISTA / ÁRVORE CLÁSSICO -->
+        <div id="list-view" class="hidden relative pl-6 sm:pl-10">
             <!-- Central timeline track line -->
             <div class="absolute left-[33px] sm:left-[49px] top-6 bottom-6 w-0.5 bg-gradient-to-b from-indigo-500 via-purple-500 to-zinc-800 z-0"></div>
             
-            <div id="timeline-container" class="space-y-12 relative z-10">
-                <!-- Milestones and issues injected here -->
+            <div id="list-container" class="space-y-12 relative z-10">
+                <!-- Class view elements injected here -->
             </div>
-        </main>
+        </div>
+        
+        <!-- DATE PICKER MODAL -->
+        <div id="date-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-md shadow-2xl shadow-black/80">
+                <h3 class="text-base font-bold font-heading text-white mb-1" id="modal-item-title">Agendar Atividade</h3>
+                <p class="text-xs text-zinc-500 mb-4 font-mono" id="modal-item-id">PLA-XX</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">Semana de Início</label>
+                        <select id="modal-start-week" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-indigo-500">
+                            <!-- Options injected -->
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">Semana de Conclusão</label>
+                        <select id="modal-end-week" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-indigo-500">
+                            <!-- Options injected -->
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between items-center mt-6 pt-4 border-t border-zinc-800">
+                    <button onclick="restoreDefaultDate()" class="text-xs font-semibold text-zinc-500 hover:text-zinc-400 transition-colors">
+                        Restaurar Padrão
+                    </button>
+                    <div class="flex gap-2">
+                        <button onclick="closeModal()" class="px-4 py-2 text-xs font-semibold text-zinc-400 hover:text-zinc-200 bg-zinc-800 border border-zinc-700/50 rounded-xl transition-all">
+                            Cancelar
+                        </button>
+                        <button onclick="saveModalDates()" class="px-4 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl transition-all shadow-lg shadow-indigo-600/10">
+                            Salvar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         
     </div>
 
-    <!-- Data Injection & Interactive Logic -->
+    <!-- Data & Interactivity -->
     <script>
         const roadmapData = __ROADMAP_DATA__;
         let activeProjectId = '';
-        let currentFilter = 'all'; // all, pending, completed
+        let currentFilter = 'all'; // all, pending
         let searchQuery = '';
-
+        let currentMode = 'timeline'; // timeline, list
+        
+        // Define calendar date range: April 6, 2026 to November 2, 2026
+        const START_CALENDAR_DATE = '2026-04-06'; // Monday
+        const END_CALENDAR_DATE = '2026-11-02'; // Monday
+        
+        let WEEKS = [];
+        let editingItemId = null; // Stores target milestone or issue ID being configured
+        
+        // Dynamic generation of weeks list
+        function generateWeeks() {
+            WEEKS = [];
+            let start = new Date(START_CALENDAR_DATE);
+            let end = new Date(END_CALENDAR_DATE);
+            
+            while (start <= end) {
+                WEEKS.push(new Date(start));
+                start.setDate(start.getDate() + 7);
+            }
+        }
+        
+        // Load default/estimated weeks schedule fallback
+        // Spreads milestones sequentially, and stagger tasks inside each milestone.
+        function getFallbackWeeks(id, parentMilestoneId = null) {
+            // Milestone orders in MBA USP
+            // 0: Research & Methodology (8 weeks: W0 - W7)
+            // 1: Estatística para Ciência de CD (9 weeks: W8 - W16)
+            // 2: Técnicas Avançadas de Captura (9 weeks: W17 - W25)
+            // 3: TCC (5 weeks: W26 - W30)
+            
+            const project = roadmapData.projects.find(p => p.id === activeProjectId);
+            if (!project) return { start: 0, end: 0 };
+            
+            const isMilestone = project.milestones.some(m => m.id === id);
+            
+            if (isMilestone) {
+                const idx = project.milestones.findIndex(m => m.id === id);
+                if (idx === 0) return { start: 0, end: 7 }; // Apr 6 - May 25
+                if (idx === 1) return { start: 8, end: 16 }; // Jun 1 - Jul 27
+                if (idx === 2) return { start: 17, end: 25 }; // Aug 3 - Sep 28
+                return { start: 26, end: 30 }; // Oct 5 - Nov 2
+            }
+            
+            // It's a task. Stagger tasks within their milestone weeks span.
+            let msId = parentMilestoneId;
+            let ms = project.milestones.find(m => m.id === msId);
+            if (!ms) {
+                // Try to search task to locate its parent milestone
+                for (let m of project.milestones) {
+                    if (m.issues.some(i => i.id === id || i.subtasks.some(s => s.id === id))) {
+                        ms = m;
+                        msId = m.id;
+                        break;
+                    }
+                }
+            }
+            
+            if (!ms) return { start: 12, end: 13 }; // safe fallback
+            
+            const msIndex = project.milestones.findIndex(m => m.id === msId);
+            const msRange = getFallbackWeeks(msId);
+            
+            // Check if it's a subtask
+            let isSubtask = false;
+            let parentTask = null;
+            for (let t of ms.issues) {
+                if (t.subtasks.some(s => s.id === id)) {
+                    isSubtask = true;
+                    parentTask = t;
+                    break;
+                }
+            }
+            
+            if (isSubtask && parentTask) {
+                // Subtasks span inside their parent task duration
+                const pRange = getFallbackWeeks(parentTask.id, msId);
+                const subIdx = parentTask.subtasks.findIndex(s => s.id === id);
+                const subCount = parentTask.subtasks.length;
+                
+                const span = pRange.end - pRange.start;
+                if (span <= 1) {
+                    return { start: pRange.start, end: pRange.end };
+                }
+                // Distribute subtasks inside parent range
+                const step = span / subCount;
+                const startW = Math.floor(pRange.start + (subIdx * step));
+                const endW = Math.ceil(startW + step);
+                return { start: startW, end: Math.min(pRange.end, endW) };
+            }
+            
+            // It's a top-level task inside the milestone
+            const tIdx = ms.issues.findIndex(t => t.id === id);
+            const tCount = ms.issues.length;
+            const msSpan = msRange.end - msRange.start;
+            
+            const step = msSpan / Math.max(1, tCount);
+            const startW = Math.floor(msRange.start + (tIdx * step));
+            const endW = Math.ceil(startW + Math.max(1, step));
+            
+            return { start: startW, end: Math.min(msRange.end, endW) };
+        }
+        
+        // Retrieve dates: Check localStorage first, fallback to estimated weeks
+        function getItemWeeks(id, parentMilestoneId = null) {
+            const saved = localStorage.getItem(`timeline_dates_${id}`);
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    return { start: parseInt(parsed.start), end: parseInt(parsed.end) };
+                } catch(e) {}
+            }
+            return getFallbackWeeks(id, parentMilestoneId);
+        }
+        
         function init() {
+            generateWeeks();
+            
             if (roadmapData.projects && roadmapData.projects.length > 0) {
                 activeProjectId = roadmapData.projects[0].id;
             }
@@ -503,12 +702,40 @@ def generate_html(data, output_path):
             const totalMilestones = project.milestones.length;
             const completedMilestones = project.milestones.filter(m => m.progress_pct === 100 && m.total_count > 0).length;
             document.getElementById('courses-completed').innerText = completedMilestones;
-            document.getElementById('total-courses-count').innerText = totalMilestones;
-            
-            document.getElementById('total-completed-tasks').innerText = project.completed_issues;
             document.getElementById('total-tasks').innerText = project.total_issues;
+            document.getElementById('total-completed-tasks').innerText = project.completed_issues;
 
-            renderTimeline(project);
+            if (currentMode === 'timeline') {
+                renderTimelineGantt(project);
+            } else {
+                renderListView(project);
+            }
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            
+            const btnTimeline = document.getElementById('btn-mode-timeline');
+            const btnList = document.getElementById('btn-mode-list');
+            const viewTimeline = document.getElementById('timeline-view');
+            const viewList = document.getElementById('list-view');
+            const zoomInfo = document.getElementById('calendar-zoom-info');
+            
+            if (mode === 'timeline') {
+                btnTimeline.className = 'px-3.5 py-1.5 text-xs font-medium rounded-lg transition-all bg-indigo-500 text-white shadow-md';
+                btnList.className = 'px-3.5 py-1.5 text-xs font-medium rounded-lg transition-all text-zinc-400 hover:text-zinc-200';
+                viewTimeline.classList.remove('hidden');
+                viewList.classList.add('hidden');
+                zoomInfo.classList.remove('hidden');
+            } else {
+                btnTimeline.className = 'px-3.5 py-1.5 text-xs font-medium rounded-lg transition-all text-zinc-400 hover:text-zinc-200';
+                btnList.className = 'px-3.5 py-1.5 text-xs font-medium rounded-lg transition-all bg-indigo-500 text-white shadow-md';
+                viewTimeline.classList.add('hidden');
+                viewList.classList.remove('hidden');
+                zoomInfo.classList.add('hidden');
+            }
+            
+            updateDashboard();
         }
 
         function setFilter(filter) {
@@ -516,27 +743,224 @@ def generate_html(data, output_path):
             
             const btnAll = document.getElementById('btn-filter-all');
             const btnPending = document.getElementById('btn-filter-pending');
-            const btnCompleted = document.getElementById('btn-filter-completed');
             
             const activeBtnClasses = 'border-indigo-500/30 bg-indigo-500/10 text-indigo-400';
             const inactiveBtnClasses = 'border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-zinc-200';
             
-            btnAll.className = `px-4 py-2 text-xs font-medium rounded-xl border transition-all ${filter === 'all' ? activeBtnClasses : inactiveBtnClasses}`;
-            btnPending.className = `px-4 py-2 text-xs font-medium rounded-xl border transition-all ${filter === 'pending' ? activeBtnClasses : inactiveBtnClasses}`;
-            btnCompleted.className = `px-4 py-2 text-xs font-medium rounded-xl border transition-all ${filter === 'completed' ? activeBtnClasses : inactiveBtnClasses}`;
+            btnAll.className = `px-3 py-1.5 text-xs font-medium rounded-lg border transition-all ${filter === 'all' ? activeBtnClasses : inactiveBtnClasses}`;
+            btnPending.className = `px-3 py-1.5 text-xs font-medium rounded-lg border transition-all ${filter === 'pending' ? activeBtnClasses : inactiveBtnClasses}`;
             
             const project = roadmapData.projects.find(p => p.id === activeProjectId);
-            if (project) renderTimeline(project);
+            if (project) updateDashboard();
         }
 
         function handleSearch(query) {
             searchQuery = query.toLowerCase();
             const project = roadmapData.projects.find(p => p.id === activeProjectId);
-            if (project) renderTimeline(project);
+            if (project) updateDashboard();
         }
 
-        function renderTimeline(project) {
-            const container = document.getElementById('timeline-container');
+        // ==========================================
+        // RENDER 1: JIRA-STYLE TIMELINE (GANTT CHART)
+        // ==========================================
+        function renderTimelineGantt(project) {
+            const headersContainer = document.getElementById('gantt-headers');
+            const tracksContainer = document.getElementById('gantt-tracks');
+            
+            headersContainer.innerHTML = '';
+            tracksContainer.innerHTML = '';
+            
+            // Build Calendar header first
+            renderCalendarHeader();
+            
+            let rowIdx = 0;
+            
+            project.milestones.forEach(milestone => {
+                // Filter top tasks and subtasks
+                let filteredIssues = milestone.issues.map(issue => {
+                    let sub = issue.subtasks;
+                    if (currentFilter === 'pending') {
+                        sub = issue.subtasks.filter(s => s.state_type !== 'completed');
+                    }
+                    if (searchQuery) {
+                        sub = sub.filter(s => s.title.toLowerCase().includes(searchQuery) || s.identifier.toLowerCase().includes(searchQuery));
+                    }
+                    return { ...issue, subtasks: sub };
+                });
+                
+                if (currentFilter === 'pending') {
+                    filteredIssues = filteredIssues.filter(i => 
+                        (i.subtasks.length > 0) || (i.subtasks.length === 0 && i.state_type !== 'completed')
+                    );
+                }
+                
+                if (searchQuery) {
+                    filteredIssues = filteredIssues.filter(i => 
+                        i.title.toLowerCase().includes(searchQuery) || 
+                        i.identifier.toLowerCase().includes(searchQuery) || 
+                        i.subtasks.length > 0
+                    );
+                }
+                
+                if (filteredIssues.length === 0 && (currentFilter !== 'all' || searchQuery)) {
+                    return; // Skip rendering milestone
+                }
+                
+                // A. MILESTONE ROW
+                // Left Header
+                const mHeader = document.createElement('div');
+                mHeader.className = 'h-12 flex items-center px-4 bg-zinc-900/60 font-heading font-bold text-xs text-white border-b border-zinc-800/80 gap-2 truncate';
+                mHeader.innerHTML = `
+                    <span class="px-1.5 py-0.5 rounded bg-zinc-800 text-indigo-400 font-mono text-[9px]">M</span>
+                    <span class="truncate select-all" title="${milestone.name}">${milestone.name}</span>
+                `;
+                headersContainer.appendChild(mHeader);
+                
+                // Right Grid track
+                const mRange = getItemWeeks(milestone.id);
+                const mTrack = document.createElement('div');
+                mTrack.className = 'h-12 border-b border-zinc-800/80 relative bg-zinc-900/20 flex items-center';
+                mTrack.style.width = `${WEEKS.length * 48}px`;
+                mTrack.innerHTML = getTrackGridLines() + getTimelineBarHtml(milestone.id, milestone.name, milestone.identifier || 'MILESTONE', mRange, 'milestone', milestone.progress_pct);
+                tracksContainer.appendChild(mTrack);
+                
+                // B. ISSUES (CLASSES) AND SUBTASKS ROWS
+                filteredIssues.forEach(issue => {
+                    // Left Header for Task
+                    const iHeader = document.createElement('div');
+                    iHeader.className = 'h-12 flex items-center pl-8 pr-4 bg-zinc-950/20 font-medium text-xs text-zinc-300 border-b border-zinc-800/40 gap-2 truncate hover:bg-zinc-800/10 transition-colors';
+                    iHeader.innerHTML = `
+                        <span class="font-mono text-[10px] text-zinc-500 select-all shrink-0">${issue.identifier}</span>
+                        <span class="truncate select-all" title="${issue.title}">${issue.title}</span>
+                    `;
+                    headersContainer.appendChild(iHeader);
+                    
+                    // Right track for Task
+                    const iRange = getItemWeeks(issue.id, milestone.id);
+                    const iTrack = document.createElement('div');
+                    iTrack.className = 'h-12 border-b border-zinc-800/40 relative flex items-center hover:bg-zinc-800/5 transition-colors';
+                    iTrack.style.width = `${WEEKS.length * 48}px`;
+                    iTrack.innerHTML = getTrackGridLines() + getTimelineBarHtml(issue.id, issue.title, issue.identifier, iRange, 'task', issue.state_type === 'completed' ? 100 : (issue.state_type === 'started' ? 50 : 0));
+                    tracksContainer.appendChild(iTrack);
+                    
+                    // C. SUBTASKS ROWS
+                    issue.subtasks.forEach(sub => {
+                        // Left Header for Subtask
+                        const sHeader = document.createElement('div');
+                        sHeader.className = 'h-10 flex items-center pl-14 pr-4 bg-zinc-950/40 text-zinc-400 text-xs border-b border-zinc-900/60 gap-1.5 truncate hover:bg-zinc-800/10 transition-colors';
+                        sHeader.innerHTML = `
+                            <span class="font-mono text-[9px] text-zinc-600 select-all shrink-0">${sub.identifier}</span>
+                            <span class="truncate select-all text-[11px]" title="${sub.title}">${sub.title}</span>
+                        `;
+                        headersContainer.appendChild(sHeader);
+                        
+                        // Right track for Subtask
+                        const sRange = getItemWeeks(sub.id, milestone.id);
+                        const sTrack = document.createElement('div');
+                        sTrack.className = 'h-10 border-b border-zinc-900/60 relative flex items-center hover:bg-zinc-800/5 transition-colors';
+                        sTrack.style.width = `${WEEKS.length * 48}px`;
+                        sTrack.innerHTML = getTrackGridLines() + getTimelineBarHtml(sub.id, sub.title, sub.identifier, sRange, 'subtask', sub.state_type === 'completed' ? 100 : (sub.state_type === 'started' ? 50 : 0));
+                        tracksContainer.appendChild(sTrack);
+                    });
+                });
+            });
+            
+            // Sync scrolling of grid body and headers
+            const scrollPane = document.getElementById('gantt-sheet-container');
+            // Auto scroll to active month (June 2026 is week index 8, so around offset 384px)
+            scrollPane.scrollLeft = 380;
+        }
+        
+        function renderCalendarHeader() {
+            const monthsRow = document.getElementById('calendar-month-row');
+            const weeksRow = document.getElementById('calendar-week-row');
+            
+            monthsRow.innerHTML = '';
+            weeksRow.innerHTML = '';
+            
+            const monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+            
+            // Group weeks by month for colspan rendering
+            let monthGroups = [];
+            let currentGroup = null;
+            
+            WEEKS.forEach((wDate, idx) => {
+                const mIdx = wDate.getMonth();
+                const yVal = wDate.getFullYear();
+                const label = `${monthNames[mIdx]} ${yVal}`;
+                
+                if (!currentGroup || currentGroup.label !== label) {
+                    if (currentGroup) monthGroups.push(currentGroup);
+                    currentGroup = { label: label, count: 1 };
+                } else {
+                    currentGroup.count++;
+                }
+                
+                // Add mini week date header cell (48px wide)
+                const wCell = document.createElement('div');
+                wCell.className = 'w-12 border-r border-zinc-800/50 shrink-0 flex items-center justify-center font-mono';
+                wCell.innerText = `${String(wDate.getDate()).padStart(2, '0')}/${String(wDate.getMonth()+1).padStart(2, '0')}`;
+                weeksRow.appendChild(wCell);
+            });
+            if (currentGroup) monthGroups.push(currentGroup);
+            
+            // Render month blocks
+            monthGroups.forEach(g => {
+                const mCell = document.createElement('div');
+                mCell.className = 'border-r border-zinc-800 shrink-0 flex items-center justify-center';
+                mCell.style.width = `${g.count * 48}px`;
+                mCell.innerText = g.label;
+                monthsRow.appendChild(mCell);
+            });
+            
+            // Width sync
+            const totalWidth = WEEKS.length * 48;
+            document.getElementById('gantt-calendar-header').style.width = `${totalWidth}px`;
+            document.getElementById('gantt-tracks').style.width = `${totalWidth}px`;
+        }
+        
+        function getTrackGridLines() {
+            let cells = '';
+            for (let i = 0; i < WEEKS.length; i++) {
+                cells += `<div class="absolute border-r border-zinc-800/25 h-full" style="left: ${i * 48}px; width: 48px;"></div>`;
+            }
+            return cells;
+        }
+        
+        function getTimelineBarHtml(id, name, code, range, type, progress) {
+            const startIdx = range.start;
+            const endIdx = range.end;
+            
+            const leftOffset = startIdx * 48 + 4;
+            const spanWidth = ((endIdx - startIdx) + 1) * 48 - 8;
+            
+            let colorClass = 'from-zinc-700 to-zinc-600 border-zinc-600 text-zinc-300';
+            if (type === 'milestone') {
+                colorClass = progress === 100 ? 'from-emerald-500/80 to-teal-500/80 border-emerald-500 shadow-emerald-500/5' : 'from-indigo-600/80 to-violet-600/80 border-indigo-500 shadow-indigo-500/5';
+            } else if (type === 'task') {
+                colorClass = progress === 100 ? 'from-emerald-600/60 to-emerald-500/60 border-emerald-500/30 text-emerald-300' : (progress > 0 ? 'from-amber-600/60 to-amber-500/60 border-amber-500/30 text-amber-300' : 'from-zinc-800 to-zinc-800 border-zinc-700 text-zinc-300');
+            } else if (type === 'subtask') {
+                colorClass = progress === 100 ? 'from-emerald-700/40 to-emerald-600/40 border-emerald-600/25 text-emerald-400' : (progress > 0 ? 'from-amber-700/40 to-amber-600/40 border-amber-600/25 text-amber-400' : 'from-zinc-900 to-zinc-900 border-zinc-800 text-zinc-400');
+            }
+            
+            const barHeight = type === 'subtask' ? 'h-6' : 'h-7';
+            
+            return `
+                <div onclick="openDateModal('${id}', '${name.replace(/'/g, "\\'")}', '${code}', ${startIdx}, ${endIdx})" 
+                     class="absolute ${barHeight} ${colorClass} bg-gradient-to-r border rounded-lg flex items-center justify-between px-3 cursor-pointer shadow-md select-none group/bar transition-all hover:scale-[1.01]" 
+                     style="left: ${leftOffset}px; width: ${spanWidth}px;"
+                     title="Clique para reagendar ${code}">
+                    <span class="text-[9px] font-semibold truncate pr-1">${name}</span>
+                    <span class="text-[8px] font-mono shrink-0 bg-black/40 px-1 py-0.5 rounded text-zinc-400 group-hover/bar:bg-black/60">${progress}%</span>
+                </div>
+            `;
+        }
+
+        // ==========================================
+        // RENDER 2: LIST / ARVORE VIEW CLÁSSICO
+        // ==========================================
+        function renderListView(project) {
+            const container = document.getElementById('list-container');
             container.innerHTML = '';
             
             if (!project.milestones || project.milestones.length === 0) {
@@ -549,40 +973,20 @@ def generate_html(data, output_path):
             }
             
             project.milestones.forEach((milestone, mIdx) => {
-                // Filter issues
                 let filteredIssues = milestone.issues.map(issue => {
-                    // Filter subtasks
-                    let filteredSubtasks = issue.subtasks;
+                    let sub = issue.subtasks;
                     if (currentFilter === 'pending') {
-                        filteredSubtasks = issue.subtasks.filter(s => s.state_type !== 'completed');
-                    } else if (currentFilter === 'completed') {
-                        filteredSubtasks = issue.subtasks.filter(s => s.state_type === 'completed');
+                        sub = issue.subtasks.filter(s => s.state_type !== 'completed');
                     }
-                    
                     if (searchQuery) {
-                        filteredSubtasks = filteredSubtasks.filter(s => 
-                            s.title.toLowerCase().includes(searchQuery) ||
-                            s.identifier.toLowerCase().includes(searchQuery)
-                        );
+                        sub = sub.filter(s => s.title.toLowerCase().includes(searchQuery) || s.identifier.toLowerCase().includes(searchQuery));
                     }
-                    
-                    // Return a clone with filtered subtasks
-                    return {
-                        ...issue,
-                        subtasks: filteredSubtasks
-                    };
+                    return { ...issue, subtasks: sub };
                 });
                 
-                // Filter top-level tasks based on state and search
                 if (currentFilter === 'pending') {
                     filteredIssues = filteredIssues.filter(i => 
-                        // Show if the task itself is not complete, OR if it has pending subtasks
                         (i.subtasks.length > 0) || (i.subtasks.length === 0 && i.state_type !== 'completed')
-                    );
-                } else if (currentFilter === 'completed') {
-                    filteredIssues = filteredIssues.filter(i => 
-                        (i.subtasks.length > 0 && i.subtasks.every(s => s.state_type === 'completed')) || 
-                        (i.subtasks.length === 0 && i.state_type === 'completed')
                     );
                 }
                 
@@ -594,16 +998,13 @@ def generate_html(data, output_path):
                     );
                 }
                 
-                // Hide milestones with no matching issues if search/filter is active
                 if (filteredIssues.length === 0 && (currentFilter !== 'all' || searchQuery)) {
                     return;
                 }
                 
-                // Construct Milestone Timeline Section
                 const milestoneSection = document.createElement('section');
-                milestoneSection.className = 'relative timeline-milestone';
+                milestoneSection.className = 'relative';
                 
-                // Dynamic styling for Milestone progress node
                 let milestoneGlow = 'border-zinc-700 bg-zinc-900 text-zinc-400';
                 if (milestone.progress_pct === 100 && milestone.total_count > 0) {
                     milestoneGlow = 'border-emerald-500 bg-emerald-950/80 text-emerald-400 shadow-md shadow-emerald-500/10';
@@ -611,19 +1012,17 @@ def generate_html(data, output_path):
                     milestoneGlow = 'border-indigo-500 bg-indigo-950/80 text-indigo-400 shadow-md shadow-indigo-500/10';
                 }
                 
-                // Generate Tasks List HTML within the milestone
                 let tasksHtml = '';
                 if (filteredIssues.length === 0) {
                     tasksHtml = `
                         <div class="pl-6 py-4 text-xs text-zinc-500 italic">
-                            Nenhuma aula cadastrada ou correspondente aos filtros.
+                            Nenhuma atividade cadastrada.
                         </div>
                     `;
                 } else {
                     tasksHtml = `<div class="relative space-y-6 mt-4 pl-4 sm:pl-8 border-l border-dashed border-zinc-800 ml-4 sm:ml-6">`;
                     
                     filteredIssues.forEach(issue => {
-                        // Task node styling
                         let taskNodeClass = 'border-zinc-700 bg-zinc-900 text-zinc-500';
                         let taskTextClass = 'text-zinc-300';
                         
@@ -637,7 +1036,6 @@ def generate_html(data, output_path):
                             taskNodeClass = 'border-indigo-500 bg-indigo-950 text-indigo-400';
                         }
                         
-                        // Construct subtasks HTML
                         let subtasksHtml = '';
                         if (issue.subtasks && issue.subtasks.length > 0) {
                             subtasksHtml = `<div class="mt-3.5 space-y-2.5 pl-4 sm:pl-6 border-l border-zinc-800">`;
@@ -656,7 +1054,6 @@ def generate_html(data, output_path):
                                 
                                 subtasksHtml += `
                                     <div class="flex items-center gap-3 relative group/sub">
-                                        <!-- Subtask bullet node -->
                                         <div class="w-2 h-2 rounded-full border ${subDot} shrink-0 -ml-[21px] sm:-ml-[29px] z-20"></div>
                                         <div class="flex items-baseline justify-between w-full gap-2">
                                             <span class="text-xs ${subText} group-hover/sub:text-zinc-200 select-all">
@@ -669,7 +1066,6 @@ def generate_html(data, output_path):
                                     </div>
                                 `;
                             });
-                            
                             subtasksHtml += `</div>`;
                         }
                         
@@ -679,12 +1075,10 @@ def generate_html(data, output_path):
 
                         tasksHtml += `
                             <div class="relative group">
-                                <!-- Task timeline dot node -->
                                 <div class="absolute -left-[23px] sm:-left-[39px] top-1.5 w-3.5 h-3.5 rounded-full border-2 ${taskNodeClass} shrink-0 z-10 flex items-center justify-center">
                                     <div class="w-1 h-1 rounded-full bg-current"></div>
                                 </div>
                                 
-                                <!-- Task Card Details -->
                                 <div class="bg-zinc-900/30 border border-zinc-800/80 rounded-xl p-4 hover:border-zinc-700/60 transition-all">
                                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                                         <div class="flex flex-wrap items-center gap-2">
@@ -698,30 +1092,23 @@ def generate_html(data, output_path):
                                             </span>
                                         </div>
                                     </div>
-                                    
                                     ${issue.description ? `<p class="text-xs text-zinc-500 mt-1.5 max-w-3xl leading-relaxed">${issue.description}</p>` : ''}
-                                    
-                                    <!-- Nested Subtasks list if any -->
                                     ${subtasksHtml}
                                 </div>
                             </div>
                         `;
                     });
-                    
                     tasksHtml += `</div>`;
                 }
 
-                // Append milestone layout
                 const orderNumber = String(mIdx + 1).padStart(2, '0');
                 
                 milestoneSection.innerHTML = `
-                    <!-- Milestone timeline badge/node -->
                     <div class="absolute -left-[23px] sm:-left-[39px] top-0 w-12 h-12 rounded-2xl border-2 ${milestoneGlow} flex flex-col items-center justify-center z-10 font-heading font-bold select-none">
-                        <span class="text-[10px] text-zinc-500 uppercase leading-none tracking-tighter mb-0.5">Milestone</span>
+                        <span class="text-[10px] text-zinc-500 uppercase leading-none tracking-tighter mb-0.5">Marcos</span>
                         <span class="text-sm leading-none">${orderNumber}</span>
                     </div>
                     
-                    <!-- Milestone Card Header -->
                     <div class="pl-12 sm:pl-16">
                         <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-5 backdrop-blur-xl">
                             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-baseline gap-2 mb-3">
@@ -732,17 +1119,13 @@ def generate_html(data, output_path):
                                     <span class="text-indigo-400 font-semibold">${milestone.progress_pct}%</span>
                                 </div>
                             </div>
-                            <!-- Milestone Progress Bar -->
-                            <div class="w-full bg-zinc-800/80 h-1.5 rounded-full overflow-hidden">
+                            <div class="w-full bg-zinc-800/80 h-1.5 rounded-full overflow-hidden mb-4">
                                 <div class="bg-gradient-to-r from-violet-500 to-indigo-500 h-full rounded-full transition-all duration-300" style="width: ${milestone.progress_pct}%"></div>
                             </div>
-                            
-                            <!-- Nested tasks timeline -->
                             ${tasksHtml}
                         </div>
                     </div>
                 `;
-                
                 container.appendChild(milestoneSection);
             });
             
@@ -753,6 +1136,75 @@ def generate_html(data, output_path):
                     </div>
                 `;
             }
+        }
+
+        // ==========================================
+        // DATE EDITOR MODAL LOGIC
+        // ==========================================
+        function openDateModal(id, name, code, currentStart, currentEnd) {
+            editingItemId = id;
+            
+            document.getElementById('modal-item-title').innerText = name;
+            document.getElementById('modal-item-id').innerText = code;
+            
+            // Build start/end week select dropdowns
+            const startSelect = document.getElementById('modal-start-week');
+            const endSelect = document.getElementById('modal-end-week');
+            
+            startSelect.innerHTML = '';
+            endSelect.innerHTML = '';
+            
+            WEEKS.forEach((wDate, idx) => {
+                const dateStr = `${String(wDate.getDate()).padStart(2, '0')}/${String(wDate.getMonth()+1).padStart(2, '0')}/${wDate.getFullYear()}`;
+                
+                const optStart = document.createElement('option');
+                optStart.value = idx;
+                optStart.innerText = `Semana ${idx + 1} (${dateStr})`;
+                if (idx === currentStart) optStart.selected = true;
+                startSelect.appendChild(optStart);
+                
+                const optEnd = document.createElement('option');
+                optEnd.value = idx;
+                optEnd.innerText = `Semana ${idx + 1} (${dateStr})`;
+                if (idx === currentEnd) optEnd.selected = true;
+                endSelect.appendChild(optEnd);
+            });
+            
+            // Open modal
+            document.getElementById('date-modal').classList.remove('hidden');
+        }
+        
+        function closeModal() {
+            document.getElementById('date-modal').classList.add('hidden');
+            editingItemId = null;
+        }
+        
+        function saveModalDates() {
+            if (!editingItemId) return;
+            
+            const startVal = parseInt(document.getElementById('modal-start-week').value);
+            const endVal = parseInt(document.getElementById('modal-end-week').value);
+            
+            if (startVal > endVal) {
+                alert('A semana de início não pode ser após a semana de conclusão!');
+                return;
+            }
+            
+            // Save to localStorage
+            localStorage.setItem(`timeline_dates_${editingItemId}`, JSON.stringify({
+                start: startVal,
+                end: endVal
+            }));
+            
+            closeModal();
+            updateDashboard();
+        }
+        
+        function restoreDefaultDate() {
+            if (!editingItemId) return;
+            localStorage.removeItem(`timeline_dates_${editingItemId}`);
+            closeModal();
+            updateDashboard();
         }
 
         window.addEventListener('DOMContentLoaded', init);
@@ -778,7 +1230,7 @@ def main():
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         output_file = os.path.join(base_dir, "roadmap.html")
         
-        print("3. Generating interactive timeline HTML...")
+        print("3. Generating timeline dashboard HTML...")
         generate_html(processed, output_file)
         
         print("Dashboard timeline update completed!")
