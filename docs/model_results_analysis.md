@@ -56,7 +56,7 @@ A latência é um gargalo central em aplicações interativas de comércio eletr
 
 ## 3. Análise Qualitativa e Comportamento dos Modelos
 
-### 3.1 O Caso do "iPhone 17 Pro" (Deriva Temporal)
+### 3.1 Limitação de Memória Paramétrica: Ausência de Grounding em Tempo Real
 Ao realizar a consulta do produto **iPhone 17 Pro** (definido no prompt como consulta de marca e exata), os modelos responderam o seguinte:
 
 *   **Gemini 2.5 Pro**:
@@ -65,9 +65,9 @@ Ao realizar a consulta do produto **iPhone 17 Pro** (definido no prompt como con
     > *"Até o momento, o iPhone 17 Pro não foi lançado pela Apple. [...] Os modelos mais recentes disponíveis são da linha iPhone 15. O iPhone 16 é esperado em setembro de 2024."*
 
 **Implicações de Negócio e de Pesquisa (Tese)**:
-Estamos em **junho de 2026**. Os modelos respondem que o iPhone 15 é o mais novo e que o iPhone 16 sairá em setembro de 2024.
-*   **Alinhamento Temporal Falho**: O corte de conhecimento pré-treinado do modelo faz com que ele ignore que estamos em 2026.
-*   **Falta de Grounding**: Sem a pesquisa na web habilitada (`Google Search Grounding`), os modelos geram alucinações temporais graves. Para um chatbot de varejo ativo em 2026, isso seria um desastre operacional.
+Estamos em **junho de 2026**. Os modelos responderam que o iPhone 15 é o mais novo e que o iPhone 16 sairá em setembro de 2024. Isso ilustra de forma prática o fenômeno de **Knowledge Cutoff** e a dependência exclusiva da **Memória Paramétrica** (Mallen et al., 2023), em oposição ao uso de **Retrieval-Augmented Generation (RAG)** ou ferramentas de **Search Grounding** em tempo real.
+*   **Limitação da Memória Paramétrica**: Os pesos internos do modelo retêm apenas as informações consolidadas até o seu momento de corte de treinamento. Sem grounding externo, o modelo reconstrói uma resposta baseada unicamente nessa memória estática.
+*   **Ausência de Grounding**: Para aplicações comerciais dinâmicas em e-commerce, a ausência de um mecanismo de recuperação em tempo real (como o Google Search Grounding) resulta em alucinações temporais severas e invalida a recomendação de produtos recentemente lançados.
 
 ### 3.2 Estrutura e Qualidade das Respostas (Skincare)
 Para consultas reais de produtos de skincare (**La Roche-Posay Vitamina C12**, **Natura Chronos**), ambos os modelos performaram muito bem estruturalmente:

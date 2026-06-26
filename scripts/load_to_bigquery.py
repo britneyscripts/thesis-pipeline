@@ -1,6 +1,7 @@
 import os
 import json
 import datetime
+import re
 from dotenv import load_dotenv
 from google.cloud import storage
 from google.cloud import bigquery
@@ -9,7 +10,7 @@ from google.cloud import bigquery
 SKU_CATEGORIES = {
     "iphone-17-pro": "electronics",
     "samsung-galaxy-s26-512gb-12gb-ram-preto": "electronics",
-    "motorola-edge-60-5g-512gb-azul-marinho-12gb-ram": "electronics",
+    "samsung-galaxy-a56-5g-256gb-preto-8gb-ram": "electronics",
     "natura-serum-intensivo-antioxidante-chronos-15ml-vitamina-c-15": "skincare",
     "la-roche-posay-pure-vitamin-c12-serum-30ml": "skincare",
     "neutrogena-hydro-boost-water-gel-50g": "skincare",
@@ -434,6 +435,41 @@ AGENT_RESPONSES_SCHEMA = [
     bigquery.SchemaField("timestamp", "TIMESTAMP", mode="REQUIRED"),
 ]
 
+AGENT_CITATIONS_SCHEMA = [
+    bigquery.SchemaField("run_str", "STRING", mode="REQUIRED"),
+    bigquery.SchemaField("sku", "STRING", mode="REQUIRED"),
+    bigquery.SchemaField("store_cited", "STRING", mode="REQUIRED"),
+    bigquery.SchemaField("agent", "STRING", mode="REQUIRED"),
+    bigquery.SchemaField("query_type", "STRING", mode="REQUIRED"),
+    bigquery.SchemaField("cited", "BOOLEAN", mode="REQUIRED"),
+    bigquery.SchemaField("citation_sentiment", "STRING", mode="NULLABLE"),
+    bigquery.SchemaField("timestamp", "TIMESTAMP", mode="REQUIRED"),
+]
+
+STORE_ALIASES = {
+    "Apple Brasil": ["apple", "apple brasil", "loja da apple"],
+    "Vivo": ["vivo"],
+    "Fastshop": ["fast shop", "fastshop"],
+    "Americanas": ["americanas", "lojas americanas"],
+    "Kabum": ["kabum", "kabum!"],
+    "Amazon Brasil": ["amazon", "amazon.com.br", "amazon brasil"],
+    "Samsung": ["samsung", "loja da samsung"],
+    "Magazine Luiza": ["magazine luiza", "magalu", "magazineluiza"],
+    "Mercado Livre": ["mercado livre", "mercadolivre", "mercado libre"],
+    "Natura Brasil": ["natura", "natura brasil"],
+    "La Roche-Posay Brasil": ["la roche", "roche posay", "la roche-posay", "la roche posay"],
+    "Droga Raia": ["droga raia", "raia"],
+    "Drogasil": ["drogasil"],
+    "Pague Menos": ["pague menos"],
+    "Cosmetis": ["cosmetis"],
+    "Neutrogena": ["neutrogena"],
+    "Boticário": ["boticário", "o boticário", "botik"],
+    "Panvel": ["panvel"],
+    "Beleza na Web": ["beleza na web"],
+    "Época Cosméticos": ["época cosméticos", "epoca cosmeticos"],
+    "Drogaria São Paulo": ["drogaria são paulo", "drogaria sao paulo"],
+    "Drogaria Pacheco": ["pacheco", "drogaria pacheco"]
+}
 
 def get_existing_agent_keys(bq_client, table_id):
     """Return a set of (run_str, agent, product, query_type) tuples already in BigQuery."""
@@ -445,6 +481,54 @@ def get_existing_agent_keys(bq_client, table_id):
         print(f"Notice: Could not read existing keys from {table_id} (might be empty/new): {str(e)}")
         return set()
 
+def get_existing_citation_keys(bq_client, table_id):
+    """Return a set of (run_str, agent, sku, store_cited) tuples already in BigQuery."""
+    try:
+        query = f"SELECT DISTINCT run_str, agent, sku, store_cited FROM `{table_id}`"
+        results = bq_client.query(query).result()
+        return {(row.run_str, row.agent, row.sku, row.store_cited) for row in results}
+    except Exception as e:
+        print(f"Notice: Could not read existing citation keys from {table_id} (might be empty/new): {str(e)}")
+        return set()
+
+def get_citation_sentiment(text_lower, alias_list):
+    """Detect sentiment for a matched store in a window of 120 chars before/after."""
+    idx = -1
+    matched_alias = None
+    for alias in alias_list:
+        i = text_lower.find(alias)
+        if i != -1:
+            idx = i
+            matched_alias = alias
+            break
+            
+    if idx == -1:
+        return "neutral"
+        
+    start = max(0, idx - 120)
+    end = min(len(text_lower), idx + len(matched_alias) + 120)
+    window = text_lower[start:end]
+    
+    negatives = [
+        "evite", "evitar", "cuidado", "falsific", "pirata", "não recomendo", 
+        "perigo", "não oficial", "terceirizados", "terceiros", "atenção", 
+        "alerta", "golpe", "fraude", "confiável?", "desconfie"
+    ]
+    
+    positives = [
+        "recomendo", "melhor", "seguro", "oficial", "confiável", "excelente", 
+        "ótimo", "garantia", "original"
+    ]
+    
+    for neg in negatives:
+        if neg in window:
+            return "negative"
+            
+    for pos in positives:
+        if pos in window:
+            return "positive"
+            
+    return "neutral"
 
 def process_agent_responses(data, existing_keys):
     """Filter out already-loaded rows and return new rows ready for BigQuery insertion."""
@@ -477,13 +561,66 @@ def process_agent_responses(data, existing_keys):
 
     return new_rows, skipped_count
 
+def process_agent_citations(results, existing_keys):
+    """Extract store citations from agent response text using aliases."""
+    new_rows = []
+    skipped_count = 0
+    now_iso = datetime.datetime.now().isoformat()
+    
+    for item in results:
+        run_str = item.get("run_str")
+        agent = item.get("agent")
+        sku = item.get("product") or item.get("sku")
+        query_type = item.get("query_type")
+        response_text = item.get("response_text") or ""
+        timestamp = item.get("timestamp") or now_iso
+        
+        if not run_str or not agent or not sku:
+            continue
+            
+        text_lower = response_text.lower()
+        
+        for store, aliases in STORE_ALIASES.items():
+            key = (run_str, agent, sku, store)
+            if key in existing_keys:
+                skipped_count += 1
+                continue
+                
+            # Search for aliases
+            cited = False
+            for alias in aliases:
+                # Require boundary for short words
+                if len(alias) <= 4:
+                    if re.search(rf"\b{re.escape(alias)}\b", text_lower):
+                        cited = True
+                        break
+                else:
+                    if alias in text_lower:
+                        cited = True
+                        break
+            
+            sentiment = None
+            if cited:
+                sentiment = get_citation_sentiment(text_lower, aliases)
+                
+            row = {
+                "run_str": run_str,
+                "sku": sku,
+                "store_cited": store,
+                "agent": agent,
+                "query_type": query_type,
+                "cited": cited,
+                "citation_sentiment": sentiment,
+                "timestamp": timestamp
+            }
+            new_rows.append(row)
+            
+    return new_rows, skipped_count
 
 def load_agent_responses(results):
     """
     Load a list of agent-response dicts (produced by extract_agent_responses.py)
-    into BigQuery table thesisusp.agent_responses.
-
-    Deduplication key: (run_str, agent, product, query_type)
+    into BigQuery table thesisusp.agent_responses and citations into thesisusp.agent_citations.
     """
     load_dotenv()
 
@@ -497,6 +634,7 @@ def load_agent_responses(results):
     dataset.location = "southamerica-east1"
     bq_client.create_dataset(dataset, exists_ok=True)
 
+    # 1. Load Responses
     table_id = f"{dataset_ref}.agent_responses"
     ensure_table(bq_client, table_id, AGENT_RESPONSES_SCHEMA)
     print(f"Ensured BigQuery table {table_id} exists.")
@@ -516,6 +654,28 @@ def load_agent_responses(results):
 
     print("\n=== AGENT RESPONSES LOAD STATISTICS ===")
     print(f"Inserted: {inserted:4d} | Skipped (duplicates): {skipped:4d}")
+    print("========================================")
+
+    # 2. Load Citations
+    citations_table_id = f"{dataset_ref}.agent_citations"
+    ensure_table(bq_client, citations_table_id, AGENT_CITATIONS_SCHEMA)
+    print(f"Ensured BigQuery table {citations_table_id} exists.")
+
+    existing_citation_keys = get_existing_citation_keys(bq_client, citations_table_id)
+    print(f"Fetched {len(existing_citation_keys)} existing agent-citation keys from BigQuery.")
+
+    new_citation_rows, cit_skipped = process_agent_citations(results, existing_citation_keys)
+
+    cit_inserted = 0
+    if new_citation_rows:
+        errors = bq_client.insert_rows_json(citations_table_id, new_citation_rows)
+        if errors:
+            print(f"Errors inserting agent_citations into BigQuery: {errors}")
+        else:
+            cit_inserted = len(new_citation_rows)
+
+    print("\n=== AGENT CITATIONS LOAD STATISTICS ===")
+    print(f"Inserted: {cit_inserted:4d} | Skipped (duplicates): {cit_skipped:4d}")
     print("========================================")
 
 

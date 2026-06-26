@@ -15,17 +15,10 @@ from config import get_api_key, save_json
 AGENTS = {
     "gemini-2.5-flash": {
         "model": "gemini-2.5-flash",
-        "fallback": "gemini-2.5-flash-lite",
         "client": "google"
     },
     "gemini-2.5-pro": {
         "model": "gemini-2.5-pro",
-        "fallback": "gemini-2.5-flash",
-        "client": "google"
-    },
-    "gemini-1.5-flash": {
-        "model": "gemini-1.5-flash",
-        "fallback": "gemini-1.5-flash-lite",
         "client": "google"
     }
 }
@@ -129,12 +122,11 @@ API_KEY_NAMES = {
 
 def query_agent(agent_name: str, agent_cfg: dict, query_info: dict, run_str: str, api_key: str) -> dict:
     """
-    Query a single agent for a single query. Applies fallback logic.
+    Query a single agent for a single query.
 
     Returns a result dict matching the output schema.
     """
     primary_model = agent_cfg["model"]
-    fallback_model = agent_cfg["fallback"]
 
     base = {
         "run_str": run_str,
@@ -165,28 +157,9 @@ def query_agent(agent_name: str, agent_cfg: dict, query_info: dict, run_str: str
         return base
 
     except Exception as e:
-        print(f"  [{agent_name}/{primary_model}] ERROR: {e}. Trying fallback...")
-
-        # --- Fallback model attempt ---
-        try:
-            t0 = time.monotonic()
-            text = call_agent(agent_name, fallback_model, query_info["query"], api_key)
-            elapsed_ms = int((time.monotonic() - t0) * 1000)
-
-            base["model_used"] = fallback_model
-            base["fallback_used"] = True
-            base["response_text"] = text
-            base["response_length"] = len(text)
-            base["latency_ms"] = elapsed_ms
-            print(f"  [{agent_name}/{fallback_model}] FALLBACK OK — {elapsed_ms} ms, {len(text)} chars")
-            return base
-
-        except Exception as e2:
-            base["model_used"] = fallback_model
-            base["fallback_used"] = True
-            base["error"] = str(e2)
-            print(f"  [{agent_name}/{fallback_model}] FALLBACK ERROR: {e2}")
-            return base
+        base["error"] = str(e)
+        print(f"  [{agent_name}/{primary_model}] ERROR: {e}")
+        return base
 
 
 # ---------------------------------------------------------------------------
