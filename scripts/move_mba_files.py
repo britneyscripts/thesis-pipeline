@@ -23,7 +23,10 @@ def main():
         "Gestão Ágil de Projetos em Ciência de Dados e Inteligência Artificial": "05 - Gestão Ágil de Projetos em Ciência de Dados e Inteligência Artificial 2026",
         "Metodologia e Projeto para Ciências de Dados 2026": "06 - Metodologia e Projeto para Ciências de Dados 2026",
         "Introducao_a_ciencia_de_dados": "07 - Introdução a Ciências de Dados 2026",
+        "programacao_para_ciencia_de_dados": "08 - Programação para Ciência de Dados 2026",
+        "programacao_para_iniciantes": "08 - Programação para Ciência de Dados 2026",
         "Livros": "pdfs & books"
+
     }
 
     print("Iniciando organização automatizada dos seus PDFs e Livros...")
