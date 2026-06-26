@@ -13,8 +13,22 @@ def main():
     try:
         # 1. Define paths
         pipeline_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        parent_dir = os.path.dirname(pipeline_dir)
-        vault_dir = os.path.join(parent_dir, "mba-notes")
+        
+        # Load environment variables to read custom vault path
+        from dotenv import load_dotenv
+        env_path = os.path.join(pipeline_dir, ".env")
+        if os.path.exists(env_path):
+            load_dotenv(env_path)
+            
+        custom_vault_path = os.getenv("OBSIDIAN_VAULT_PATH")
+        if custom_vault_path:
+            vault_dir = os.path.abspath(custom_vault_path)
+            print(f"Usando caminho customizado do Vault: {vault_dir}")
+        else:
+            parent_dir = os.path.dirname(pipeline_dir)
+            vault_dir = os.path.join(parent_dir, "mba-notes")
+            print(f"Usando caminho padrão do Vault: {vault_dir}")
+
         
         print("1. Buscando dados do Linear API...")
         data = fetch_linear_data()
