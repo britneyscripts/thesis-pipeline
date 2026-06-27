@@ -1,0 +1,11 @@
+thesis_dbt:          # <-- Nome atualizado
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: thesisusp
+      dataset: thesisusp
+      threads: 4
+      timeout_seconds: 300
+      location: southamerica-east1
