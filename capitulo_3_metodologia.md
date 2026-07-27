@@ -319,3 +319,23 @@ A Tabela abaixo sumariza a articulação entre os objetivos específicos da meto
 | **6. Modelagem Estatística** | Python (`statsmodels`), Regressão Logística GEE | Coeficientes $\hat{\beta}_k$, Odds Ratios e o indicador **ARS** |
 
 ---
+
+## 3.9 Limitações Metodológicas, Considerações Éticas e Diretrizes de Replicabilidade
+
+Para garantir a transparência científica e o alinhamento com os padrões éticos e acadêmicos da Universidade de São Paulo (USP), estabelecem-se as fronteiras de escopo, limitações e salvaguardas da pesquisa.
+
+### 3.9.1 Limitações de Escopo e Fronteiras Amostrais
+1. **Região do Endpoint de Infraestrutura Cloud**: As chamadas programáticas aos modelos Gemini via Vertex AI SDK são executadas com endpoint corporativo `location="us-central1"`, refletindo a infraestrutura padrão do Google Cloud.
+2. **Fornecedor Único de LLM (Família Gemini 2.5)**: O estudo foca na família de modelos Gemini 2.5 (Flash e Pro com e sem Search Grounding) por ser o único motor de IA que integra nativamente busca web e módulo transacional de e-commerce na América Latina.
+3. **Fricção de Visibilidade vs. Tráfego Não-Observável**: A pesquisa afere a **fricção estrutural de visibilidade e omissão de canal D2C** nas superfícies de resposta. Não se mensura o volume efetivo de cliques (*click-through rate* — CTR) ou conversão financeira de vendas, uma vez que tais dados de acesso são proprietários da plataforma.
+4. **Delimitação da Janela do CrUX**: A API do Chrome UX Report fornece dados agregados em janela móvel de 28 dias ($p75$). Quando o volume de acessos de uma página monitorada é insuficiente para gerar dados de campo, a pipeline aplica a regra de *fallback* automático capturando métricas sintéticas de laboratório via PageSpeed Insights API, sinalizadas pela flag binária `is_crux_field_data = 1|0`.
+
+### 3.9.2 Considerações Éticas, LGPD e Conformidade com Termos de Uso
+1. **Ausência de Dados Pessoais (LGPD)**: A pipeline de extração e o banco de dados `thesisusp` não coletam, armazenam ou processam quaisquer dados pessoais de usuários (PII). Todo o tráfego é estritamente limitado a dados públicos de produtos, ofertas e métricas de infraestrutura de páginas web.
+2. **Taxa de Requisição Responsável (*Rate Limiting*)**: Os scripts de extração em Python aplicam intervalos de latência (*backoff / sleep*) entre requisições para evitar sobrecarga de servidores ou consumo indevido de banda dos e-commerces monitorados.
+3. **Respeito às Diretivas de Rastreamento**: As verificações de `robots.txt` e `llms.txt` são executadas via chamadas HTTP GET padrão de leitura de políticas públicas, documentando a transparência das lojas sem violar firewalls de segurança.
+
+### 3.9.3 Diretrizes de Replicabilidade Científica
+Para garantir que a pesquisa possa ser integralmente reproduzida por outros pesquisadores:
+- O código-fonte completo da pipeline, schemas do BigQuery, scripts de extração e o arquivo de especificações de dependências (`requirements.txt`) estão versionados publicamente no repositório GitHub sob a tag de versão **`v2-protocolo-skincare`**.
+- As sementes determinísticas de aleatoriedade e os hiperparâmetros de decodificação foram fixados em **`temperature = 0.0`** com instrução neutra de sistema declarada.

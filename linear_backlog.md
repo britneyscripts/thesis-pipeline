@@ -157,11 +157,13 @@ flowchart TD
 
 #### `[DOC-01]` Finalize Chapter 3 Methodology Manuscript
 * **Type**: Task | **Priority**: High  
-* **Description**: Consolidate all architectural diagrams, prompt taxonomies, GEE model specifications, and EDA results into `capitulo_3_metodologia.md`.
+* **Description**: Consolidate all architectural diagrams, prompt taxonomies, GEE model specifications, limitations, and ethical guidelines into `capitulo_3_metodologia.md`.
 * **Subtasks**:
   - [x] Incorporate Skincare D2C single-cluster rationale and Sample Delimitation Note (Section 3.2).
   - [x] Incorporate Disaggregated Agentic Funnel diagram and CTS 5-Tier Hierarchy (Section 3.6.2 & 3.6.3).
+  - [x] Document 5-step citation parsing algorithm and dictionary mapping protocol (`STORE_ALIASES`) (Section 3.6.3).
   - [x] Document neutral `system_instruction` and Vertex AI hyperparameters (Section 3.6.4).
   - [x] Document 5-variable GEE model specification and ARS formula (Section 3.7).
+  - [x] Document Methodological Limitations, LGPD Ethical Safeguards, and Replicability Guidelines (Section 3.9).
   - [x] Tag and push git release **`v2-protocolo-skincare`** to GitHub.
-* **Deliverable**: Complete Chapter 3 manuscript formatted for ABNT / USP ICMC standards.
+* **Deliverable**: Complete Chapter 3 manuscript formatted for ABNT / USP ICMC standards. (COMPLETED 100%)
