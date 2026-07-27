@@ -216,22 +216,54 @@ Os experimentos revelaram a diferença crítica entre o conhecimento congelado e
 - **Sem Search Grounding (Memória Paramétrica)**: O modelo responde baseado unicamente no seu corpus de pré-treino, omitindo disponibilidade de estoque e dados em tempo real de lojas D2C.
 - **Com Search Grounding (Grounded)**: A ativação da busca em tempo real permite a recuperação dinâmica de preços, links de checkout e ofertas atualizadas de séruns de Vitamina C no Brasil, alterando dramaticamente quais lojas são citadas no vetor final de resposta.
 
+---
+
 ## 3.7 Especificação do Modelo Estatístico (Agent Readiness Score — ARS)
 
 Para medir quantitativamente o impacto marginal dos fatores técnicos da página sobre a probabilidade de uma loja no tempo $t$ obter citação relevante ($\text{CTS}_{it} \ge 50 \implies Y_{it} = 1$), formalizou-se o modelo estatístico multivariado de **Regressão Logística Binomial via Equações de Estimativa Generalizadas (GEE)** com matriz de correlação de trabalho autorregressiva AR(1) agrupada por loja ($i$).
 
 ### 3.7.1 Formulação Matemática
 
-A probabilidade $P(Y_{it} = 1 | \mathbf{X}_{it})$ é modelada por:
+A probabilidade $P(Y_{it} = 1 | \mathbf{X}_{it})$ de a loja $i$ no tempo $t$ ser recomendada é fundada na função logística:
 
-$$\operatorname{logit}(P(Y_{it} = 1)) = \ln\left(\frac{P(Y_{it} = 1)}{1 - P(Y_{it} = 1)}\right) = \beta_0 + \beta_1 X_{1it} + \beta_2 X_{2it} + \beta_3 X_{3it} + \beta_4 X_{4it}$$
+$$\operatorname{logit}(P(Y_{it} = 1)) = \ln\left(\frac{P(Y_{it} = 1)}{1 - P(Y_{it} = 1)}\right) = \beta_0 + \beta_1 X_{1it} + \beta_2 X_{2it} + \beta_3 X_{3it} + \beta_4 X_{4it} + \beta_5 X_{5it}$$
 
-Onde:
+Onde $Y_{it}$ é a variável dependente binária de citação relevante ($\text{CTS}_{it} \ge 50 \implies 1$; caso contrário $\implies 0$).
+
+### 3.7.2 Variáveis Independentes ($\mathbf{X}_{it}$)
+1. **$X_{1it}$ (Schema Completeness Score)**: Proporção contínua de 0 a 1 de presença dos campos essenciais do Schema.org no JSON-LD da página (nome, preço, moeda, disponibilidade, marca, gtin).
+2. **$X_{2it}$ (Bot Accessibility Index)**: Variável dummy binária ($1 =$ Loja acessível sem bloqueio WAF 403; $0 =$ Loja com bloqueio WAF na borda).
+3. **$X_{3it}$ (Technical Latency Index — $\ln(\text{TTFB})$)**: Logaritmo natural do Time to First Byte em ms (dados de campo CrUX p75 com fallback de laboratório PageSpeed quando o CrUX for nulo).
+4. **$X_{4it}$ (Visual Speed Index — LCP)**: Tempo de carregamento do maior elemento visual em segundos (Largest Contentful Paint p75 via CrUX/PageSpeed).
+5. **$X_{5it}$ (Canal D2C Dummy)**: Variável binária de canal ($1 =$ Loja D2C de Marca / DNVB; $0 =$ Marketplace / Varejo Farmacêutico).
+
+```mermaid
+graph TD
+    subgraph Independent Variables X_it
+        A[Schema Completeness Score X1it]
+        B[Bot Accessibility Index X2it]
+        C[Technical Latency Log TTFB X3it]
+        D[Visual Speed Index LCP X4it]
+        E[Canal D2C Dummy X5it]
+    end
+
+    subgraph GEE Logistic Regression Model
+        F["logit(P(Y=1)) = β0 + Σ βk Xkit"]
+    end
+
+    subgraph Dependent Variable Y_it
+        G["Y_it = 1 (CTS >= 50: Citação Relevante)"]
+        H["Y_it = 0 (CTS < 50: Omissão / Menção Genérica)"]
+    end
+
+    A & B & C & D & E --> F
+    F --> G & H
+```
 
 ### 3.7.3 Construção do Agent Readiness Score (ARS)
 O **Agent Readiness Score (ARS)** é obtido pela transformação logística das probabilidades preditas pelo modelo estimado, normalizado em uma escala de 0 a 100:
 
-$$\text{ARS}_i = \frac{1}{1 + e^{-(\hat{\beta}_0 + \sum_{k=1}^5 \hat{\beta}_k X_{ki})}} \times 100$$
+$$\text{ARS}_{it} = \frac{1}{1 + e^{-(\hat{\beta}_0 + \sum_{k=1}^5 \hat{\beta}_k X_{kit})}} \times 100$$
 
 Esta métrica sintética fornece aos gestores de produto (*Product Managers*) e equipes de e-commerce um indicador direto e acionável da prontidão técnica de sua loja para competir na era do *Agentic Commerce*.
 

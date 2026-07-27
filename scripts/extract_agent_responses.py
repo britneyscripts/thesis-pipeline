@@ -42,7 +42,7 @@ QUERIES = [
     {"query": "Qual o melhor serum antioxidante com vitamina C para pele mista com manchas vendida em e-commerce no Brasil", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_1_control"},
 
     # Level 2 — Channel Comparison (Natural Language: Direct Brand Site vs Pharmacy E-commerce)
-    {"query": "Quais sao as melhores opcoes de serum de Vitamina C para comprar direto no site da marca versus em grandes farmacias online no Brasil", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_2_channel"},
+    {"query": "Quais sao as melhores opcoes de serum de Vitamina C para comprar direto no site da marca", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_2_channel"},
     {"query": "Vale mais a pena comprar serum antioxidante de Vitamina C direto do site oficial da marca ou em e-commerce de farmacia no Brasil para conseguir preco bom e cupom", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_2_channel"},
 
     # Level 3 — Multi-Constraint Attributes (Unbiased Attribute-Based Search: Concentration, Texture, Price & Shipping)
