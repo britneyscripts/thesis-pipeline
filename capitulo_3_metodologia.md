@@ -196,9 +196,9 @@ Para resolver a sobreposição de citações e operacionalizar a variável depen
 | Nível de Citação | Denominação do Tier | Pontuação CTS | Critério Operacional & Regra Técnica | Fonte de Dados |
 | :---: | :--- | :---: | :--- | :--- |
 | **Tier 4** | **URL Efetiva de PDP Grounded** | **100 pts** | A URL exata da PDP monitorada é indexada e retornada nos metadados de busca (`grounding_chunks`). | `grounding_uris` (`web.uri`) |
-| **Tier 3** | **Oferta no Sidebar Shopping** | **75 pts** | A loja aparece com oferta ativa e botão de compra no painel lateral do Gemini Shopping ($Y_{2i}$). | Painel Lateral GMC API |
-| **Tier 2** | **Citação de Produto + Loja no Chat** | **50 pts** | O nome do produto E a loja de destino específica são citados no texto do chat ($Y_{1i}$). | Regex em `response_text` |
-| **Tier 1** | **Citação Genérica da Marca** | **25 pts** | Apenas o nome da marca/fabricante é mencionado sem atribuição de loja ou produto específico. | Regex em `response_text` |
+| **Tier 3** | **Oferta no Sidebar Shopping (não instrumentado via código)** | **75 pts** | A loja aparece com oferta ativa e botão de compra no painel lateral do Gemini Shopping ($Y_{2i}$ — observação qualitativa exploratória — §3.6.2). | Inspeção Visual Exploratória (`evidencias/`) |
+| **Tier 2** | **Citação de Produto + Loja no Chat** | **50 pts** | O nome do produto E a loja de destino específica são citados no texto do chat ($Y_{1i}$ em janela de $\pm 250$ chars). | Regex & Token Context em `response_text` |
+| **Tier 1** | **Citação Genérica da Marca** | **25 pts** | Apenas o nome da marca/fabricante é mencionado sem atribuição de loja ou produto específico no contexto local. | Regex em `response_text` |
 | **Tier 0** | **Omissão / Zero Citação** | **0 pts** | A loja/marca é completamente ignorada ou omitida pelo agente de IA. | Nenhuma citação observada |
 
 O metric **CTS** quantifica a riqueza da citação para análises descritivas do Deslocamento de Canal. Para a modelagem econométrica multivariada, aplica-se a **Regra de Binarização**:
