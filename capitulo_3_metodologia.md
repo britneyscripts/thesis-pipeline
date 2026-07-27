@@ -101,7 +101,7 @@ A escolha da pilha de pacotes em Python foi metodologicamente fundamentada nas e
 
 ## 3.4 Análise de Inacessibilidade, Bloqueios de Bots e Diretivas de IA
 
-Um dos achados empíricos centrais do projeto residiu na identificação da **Arquitetura da Invisibilidade**: o insucesso no acesso a diversas lojas por ferramentas automatizadas de extração e por agentes de IA. A análise de inacessibilidade revelou quatro fatores determinantes:
+Um dos achados empíricos centrais do projeto residiu na identificação da **Arquitetura da Invisibilidade**: o insucesso no acesso a diversas lojas por ferramentas automatizadas de extração e por agentes de IA. A análise de inacessibilidade revelou três fatores determinantes:
 
 ### 1. Web Application Firewalls (WAF) e Proteções Anti-Bot
 Lojas como **Mercado Livre**, **Amazon Brasil**, **Magazine Luiza** e **Americanas** utilizam soluções avançadas de segurança na borda (Cloudflare, Akamai Bot Manager, PerimeterX). Chamadas HTTP diretas por scripts convencionais de scraping recebem respostas HTTP 403 Forbidden ou 503, acompanhadas de desafios de JavaScript ou Captcha (*"Just a moment..."*). 
@@ -114,7 +114,7 @@ A análise dos arquivos `robots.txt` de grandes marketplaces revelou a inclusão
 | Loja / Dominio | HTTP Status robots.txt | Bloqueio GPTBot / CCBot / AI | Bloqueio Google-Extended | Inacessibilidade HTTP Direta |
 | :--- | :---: | :---: | :---: | :---: |
 | **Amazon Brasil** | 200 | **Sim (Disallow /)** | **Sim (Disallow /)** | Parcial (Captcha / WAF) |
-| **Mercado Livre** | 200 | **Sim (Disallow /)** | **Sim (Via WAF)** | Alta (403 / Captcha) |
+| **Mercado Livre** | 200 | **Sim (Disallow /)** | Não (ausente do robots.txt) | Alta (403 / Captcha) |
 | **Magazine Luiza** | 200 | Não (Sem restrição explícita) | Não | Média (403 em requests diretos) |
 
 ### 3. Validação Diagnóstica de SPAs e Navegador Headless (Playwright)
@@ -170,10 +170,10 @@ Para afastar vieses de indução (*Prompt Priming Bias*), a pesquisa não utiliz
    - *Prompt*: *"Qual é o melhor preço online hoje para o sérum Vitamina C 15 Oil Control da ADCOS ou o VC-10 da Principia de 30ml e em quais e-commerces confiáveis eu encontro?"*
    - *Objetivo Metodológico*: Medir a **Precisão de Atribuição Comercial e Ativação de Sidebar**.
 
-### 3.6.2 Desagregação do Funil Agentício e o Efeito de Deslocamento de Canal
-Os testes empíricos evidenciaram uma **desagregação estrutural e um deslocamento de canal na resposta do Gemini**:
-- **Superfície 1 — Janela de Chat Conversacional ($Y_{1i}$)**: Atua na fase de **Descoberta e Curadoria de Produtos**. Alimentada por Open-Web RAG e síntese vetorial. Concede menção de marca às lojas oficiais D2C no texto conversacional (ex.: *"Você encontra a loja oficial da Principia"*).
-- **Superfície 2 — Painel Lateral Gemini Shopping ($Y_{2i}$)**: Atua na fase de **Transação e Roteamento Comercial**. Alimentada por feeds da API do Google Merchant Center (GMC) e protocólos de inventário. **Desloca a conversão**, omitindo a loja oficial D2C e exibindo botões de compra direcionados a marketplaces e farmácias concorrentes (ex.: Amazon, Beleza na Web, Farmácia Preço Popular, Droga Raia).
+### 3.6.2 Desagregação do Funil Agentício e o Efeito de Deslocamento de Canal (Observação Qualitativa Exploratória)
+Os testes empíricos de interface evidenciaram uma **desagregação estrutural e um deslocamento de canal na resposta do Gemini**, documentados via inspeção visual exploratória e capturas de tela arquivadas em `evidencias/`:
+- **Superfície 1 — Janela de Chat Conversacional ($Y_{1i}$)**: Atua na fase de **Descoberta e Curadoria de Produtos**. Alimentada por Open-Web RAG e síntese vetorial. Concede menção de marca às lojas oficiais D2C no texto conversacional (ex.: *"Onde encontrar melhor preço: Drogasil e loja oficial da Principia"*).
+- **Superfície 2 — Painel Lateral Gemini Shopping ($Y_{2i}$)**: Atua na fase de **Transação e Roteamento Comercial**. Alimentada por feeds da API do Google Merchant Center (GMC) e protocólos de inventário. **Desloca a conversão**, omitindo a loja oficial D2C das opções de compra e exibindo botões de oferta direcionados a marketplaces e farmácias concorrentes (ex.: Amazon, Beleza na Web, Farmácia Preço Popular, Droga Raia).
 
 ```mermaid
 flowchart TD
@@ -182,9 +182,9 @@ flowchart TD
         B --> C[Citação de Marcas e Produtos no Texto Conversacional]
     end
 
-    subgraph 2. Painel Lateral Shopping (Transação & GMC API - Y2)
+    subgraph 2. Painel Lateral Shopping (Transação & GMC API - Y2 - Observação Qualitativa)
         C -->|Clique no Card / Intenção de Compra| D[Google Merchant Center API]
-        D --> E[Deslocamento de Canal: Ofertas de Marketplaces & Farmácias]
+        D --> E[Deslocamento de Canal: Ofertas de Marketplaces & Farmácias (Arquivado em evidencias/)]
     end
 ```
 
