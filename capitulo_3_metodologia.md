@@ -188,18 +188,19 @@ flowchart TD
     end
 ```
 
-### 3.6.3 Sistema de Pontuação Hierárquica de Citação ($Y_{\text{score}}$)
-Para resolver a sobreposição de citações e operacionalizar a variável dependente com rigor científico, formalizou-se um **Sistema de Pontuação Hierárquica de Citação (5 Tiers — 0 a 100 pontos)**:
+### 3.6.3 Sistema de Pontuação Hierárquica de Citação — CTS (Citation Tier Score)
+Para resolver a sobreposição de citações e operacionalizar a variável dependente com rigor científico, formalizou-se o **Citation Tier Score (CTS)** — uma escala ordinal de 5 níveis (0 a 100 pontos):
 
-| Nível de Citação | Denominação do Tier | Pontuação | Critério Operacional & Regra Técnica | Fonte de Dados |
+| Nível de Citação | Denominação do Tier | Pontuação CTS | Critério Operacional & Regra Técnica | Fonte de Dados |
 | :---: | :--- | :---: | :--- | :--- |
-| **Tier 4** | **URL Efetiva de PDP Grounded** | **100 pts** | A URL exata da PDP monitorada é indexada e retornada nas metadados de busca (`grounding_chunks`). | `grounding_uris` (`web.uri`) |
+| **Tier 4** | **URL Efetiva de PDP Grounded** | **100 pts** | A URL exata da PDP monitorada é indexada e retornada nos metadados de busca (`grounding_chunks`). | `grounding_uris` (`web.uri`) |
 | **Tier 3** | **Oferta no Sidebar Shopping** | **75 pts** | A loja aparece com oferta ativa e botão de compra no painel lateral do Gemini Shopping ($Y_{2i}$). | Painel Lateral GMC API |
 | **Tier 2** | **Citação de Produto + Loja no Chat** | **50 pts** | O nome do produto E a loja de destino específica são citados no texto do chat ($Y_{1i}$). | Regex em `response_text` |
 | **Tier 1** | **Citação Genérica da Marca** | **25 pts** | Apenas o nome da marca/fabricante é mencionado sem atribuição de loja ou produto específico. | Regex em `response_text` |
 | **Tier 0** | **Omissão / Zero Citação** | **0 pts** | A loja/marca é completamente ignorada ou omitida pelo agente de IA. | Nenhuma citação observada |
 
-Este sistema ordinal quantifica diretamente o **Deslocamento de Canal**: uma loja que obtém 50 pontos no Chat (Tier 2), mas 0 pontos no Sidebar (Tier 3), registra uma perda empírica de 50 pontos na fase de conversão comercial.
+O metric **CTS** quantifica a riqueza da citação para análises descritivas do Deslocamento de Canal. Para a modelagem econométrica multivariada, aplica-se a **Regra de Binarização**:
+$$Y_{it} = \begin{cases} 1, & \text{se } \text{CTS}_{it} \ge 50 \text{ (Tier 2, 3 ou 4 — Citação Relevante de Canal)} \\ 0, & \text{se } \text{CTS}_{it} < 50 \text{ (Tier 0 ou 1 — Omissão ou Menção Genérica)} \end{cases}$$
 
 ### 3.6.4 Modelos Avaliados e Infraestrutura Vertex AI
 As chamadas aos agentes foram executadas via **Google Cloud Vertex AI SDK**, testando 4 configurações experimentais padronizadas para garantir consistência em todas as rodadas $t$:
@@ -208,7 +209,7 @@ As chamadas aos agentes foram executadas via **Google Cloud Vertex AI SDK**, tes
 3. **`gemini-2.5-flash-grounded`**: Gemini 2.5 Flash com **Google Search Grounding** ativo.
 4. **`gemini-2.5-pro-grounded`**: Gemini 2.5 Pro com **Google Search Grounding** ativo.
 
-### 3.6.4 Efeito da Memória Paramétrica vs. Google Search Grounding
+### 3.6.5 Efeito da Memória Paramétrica vs. Google Search Grounding
 Os experimentos revelaram a diferença crítica entre o conhecimento congelado e o rastreamento em tempo real:
 - **Sem Search Grounding (Memória Paramétrica)**: O modelo responde baseado unicamente no seu corpus de pré-treino, omitindo disponibilidade de estoque e dados em tempo real de lojas D2C.
 - **Com Search Grounding (Grounded)**: A ativação da busca em tempo real permite a recuperação dinâmica de preços, links de checkout e ofertas atualizadas de séruns de Vitamina C no Brasil, alterando dramaticamente quais lojas são citadas no vetor final de resposta.
@@ -217,13 +218,13 @@ Os experimentos revelaram a diferença crítica entre o conhecimento congelado e
 
 ## 3.7 Especificação do Modelo Estatístico (Agent Readiness Score — ARS)
 
-Para medir quantitativamente o impacto marginal dos fatores técnicos da página sobre a probabilidade de uma loja ser recomendada e citada por um agente de IA, formalizou-se o modelo estatístico multivariado de **Regressão Logística Binomial**.
+Para medir quantitativamente o impacto marginal dos fatores técnicos da página sobre a probabilidade de uma loja ser recomendada e citada por um agente de IA ($Y_{it} = 1$), formalizou-se o modelo estatístico multivariado de **Regressão Logística Binomial via Equações de Estimativa Generalizadas (GEE)** com matriz de correlação de trabalho autorregressiva AR(1) para tratar a autocorrelação de medidas repetidas no tempo $t$.
 
 ### 3.7.1 Formulação Matemática
 
-A probabilidade $P(Y_i = 1 | \mathbf{X}_i)$ de a loja $i$ ser citada pelo agente de IA é modelada por:
+A probabilidade $P(Y_{it} = 1 | \mathbf{X}_{it})$ de a loja $i$ no tempo $t$ obter citação relevante ($\text{CTS}_{it} \ge 50$) é modelada por:
 
-$$\operatorname{logit}(P(Y_i = 1)) = \ln\left(\frac{P(Y_i = 1)}{1 - P(Y_i = 1)}\right) = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{3i} + \beta_4 X_{4i} + \beta_5 X_{5i} + \varepsilon_i$$
+$$\operatorname{logit}(P(Y_{it} = 1)) = \ln\left(\frac{P(Y_{it} = 1)}{1 - P(Y_{it} = 1)}\right) = \beta_0 + \beta_1 X_{1it} + \beta_2 X_{2it} + \beta_3 X_{3it} + \beta_4 X_{4it} + \varepsilon_{it}$$
 
 Onde:
 - **$Y_i$ (Variável Dependente)**: Indicadora binária de citação ($1 =$ Loja citada na resposta do agente; $0 =$ Loja omitida ou não citada).
