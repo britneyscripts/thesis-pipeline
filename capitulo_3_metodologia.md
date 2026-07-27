@@ -311,9 +311,9 @@ A Tabela abaixo sumariza a articulação entre os objetivos específicos da meto
 
 | Etapa Metodológica | Ferramentas / Tecnologias | Artefatos Gerados |
 | :--- | :--- | :--- |
-| **1. Mapeamento & Seleção** | Python (`urls.json`), RegExp | Amostra de SKUs e lojas (Eletrônicos e Skincare D2C/Marketplace) |
-| **2. Extração & Raspagem** | Requests, BeautifulSoup, Playwright, APIs CrUX e PageSpeed | Arquivos JSON brutos em `extractions/` e tabelas no BigQuery |
-| **3. Análise de Inacessibilidade** | HTTP Status Checkers, Parser `robots.txt`, `llms.txt` | Diagnóstico de WAF (Cloudflare/Akamai), SPAs e diretivas `Disallow` |
+| **1. Mapeamento & Seleção** | Python (`urls.json`), RegExp | Amostra de SKUs e lojas (Skincare D2C, Varejo Farmacêutico e Marketplaces) |
+| **2. Extração & Raspagem** | Requests, BeautifulSoup, APIs CrUX e PageSpeed | Arquivos JSON brutos em `extractions/` e tabelas no BigQuery |
+| **3. Análise de Inacessibilidade** | HTTP Status Checkers, Parser `robots.txt`, `llms.txt`, Playwright Diagnóstico | Diagnóstico de WAF (Cloudflare/Akamai), SPAs e diretivas `Disallow` |
 | **4. Transformação de Dados** | Python (`pandas`, `numpy`), BigQuery Storage | DataFrames `df_store_performance`, `df_agent_citations` e `df_panel_mart_ars` |
 | **5. Protocolo de Agentes de IA** | Vertex AI (Gemini 2.5 Flash / Pro), Google Search Grounding | Tabela `agent_responses` e métricas de citação/latência |
 | **6. Modelagem Estatística** | Python (`statsmodels`), Regressão Logística GEE | Coeficientes $\hat{\beta}_k$, Odds Ratios e o indicador **ARS** |

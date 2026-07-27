@@ -13,7 +13,7 @@
     {
       "store": "Mercado Livre",
       "url": "https://www.mercadolivre.com.br/natura-chronos-serum-intensivo-antioxidante-15ml/up/MLBU1468687669",
-      "type": "Especialista"
+      "type": "Marketplace"
     }
   ],
   "la-roche-posay-pure-vitamin-c12-serum-30ml": [
@@ -25,7 +25,7 @@
     {
       "store": "Droga Raia",
       "url": "https://www.drogaraia.com.br/la-roche-posay-pure-vitamin-c12-oil-control-serum-anti-rugas-para-peles-oleosas-30ml-1168041.html",
-      "type": "Especialista"
+      "type": "Farma/especialista"
     }
   ],
   "neutrogena-hydro-boost-water-gel-50g": [
@@ -42,19 +42,19 @@
     {
       "store": "Mercado Livre",
       "url": "https://www.mercadolivre.com.br/hidratante-facial-hydro-boost-water-gel-50g-neutrogena/p/MLB19899495",
-      "type": "Especialista"
+      "type": "Marketplace"
     }
   ],
   "boticario-botik-serum-alta-potencia-vitamina-c-10-30ml": [
     {
-      "store": "Boticário (D2C)",
+      "store": "O Boticário",
       "url": "https://boticario.com.br/serum-de-alta-potencia-vitamina-c-10-botik-30ml-v2/",
       "type": "D2C marca"
     },
     {
       "store": "Mercado Livre",
       "url": "https://www.mercadolivre.com.br/o-boticario-botik-serum-de-alta-potnia-vitamina-c-10-30ml-momento-de-aplicaco-dianoite-tipo-de-pele-de-os-tipos/p/MLB26997958",
-      "type": "Especialista"
+      "type": "Marketplace"
     },
     {
       "store": "Amazon Brasil",
