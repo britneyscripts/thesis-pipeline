@@ -121,23 +121,26 @@ flowchart TD
 
 ### 📌 EPIC 4: Python Data Wrangling & Econometric Modeling (`MODEL`)
 
-#### `[PY-01]` Python Data Processing & 5-Tier Citation Scoring (pandas)
+#### `[PY-01]` Python Data Processing & 5-Tier Citation Scoring (CTS Algorithm)
 * **Type**: Task | **Priority**: High  
-* **Description**: Process raw BigQuery tables using `pandas` and `google-cloud-bigquery` Python client to compute store performance metrics, parse Schema completeness, and map LLM citations into the **5-Tier Hierarchical Citation Score ($Y_{\text{score}}$: 0–100 pts)**.
+* **Description**: Process raw BigQuery tables using `pandas` and `google-cloud-bigquery` Python client to compute store performance metrics, parse Schema completeness, and map LLM citations into the **Citation Tier Score (CTS: 0–100 pts)** via `STORE_ALIASES` dictionary lookup and $\pm 250$ character windowed context parsing.
 * **Subtasks**:
-  - [ ] Execute Python data wrangling script to compute $Y_{\text{score}}$ (Tier 4: 100pts PDP URI, Tier 3: 75pts Sidebar Offer, Tier 2: 50pts Product+Store Chat Mention, Tier 1: 25pts Brand Mention, Tier 0: 0pts Omission).
-  - [ ] Merge technical predictor metrics ($X_{it}$) and outcome scores ($Y_{it}$) into a consolidated longitudinal panel `pandas.DataFrame`.
-* **Deliverable**: Consolidated panel DataFrame with $Y_{\text{score}}$ ready for GEE modeling.
+  - [x] Update `load_to_bigquery.py` schema to include `grounding_uris` (`REPEATED STRING`), `citation_tier` (`INTEGER`), and `citation_score` (`INTEGER`).
+  - [x] Implement 5-Tier CTS calculation logic with $\pm 250$ char context window and domain-level URI matching.
+  - [x] Index 100% of Skincare D2C brand aliases (`Sallve`, `Creamy Skincare`, `Principia`, `Beyoung`, `ADCOS`, `Dermage`, `O Boticário`, `Natura`, `La Roche-Posay`, `Neutrogena`) in `STORE_ALIASES`.
+  - [x] Document 5-step citation parsing algorithm and dictionary mapping protocol in Section 3.6.3 of `capitulo_3_metodologia.md`.
+* **Deliverable**: Automated CTS calculation module in `scripts/load_to_bigquery.py` & Chapter 3 documentation.
 
 #### `[MODEL-01]` Fit Multivariate Panel GEE Logistic Regression & Compute ARS Score
 * **Type**: Task | **Priority**: High  
-* **Description**: Model citation probability using Generalized Estimating Equations (GEE) to handle longitudinal panel correlation across runs $t$.
+* **Description**: Model citation probability using Generalized Estimating Equations (GEE) with AR(1) working correlation structure in `statsmodels` to handle longitudinal panel correlation across runs $t$.
 * **Subtasks**:
-  - [ ] Fit GEE Logistic Regression with AR(1) working correlation structure in Python (`statsmodels`).
-  - [ ] Extract estimated coefficients ($\beta$), standard errors, Odds Ratios ($\exp(\beta)$), and $p$-values.
+  - [ ] Apply Binarization Rule: $Y_{it} = 1 \iff \text{CTS}_{it} \ge 50$ (Tier 2, 3, or 4); $Y_{it} = 0 \iff \text{CTS}_{it} < 50$ (Tier 0 or 1).
+  - [ ] Fit GEE Logistic Regression with AR(1) working correlation structure grouped by store $i$ in Python (`statsmodels`).
+  - [ ] Extract estimated coefficients ($\beta$), standard errors, Odds Ratios ($\exp(\beta)$), and $p$-values for the 5 predictors ($X_{1it} \dots X_{5it}$).
   - [ ] Compute the **Agent Readiness Score (ARS: 0–100)** for all 10 target stores:
-    $$\text{ARS}_i = \frac{1}{1 + e^{-\hat{z}_i}} \times 100$$
-* **Deliverable**: Econometric GEE model output table & ARS store benchmark ranking.
+    $$\text{ARS}_{it} = \frac{1}{1 + e^{-(\hat{\beta}_0 + \sum_{k=1}^5 \hat{\beta}_k X_{kit})}} \times 100$$
+* **Deliverable**: Econometric GEE model output table & ARS store benchmark ranking in Chapter 4.
 
 ---
 
@@ -148,6 +151,7 @@ flowchart TD
 * **Description**: Formally detail the theoretical discovery of how Generative AI interface architecture splits the shopping funnel into two distinct response surfaces: **Conversational Chat Discovery** (Open-Web RAG) vs. **Shopping Sidebar Transaction** (GMC API).
 * **Subtasks**:
   - [x] Document Chat Window vs. Sidebar Disaggregation in Section 3.6.2 of `capitulo_3_metodologia.md`.
+  - [x] Add Methodological Scope Caveat on Structural Visibility Friction vs. Unobserved Click Traffic in Section 3.6.2.
   - [ ] Connect empirical findings to Accornero's (2026) Shopper Schism framework in Chapter 4 / Results.
 * **Deliverable**: Theoretical Model Section in Dissertation.
 
@@ -155,7 +159,9 @@ flowchart TD
 * **Type**: Task | **Priority**: High  
 * **Description**: Consolidate all architectural diagrams, prompt taxonomies, GEE model specifications, and EDA results into `capitulo_3_metodologia.md`.
 * **Subtasks**:
-  - [x] Incorporate Skincare D2C single-cluster rationale (Section 3.2).
-  - [x] Incorporate Disaggregated Agentic Funnel diagram (Section 3.6.2).
-  - [ ] Insert EDA summary tables and GEE regression results.
+  - [x] Incorporate Skincare D2C single-cluster rationale and Sample Delimitation Note (Section 3.2).
+  - [x] Incorporate Disaggregated Agentic Funnel diagram and CTS 5-Tier Hierarchy (Section 3.6.2 & 3.6.3).
+  - [x] Document neutral `system_instruction` and Vertex AI hyperparameters (Section 3.6.4).
+  - [x] Document 5-variable GEE model specification and ARS formula (Section 3.7).
+  - [x] Tag and push git release **`v2-protocolo-skincare`** to GitHub.
 * **Deliverable**: Complete Chapter 3 manuscript formatted for ABNT / USP ICMC standards.
