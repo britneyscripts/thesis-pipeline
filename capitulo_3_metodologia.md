@@ -206,6 +206,32 @@ Para resolver a sobreposição de citações e operacionalizar a variável depen
 O metric **CTS** quantifica a riqueza da citação para análises descritivas do Deslocamento de Canal. Para a modelagem econométrica multivariada, aplica-se a **Regra de Binarização**:
 $$Y_{it} = \begin{cases} 1, & \text{se } \text{CTS}_{it} \ge 50 \text{ (Tier 2, 3 ou 4 — Citação Relevante de Canal)} \\ 0, & \text{se } \text{CTS}_{it} < 50 \text{ (Tier 0 ou 1 — Omissão ou Menção Genérica)} \end{cases}$$
 
+#### Algoritmo de Extração e Mapeamento de Aliases (`STORE_ALIASES`)
+A classificação automatizada das respostas dos agentes nos Tiers do CTS é executada via script em Python (`scripts/load_to_bigquery.py`), seguindo um protocolo de cinco etapas estritamente auditável:
+
+```mermaid
+flowchart TD
+    A[Payload de Resposta do Agente: response_text + grounding_uris] --> B[Etapa 1: Normalização de Texto & Lowercase]
+    B --> C[Etapa 2: Consulta ao Dicionário Fechado STORE_ALIASES]
+    C --> D{Etapa 3: URL em grounding_uris?}
+    D -->|Sim: Domínio/Path Match| E[Tier 4: 100 pts - Grounded PDP URL]
+    D -->|Não| F{Etapa 4: Alias em response_text?}
+    F -->|Não| G[Tier 0: 0 pts - Omissão]
+    F -->|Sim| H{Janela de +-250 chars tem Produto + Compra?}
+    H -->|Sim| I[Tier 2: 50 pts - Produto + Loja no Chat]
+    H -->|Não| J[Tier 1: 25 pts - Citação Genérica da Marca]
+```
+
+1. **Etapa 1 — Normalização e Extração de Entidades**: O texto da resposta (`response_text`) e a lista de URLs recuperadas no grounding (`grounding_uris`) são convertidos para caracteres minúsculos, eliminando ruídos de formatação.
+2. **Etapa 2 — Consulta ao Dicionário Fechado de Aliases (`STORE_ALIASES`)**: Para cada uma das 10 marcas D2C monitoradas e dos 11 canais varejistas/marketplaces, o algoritmo consulta um dicionário fechado com os nomes oficiais, variações de escrita e domínios da web (ex.: `Sallve` $\rightarrow$ `["sallve", "sallve.com.br", "loja sallve"]`; `Principia` $\rightarrow$ `["principia", "principia.com.br", "principiaskin"]`; `Creamy` $\rightarrow$ `["creamy", "creamy.com.br", "loja creamy"]`).
+3. **Etapa 3 — Avaliação do Tier 4 (Grounded URI)**: O algoritmo verifica se qualquer URL retornada em `grounding_uris` contém o padrão de domínio/caminho da loja (`/{alias}`, `.{alias}.`, `={alias}`). Havendo correspondência $\implies$ **Tier 4 (100 pts)**.
+4. **Etapa 4 — Avaliação de Vizinhança de Contexto para Tier 2 vs Tier 1 (Janela de $\pm 250$ caracteres)**: Para cada ocorrência do alias no texto conversacional, inspeciona-se uma janela local de $\pm 250$ caracteres:
+   - Se a janela contiver **tokens de produto** (`vitamina c`, `sérum`, `30ml`, `35g`, `hydro boost`, `chronos`, `vc-10`) **E** **tokens de intenção de compra/preço** (`r$`, `reais`, `preço`, `comprar`, `site oficial`, `cupom`, `oferta`) $\implies$ **Tier 2 (50 pts — Citação de Produto + Loja)**.
+   - Se o alias for mencionado sem essa combinação no contexto local $\implies$ **Tier 1 (25 pts — Menção Genérica da Marca)**.
+5. **Etapa 5 — Aplicação da Regra de Binarização para Regressão ($Y_{it}$)**:
+   - Atribui-se $Y_{it} = 1$ para todas as observações com $\text{CTS}_{it} \ge 50$ (Tiers 2, 3 ou 4).
+   - Atribui-se $Y_{it} = 0$ para observações com $\text{CTS}_{it} < 50$ (Tiers 0 ou 1).
+
 ### 3.6.4 Modelos Avaliados, Instrução de Sistema e Hiperparâmetros Vertex AI
 As chamadas aos agentes foram executadas via **Google Cloud Vertex AI SDK**, testando 4 configurações experimentais padronizadas para garantir consistência em todas as rodadas $t$:
 1. **`gemini-2.5-flash`**: Modelo leve e otimizado para resposta rápida (Memória Paramétrica pura).
