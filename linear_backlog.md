@@ -55,38 +55,44 @@ flowchart TD
 
 ### 📌 EPIC 2: Exploratory Data Analysis (`EDA`) — Panel Data Focus
 
-#### `[EDA-01]` Basic Descriptive Statistics & Distribution Analysis
+#### `[EDA-01]` Central Tendency & Dispersion Analysis Across Execution Runs $t$
 * **Type**: Task | **Priority**: High  
-* **Description**: Run Python scripts on BigQuery `thesisusp` to compute central tendency and dispersion metrics across execution runs $t$.
+* **Description**: Compute comprehensive statistical metrics across execution runs $t$ on BigQuery dataset `thesisusp` to establish baseline distributions for technical predictors and outcome metrics.
 * **Subtasks**:
-  - [ ] Compute **Mean, Median, Standard Deviation, IQR (Q3-Q1), Min, Max, and Skewness** for `TTFB`, `LCP`, `CLS`, `PageSpeed Score`, and `Schema Completeness`.
-  - [ ] Generate boxplots comparing Shopify DNVBs vs. General Retail Channels.
-  - [ ] Calculate Zero-Citation Inflation rate (% of runs with 0 citations).
-* **Deliverable**: `extractions/eda_descriptive_stats.csv` & boxplot figures.
+  - [ ] Extract panel dataset linking `content_extractions`, `pagespeed_extractions`, `crux_extractions`, and `agent_responses`.
+  - [ ] Compute summary metrics (**Mean, Median, Standard Deviation, Interquartile Range Q3-Q1, Min, Max, and Skewness**) for `mobile_ttfb`, `mobile_lcp`, `mobile_cls`, `mobile_score`, `schema_completeness`, and `citation_score`.
+  - [ ] Calculate the **Zero-Citation Inflation Rate** (% of runs $t$ resulting in Tier 0 zero citations).
+  - [ ] Generate comparative boxplot visualizations comparing Shopify DNVBs vs. General Retail Channels.
+* **Deliverable**: `extractions/eda_descriptive_stats.csv` & `extractions/eda_channel_comparison_boxplots.png`.
 
 #### `[EDA-02]` Data Imputation & Fallback Hierarchy (CrUX Field vs. PageSpeed Lab)
 * **Type**: Task | **Priority**: High  
-* **Description**: Implement data imputation hierarchy using PageSpeed Insights lab metrics as a fallback when CrUX field data is missing due to low traffic.
+* **Description**: Establish data quality metrics and document the lab baseline fallback hierarchy when CrUX field data is missing due to low traffic volume.
 * **Subtasks**:
-  - [ ] Map CrUX data coverage (% of pages with valid p75 field data).
-  - [ ] Implement Fallback Imputation Rule: Use PageSpeed Lab TTFB/LCP when CrUX field data is NULL, adding binary flag `is_crux_field_data = 1|0`.
-* **Deliverable**: Data Imputation Summary Table & Fallback Coverage Report.
+  - [ ] Calculate CrUX field data coverage rate (% of target store PDPs with valid $p75$ field metrics).
+  - [ ] Evaluate correlation ($r$) between CrUX field TTFB/LCP and PageSpeed synthetic lab metrics across high-traffic retail stores.
+  - [ ] Document PageSpeed lab metrics as the controlled synthetic baseline for lower-traffic D2C PDPs.
+* **Deliverable**: `extractions/eda_crux_coverage_report.csv` & Data Quality Imputation Matrix.
 
-#### `[EDA-03]` Security Walls & Bot Accessibility Matrix
+#### `[EDA-03]` Security Walls & Bot Accessibility Matrix (WAF & Crawler Policies)
 * **Type**: Task | **Priority**: Medium  
-* **Description**: Map WAF blocking patterns and `robots.txt` AI crawler disallow directives.
+* **Description**: Map edge security blocking patterns (Cloudflare / Akamai 403 Forbidden) and AI crawler `robots.txt` disallow policies across all 16 monitored e-commerce stores.
 * **Subtasks**:
-  - [ ] Aggregate HTTP status response rates (200 OK, 403 Forbidden, 429 Rate Limited) across store extractions.
-  - [ ] Parse `robots.txt` for AI crawler disallow rules (`GPTBot`, `Google-Extended`, `ClaudeBot`, `CCBot`).
-* **Deliverable**: Security & Bot Accessibility Contingency Table.
+  - [ ] Aggregate HTTP response code distributions (200 OK, 403 Forbidden, 429 Rate Limited, 503 Service Unavailable) across extraction runs.
+  - [ ] Parse `robots.txt` disallow rules for major AI crawler User-Agents (`Google-Extended`, `GPTBot`, `ClaudeBot`, `CCBot`).
+  - [ ] Construct the binary predictor $X_{2it}$ ($1 =$ Unblocked / 200 OK; $0 =$ WAF 403 Forbidden).
+* **Deliverable**: Security & Bot Accessibility Contingency Matrix in Chapter 4.
 
-#### `[EDA-04]` Schema.org JSON-LD Completeness Index
+#### `[EDA-04]` Schema.org JSON-LD Structured Data Completeness Index ($X_{1it}$)
 * **Type**: Task | **Priority**: High  
-* **Description**: Measure data completeness of structured markup across all 10 target D2C/Retail SKUs.
+* **Description**: Perform deep structural audit of JSON-LD microdata across all target PDPs to compute the Schema Completeness Score ($X_{1it}$).
 * **Subtasks**:
-  - [ ] Calculate % presence of 11 mandatory e-commerce JSON-LD fields (`name`, `price`, `priceCurrency`, `availability`, `brand`, `gtin`, etc.).
-  - [ ] Rank stores by Schema Completeness Index.
-* **Deliverable**: Schema Completeness Ranking Table.
+  - [ ] Parse `@context` and `@type` declarations (`Product`, `Offer`, `Brand`, `AggregateRating`) from raw HTML `<script type="application/ld+json">` tags.
+  - [ ] Evaluate presence of 11 mandatory e-commerce JSON-LD properties: `name`, `image`, `description`, `sku`, `gtin` / `gtin13`, `brand`, `offers`, `price`, `priceCurrency`, `availability`, and `seller`.
+  - [ ] Calculate continuous score $X_{1it} = \frac{\text{Count(Fields Present)}}{11} \in [0.0, 1.0]$.
+  - [ ] Rank all 16 monitored store PDPs by Schema Completeness Index ($X_1$) and cross-tabulate against D2C vs. Retail channel type ($X_5$).
+  - [ ] Export structured data completeness breakdown table for Chapter 4 results.
+* **Deliverable**: `extractions/eda_schema_completeness_ranking.csv` & Schema Quality Distribution Chart.
 
 ---
 
