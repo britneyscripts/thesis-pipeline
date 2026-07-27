@@ -41,13 +41,13 @@ QUERIES = [
     {"query": "Tenho pele mista a oleosa com manchas e quero comprar online no Brasil um serum facial de Vitamina C com acao antioxidante. Quais marcas voce recomenda e em quais e-commerces ou farmacias posso comprar", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_1_control"},
     {"query": "Qual o melhor serum antioxidante com vitamina C para pele mista com manchas vendida em e-commerce no Brasil", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_1_control"},
 
-    # Level 2 — Channel Comparison (D2C Brands vs. Pharmacy E-commerce)
-    {"query": "Quais sao as melhores opcoes de serum vitamina C 30ml vendidos em lojas D2C de marcas nacionais vs grandes farmacias no Brasil", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_2_channel"},
-    {"query": "Onde comprar serum de vitamina C 30ml com melhor preco e cupom: site oficial da marca D2C ou e-commerce de farmacia no Brasil", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_2_channel"},
+    # Level 2 — Channel Comparison (Natural Language: Direct Brand Site vs Pharmacy E-commerce)
+    {"query": "Quais sao as melhores opcoes de serum de Vitamina C para comprar direto no site da marca versus em grandes farmacias online no Brasil", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_2_channel"},
+    {"query": "Vale mais a pena comprar serum antioxidante de Vitamina C direto do site oficial da marca ou em e-commerce de farmacia no Brasil para conseguir preco bom e cupom", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_2_channel"},
 
-    # Level 3 — Multi-Constraint Attributes (Active Ingredient + Specific Brands)
-    {"query": "Qual e o melhor preco online hoje para o serum Vitamina C 15 Oil Control da ADCOS ou o VC-10 da Principia de 30ml e em quais e-commerces confiaveis eu encontro", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_3_attributes"},
-    {"query": "Qual o melhor serum antioxidante Vitamina C 30ml para pele oleosa considerando preco e frete no Brasil: Sallve, Creamy, Principia ou Beyoung", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_3_attributes"},
+    # Level 3 — Multi-Constraint Attributes (Unbiased Attribute-Based Search: Concentration, Texture, Price & Shipping)
+    {"query": "Qual e o melhor preco online hoje para um serum facial de Vitamina C com concentracao entre 10% e 15% e textura leve para pele oleosa, e em quais lojas online confiaveis eu encontro no Brasil", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_3_attributes"},
+    {"query": "Qual o melhor serum antioxidante de Vitamina C para pele mista considerando preco, frete e cupom de desconto em e-commerces no Brasil", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_3_attributes"},
 
     # --- LEGACY COEXISTENCE QUERIES (TRANSITION PERIOD) ---
     # PRODUCT EXACT

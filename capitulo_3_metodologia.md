@@ -160,15 +160,15 @@ O protocolo experimental de chamadas aos agentes de IA foi desenhado para testar
 ### 3.6.1 Taxonomia de Prompts Não-Induzidos (*Unbiased Prompt Engineering*)
 Para afastar vieses de indução (*Prompt Priming Bias*), a pesquisa não utiliza nomes de marcas nas perguntas genéricas e não assume uma jornada de busca linear. Os prompts são categorizados em três níveis independentes de abstração semântica:
 
-1. **Nível 1 — Consulta Centrada no Problema (Zero-Knowledge / Alta Abstração)**:
+1. **Nível 1 — Consulta Centrada no Problema (Zero-Knowledge / Alta Abstração — Controle)**:
    - *Prompt*: *"Tenho pele mista a oleosa com manchas e quero comprar online no Brasil um sérum facial de Vitamina C com ação antioxidante para uso diário. Quais marcas você recomenda e em quais e-commerces ou farmácias posso comprar hoje?"*
-   - *Objetivo Metodológico*: Medir a **Descoberta Orgânica por RAG** (*Discovery & Grounding*). Avalia se marcas D2C emergem espontaneamente pela qualidade do seu conteúdo e marcação estruturada no Open-Web.
-2. **Nível 2 — Comparação de Canais (D2C vs. Varejo Farmacêutico)**:
-   - *Prompt*: *"Quais são as melhores opções de sérum de Vitamina C de 30ml vendidas em e-commerces D2C de marcas nacionais versus grandes farmácias no Brasil? Onde encontro com melhores ofertas?"*
-   - *Objetivo Metodológico*: Medir o **Vício de Atribuição de Canal**. Avalia se a IA prioriza lojas D2C de fabricante ou redes farmacêuticas.
-3. **Nível 3 — Atributos Específicos & Ativos Químicos (Baixa Abstração)**:
-   - *Prompt*: *"Qual é o melhor preço online hoje para o sérum Vitamina C 15 Oil Control da ADCOS ou o VC-10 da Principia de 30ml e em quais e-commerces confiáveis eu encontro?"*
-   - *Objetivo Metodológico*: Medir a **Precisão de Atribuição Comercial e Ativação de Sidebar**.
+   - *Objetivo Metodológico*: Medir a **Descoberta Orgânica por RAG** (*Discovery & Grounding*). Avalia se marcas D2C emergem espontaneamente pela qualidade do seu conteúdo e marcação estruturada no Open-Web sem qualquer viés de marca.
+2. **Nível 2 — Comparação de Canais em Linguagem Natural (Site da Marca vs. Varejo Farmacêutico)**:
+   - *Prompt*: *"Quais são as melhores opções de sérum de Vitamina C para comprar direto no site da marca versus em grandes farmácias online no Brasil? Vale mais a pena comprar no site oficial ou na farmácia para ter cupom?"*
+   - *Objetivo Metodológico*: Medir a **Preferência de Atribuição de Canal em Linguagem Natural**. Avalia se o agente prioriza a loja de fábrica (*"direto do site da marca"*) ou a rede farmacêutica sem usar jargões técnicos de e-commerce.
+3. **Nível 3 — Atributos Funcionais e Restrições de Produto (Sem Indução de Marca Única)**:
+   - *Prompt*: *"Qual é o melhor preço online hoje para um sérum facial de Vitamina C com concentração entre 10% e 15% e textura leve para pele oleosa, e em quais lojas online confiáveis eu encontro no Brasil?"*
+   - *Objetivo Metodológico*: Medir o **Roteamento Comercial por Atributos**. Testa como a IA seleciona o canal de destino quando restrições funcionais (concentração, tipo de pele, preço e frete) são especificadas pelo consumidor sem forçar marcas específicas.
 
 ### 3.6.2 Desagregação do Funil Agentício e o Efeito de Deslocamento de Canal (Observação Qualitativa Exploratória)
 Os testes empíricos de interface evidenciaram uma **desagregação estrutural e um deslocamento de canal na resposta do Gemini**, documentados via inspeção visual exploratória e capturas de tela arquivadas em `evidencias/`:
