@@ -31,6 +31,8 @@ flowchart LR
 
 Para garantir a coerência metodológica e evitar o ruído de heterogeneidade entre categorias díspares (como a comparação entre produtos eletrônicos commoditizados e cosméticos), a pesquisa concentrou-se exclusivamente no setor de **Cuidados Pessoais e Beleza (Skincare)** no mercado brasileiro. O Brasil figura entre os três maiores mercados globais de cosméticos (ABIHPEC / Euromonitor), apresentando uma dinâmica única de alta densidade de redes farmacêuticas físicas concorrendo com a expansão acelerada de Marcas Nativas Digitais D2C (*Digital Native Vertical Brands*).
 
+> **Nota de Delimitação Amostral e Fase Piloto**: Os dados coletados em execuções anteriores ao lançamento da versão `v2-protocolo-skincare` constituíram a **Fase Piloto Exploratória** (utilizada para testes diagnósticos de acessibilidade, validação da API e verificação de limites de conhecimento/*knowledge cutoff* na categoria de eletrônicos). A amostragem quantitativa longitudinal submetida à modelagem econométrica no Capítulo 4 compõe-se estritamente das execuções $t$ padronizadas sob o protocolo `v2-protocolo-skincare` (escopo 100% skincare, temperatura $T=0.0$, amostragem sem viés de indução e instrução neutra de sistema).
+
 ### Padronização do Cluster de Produtos (*Hero Product Cluster*)
 Para evitar viés de precificação por volume ou variação de ativos químicos, a amostragem de SKUs foi estritamente padronizada em um único cluster funcional: **Séruns Faciais de Vitamina C / Antioxidantes (Volumetria padrão de 30ml/30g e concentração dermatológica entre 10% e 20%)**.
 
