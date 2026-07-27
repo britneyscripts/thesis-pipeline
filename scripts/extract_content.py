@@ -169,7 +169,8 @@ def main(run_str=None):
                 res["schema"] = {"fields_presence": {}}
                 
             res["llms_txt"] = check_llms_txt(url)
-            res["robots_txt"] = {"status_code": check_robots_txt(url)}
+            import time
+            time.sleep(1)  # Rate limiting backoff delay between requests
             results.append(res)
             
             schema_present = [k for k, v in res.get("schema", {}).get("fields_presence", {}).items() if v]

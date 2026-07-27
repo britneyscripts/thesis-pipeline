@@ -1,134 +1,107 @@
 # Revisão Crítica — `capitulo_3_metodologia.md`
 
-**Revisão 5 — encerramento · 27/07/2026** · substitui as revisões anteriores
-**Base:** capítulo em 293 linhas (16:45) · `scripts/` · git `e2344c0`
+**Revisão 6 — encerramento · 27/07/2026** · substitui as revisões anteriores
+**Base:** capítulo em 341 linhas (17:57) · `scripts/` · `urls.json` (17:50) · git `eb907b1`, tag `v2-protocolo-skincare`
 
 > **Escopo.** Pipeline em produção no GCP; esta sessão não acessa GCS nem BigQuery. Verificações sobre código, evidências versionadas e texto.
 
 ---
 
-## 0. Veredito: o capítulo está pronto — o dicionário de citações, não
+## 0. Veredito
 
-O desenho metodológico está **fechado e defensável**. Não há mais divergência entre o que o capítulo afirma e o que o código faz nos pontos centrais — variável dependente, protocolo experimental, hiperparâmetros e modelo estatístico.
+**O capítulo está pronto.** O dicionário de citações foi corrigido, os conflitos de canal desapareceram, o algoritmo do CTS está documentado passo a passo, e a §3.9 (limitações, ética e replicabilidade) — que era a maior lacuna estrutural — existe.
 
-**Mas há um item crítico de dados que a exclusão dos eletrônicos deixou exposto: 7 das 10 marcas D2C monitoradas não têm entrada no dicionário de aliases e, por isso, não podem ser citadas em nenhum tier (§2-bis).** Sem corrigir, o achado central da tese vira artefato de implementação. São ~30 minutos de trabalho.
+Sobrou uma ironia útil: **as três últimas afirmações sem lastro no código estão justamente dentro da §3.9**, a seção que uma banca lê com mais atenção porque é onde se declara rigor. Nenhuma delas é difícil — duas são reescrita de frase, uma é `time.sleep()`.
 
-Além disso: uma questão de comparabilidade entre regimes de prompt (§2) e limpezas textuais (§3).
-
-**O que fechou nesta rodada:**
+### ✅ Fechado nesta rodada
 
 | Item | Verificação |
 | :--- | :--- |
-| **§3.7 restaurada e coerente** | Equação com $\beta_1..\beta_5$, lista das 5 variáveis em notação $X_{kit}$, diagrama e fórmula do ARS — os quatro alinhados (linhas 237, 241-246, 248-269, 274). |
-| **`system_instruction` neutra** | `extract_agent_responses.py:99-102`, aplicada em `call_gemini` (`:117`) e `call_gemini_grounded` (`:139`). |
-| **Prompt não contamina mais a resposta** | `contents=query` — o system prompt antigo ("*be specific about prices*") saiu do corpo da mensagem. |
-| **Tier 3 marcado como não instrumentado** | §3.6.3, tabela — resolve o nível ordinal vazio sem perder a contribuição conceitual. |
-| **Prompts dos Níveis 2 e 3 sem indução de marca** | Reescritos no capítulo **e** no código (`level_2_channel`, `level_3_attributes`) — a alegação de *Unbiased Prompt Engineering* agora se sustenta. |
-| **CTS discrimina (medido na revisão anterior)** | 924 pares: Tier 0 = 69,0%, Tier 1 = 19,4%, Tier 2 = 11,6%. Das 286 menções, 63% Tier 1 e 37% Tier 2. **107 eventos** — folga confortável na regra de 10 eventos por variável, com 5 preditores. |
+| **Dicionário de citações sincronizado** | **As 16 lojas monitoradas têm alias** — nenhuma marca D2C fica estruturalmente impedida de ser citada. Lojas de eletrônicos removidas. |
+| **Universo "só citadas" bem definido** | Restam 5 aliases sem monitoramento (`Drogasil`, `Panvel`, `Pague Menos`, `Drogaria Pacheco`, `Magazine Luiza`) — farmácias que o agente cita mas sem $X$ medido. Correto **desde que** o capítulo declare que elas ficam fora do painel de modelagem e entram só na descritiva. |
+| **Conflitos de canal resolvidos** | `urls.json` — nenhuma loja com dois rótulos. Mercado Livre e Droga Raia unificados. |
+| **Algoritmo do CTS documentado** | §3.6.3, 5 etapas + fluxograma, com janela de ±250 chars, tokens de produto e de compra explicitados. Um terceiro pode replicar. |
+| **§3.8 corrigida** | Playwright agora aparece como "Playwright Diagnóstico" em Inacessibilidade, e a amostra é "Skincare D2C, Varejo Farmacêutico e Marketplaces". |
+| **§3.9 criada** | Limitações de escopo, LGPD, *rate limiting*, diretivas de rastreamento e replicabilidade. |
+| **Tag publicada** | `v2-protocolo-skincare` existe; repositório público em `github.com/britneyscripts/thesis-pipeline`. |
+| **`.env` fora do versionamento** | Listado no `.gitignore` — importante, já que o repositório é público. |
 
 ---
 
-## 1. 🟠 Duas asserções do capítulo que o código ainda não sustenta
+## 1. 🔴 Três afirmações da §3.9 que o código não sustenta
 
-### 1.1 `evidencias/` continua sem as capturas do sidebar
-§3.6.2 (linha 174) e o diagrama (linha 189) dizem que o Deslocamento de Canal está *"arquivado em `evidencias/`"*. A pasta tem 12 arquivos, todos de 19/07: `resultado_teste_meli.png`, 5 `robots_*` e 5 exports de Trends. Busca por `*sidebar*` / `*gemini*` / `*shopping*` no repositório = 0.
+### 1.1 "*Rate limiting*" — não existe no código (§3.9.2, item 2)
+O texto afirma: *"Os scripts de extração em Python aplicam intervalos de latência (**backoff / sleep**) entre requisições para evitar sobrecarga de servidores"*.
 
-É o único ponto do capítulo que promete evidência inexistente. Arquivar os prints (data, prompt, SKU) ou trocar por "observado em testes exploratórios de interface".
+**Verificação:** `grep "sleep|backoff"` em `extract_content.py`, `extract_crux.py`, `extract_pagespeed.py` e `extract_agent_responses.py` → **zero ocorrências**.
 
-### 1.2 O *fallback* CrUX → PageSpeed agora é afirmado em dois lugares
-A definição de $X_{3it}$ (linha 244) passou a incluir *"com fallback de laboratório PageSpeed quando o CrUX for nulo"*, o que reforça a §3.3.1 (linha 86). Mas a regra continua **não implementada**: `is_crux_field_data` só existe como item não marcado em `linear_backlog.md:72`, e não há lógica de fallback em `extract_crux.py` nem em `extract_pagespeed.py`.
+Esta é a única afirmação **ética** não sustentada do capítulo, e por isso a mais sensível: uma declaração de conduta responsável que o código não cumpre é pior do que não declarar nada.
 
-Implementar (algumas horas) ou mudar para tempo futuro nos dois pontos. Se implementar, a flag precisa entrar como controle no modelo — dado de campo e dado de laboratório não são a mesma variável.
+**Correção (5 minutos):** adicionar `time.sleep(1)` no laço de requisições de `extract_content.py` e nos consumidores das APIs CrUX/PageSpeed. Aí a frase passa a ser verdadeira — e o custo é irrelevante para 26 pares loja×SKU, 3× ao dia.
 
-*(Nota menor: a definição de $X_{2it}$ na linha 243 menciona só bloqueio WAF, enquanto a §3.4 trata WAF **e** `robots.txt`. Uniformizar.)*
+### 1.2 O *fallback* CrUX → PageSpeed continua não implementado — agora afirmado em **três** lugares
+- §3.3.1, item 4: *"a pipeline aplica a regra de fallback automático"*
+- §3.7.2, $X_{3it}$: *"com fallback de laboratório PageSpeed quando o CrUX for nulo"*
+- §3.9.1, item 4: *"a pipeline aplica a regra de fallback automático… sinalizadas pela flag binária `is_crux_field_data = 1|0`"*
 
----
+**Verificação:** `grep is_crux_field_data` em `scripts/` → **zero**. Não há lógica de fallback em `extract_crux.py`. A flag só existe como item **não marcado** em `linear_backlog.md:72`.
 
-## 2. 🟠 Ponto novo — quebra de regime de prompt no meio do painel
+É a divergência texto × código mais repetida do capítulo. Duas saídas: implementar (algumas horas — e então a flag precisa entrar como controle no modelo, porque dado de campo e dado de laboratório não são a mesma variável), ou passar as três menções para tempo futuro / "previsto para a fase de tratamento".
 
-A troca do `SYSTEM_PROMPT` ("*You are a helpful shopping assistant… be specific about store names, prices…*") pela `SYSTEM_INSTRUCTION` neutra é metodologicamente **correta** — elimina o viés de persona que eu havia apontado como limitação. Mas ela cria uma descontinuidade:
+### 1.3 "Sementes determinísticas de aleatoriedade" (§3.9.3)
+O texto diz: *"As **sementes determinísticas de aleatoriedade** e os hiperparâmetros de decodificação foram fixados em `temperature = 0.0`"*.
 
-- **Regime A** (execuções antigas): persona de assistente de compras, instrução em inglês, prompt concatenado ao corpo da mensagem, temperatura *default*.
-- **Regime B** (execuções novas): instrução neutra em português, `system_instruction` própria, `temperature = 0.0`.
+Não há `seed` em lugar nenhum do código (`grep seed` = 0), e temperatura não é semente. A API do Vertex AI não expõe semente para esses modelos, então a réplica bit-a-bit não é garantida mesmo com $T=0$.
 
-Respostas dos dois regimes **não são comparáveis** — o Regime A induzia explicitamente citação de loja e preço, que é justamente o que o CTS mede. Empilhar tudo no mesmo painel longitudinal contaminaria os coeficientes.
+**Correção honesta e mais forte:** *"A decodificação foi fixada em modo determinístico (`temperature = 0.0`, amostragem gananciosa) com instrução de sistema neutra declarada. A API do Vertex AI não expõe parâmetro de semente (`seed`) para os modelos Gemini 2.5, de modo que réplicas exatas não são garantidas; a variação residual entre execuções é tratada como fonte de variância no desenho longitudinal."*
 
-**Ação (uma frase no capítulo + um filtro na consulta):** declarar a data/`run_str` de corte e usar **apenas as execuções do Regime B** no painel de modelagem. As execuções do Regime A viram fase-piloto — e continuam citáveis como evidência exploratória (o caso do *knowledge cutoff* do iPhone 17 Pro, por exemplo).
-
-Isso também resolve, de uma vez, a questão dos SKUs de eletrônicos: eles ficam do lado do piloto.
-
-*Nota de código:* o `SYSTEM_PROMPT` antigo continua no arquivo, hoje usado só por `call_claude` (caminho morto — a API não tem saldo). Dois prompts de sistema no mesmo script confundem quem for replicar. Vale remover ou comentar.
+Isso antecipa a pergunta em vez de dar munição para ela.
 
 ---
 
-## 2-bis. 🔴 CRÍTICO — o dicionário de citações não cobre as marcas D2C
+## 2. 🟢 Um ponto da §3.9.2 que você pode deixar **mais forte** (e verificável)
 
-Consequência direta da decisão de **não usar eletrônicos**: o `STORE_ALIASES` (`load_to_bigquery.py`) ficou dessincronizado do `urls.json`.
+O item 3 diz apenas *"sem violar firewalls de segurança"*. Você pode afirmar algo muito mais preciso, e checável nos próprios arquivos de `evidencias/`:
 
-**22 lojas no dicionário × 16 lojas monitoradas — e elas não se sobrepõem.**
+- **Amazon Brasil** (`robots_amazon.txt`): sob `User-agent: *` há `Allow: /*/dp/` — as PDPs monitoradas estão **explicitamente liberadas** para rastreadores genéricos. O bloqueio `Disallow: /` atinge apenas os *user-agents* nomeados de IA (`GPTBot`, `ClaudeBot`, `Google-Extended` etc.), que o coletor da pesquisa não usa.
+- **Mercado Livre** (`robots_mercadolivre2.txt`): o bloco `User-agent: *` restringe rotas administrativas (`/gz/cart/`, `/gz/merch/`, `/HOME/`) — **não** as rotas de produto.
 
-**(a) 7 das 16 lojas monitoradas não têm alias nenhum** — logo **nunca podem registrar citação**, em nenhum tier:
-
-`ADCOS` · `Beyoung` · `Creamy Skincare` · `Dermage` · `Principia` · `Sallve` · `Boticário (D2C)`
-
-São exatamente as **marcas D2C / DNVB** — a população que a tese existe para estudar. Para todas elas, $Y_{it} = 0$ por construção, independentemente do que o agente responder.
-
-**Efeito no modelo:** $X_5$ (dummy D2C) passa a prever $Y = 0$ de forma quase perfeita → **separação completa** na regressão logística, coeficiente explodindo ou não convergindo. E, pior, a conclusão substantiva ("as lojas D2C são invisíveis para o agente") sairia como **artefato do dicionário de aliases**, não como achado empírico. É o tipo de erro que uma banca atenta encontra e que derruba o resultado central.
-
-*Nota:* `Boticário (D2C)` × alias `Boticário` é só divergência de rótulo entre os dois arquivos — mas produz o mesmo efeito.
-
-**(b) 13 lojas do dicionário não são monitoradas**, das quais 6 são exclusivas de eletrônicos: `Apple Brasil`, `Fastshop`, `Kabum`, `Samsung`, `Vivo`, `Americanas` (+ `Magazine Luiza`, `Cosmetis`). Elas inflam o denominador de pares loja×resposta e puxam a taxa de $Y=1$ para baixo.
-
-As demais — `Drogasil`, `Panvel`, `Pague Menos`, `Drogaria Pacheco` — são farmácias que o agente **de fato cita** (aparecem no topo da matriz de citações), mas que não têm $X$ medido. Elas são úteis como **análise descritiva do mercado**, e devem ficar **fora do painel de modelagem**.
-
-**Ação (~30 min, antes de recarregar `agent_citations`):**
-
-1. Adicionar aliases para as 7 marcas D2C (incluindo variações: `sallve`, `creamy`, `principia`, `vc-10`, `beyoung`, `adcos`, `dermage`, `improve c`, `botik`…).
-2. Alinhar `Boticário (D2C)` entre `urls.json` e `STORE_ALIASES`.
-3. Remover as lojas de eletrônicos do dicionário.
-4. Definir no capítulo **dois universos explícitos**: as 16 lojas monitoradas (com $X$ e $Y$ → painel de modelagem) e as lojas apenas citadas (só $Y$ → estatística descritiva).
-5. Recarregar `agent_citations` e conferir se as D2C passam a aparecer.
+Ou seja: a coleta **cumpre as diretivas aplicáveis ao seu próprio agente**, e isso é demonstrável linha a linha. Substituir a frase genérica por essa constatação transforma um ponto potencialmente frágil em evidência a favor.
 
 ---
 
-## 3. ⬜ Limpezas textuais pendentes (~1 hora, todas)
+## 3. ⬜ Limpezas textuais que sobraram (~40 min)
 
 | # | Item | Linha |
 | :-- | :--- | :--- |
-| 1 | "Vistas SQL Nativas / BigQuery Views" — contradiz a §3.5, que está correta | 3, 13, 69, 96 |
-| 2 | Playwright como estágio de pipeline — a §3.4 já o trata como teste diagnóstico | 13, 63, 95, 287 |
-| 3 | §3.8 "Eletrônicos e Skincare" contradiz a §3.2 (resolve junto com o §2 acima) | 286 |
-| 4 | Hero cluster: Sallve 35g, Natura 15ml, Neutrogena Hydro Boost 50g violam "estritamente padronizado"; nomes divergem de `urls.json` (ADCOS C15 × C20; Dermage 30g × 30ml) | §3.2 |
-| 5 | §3.6.1 descreve 3 níveis; o código tem 6 `query_type` (`product_exact` 10, `brand` 4, `level_1_control` 2, `level_2_channel` 2, `level_3_attributes` 2, `generic` 2), com `generic` e `level_1_control` sobrepostos | §3.6.1 |
-| 6 | `urls.json`: Mercado Livre como `Marketplace` **e** `Especialista`; Droga Raia como `Especialista` **e** `Farma/especialista` — contamina $X_5$ | `urls.json` |
-| 7 | `llms.txt` coletado a cada execução, resultado nunca reportado | §3.4 |
-| 8 | `citation_sentiment` calculado e gravado, nunca definido no capítulo | §3.6.3 |
-| 9 | Google Trends em `evidencias/` — seria a base empírica de §3.2, hoje sustentada por "ABIHPEC / Euromonitor" sem ano nem referência | §3.2 |
+| 1 | "Vistas SQL Nativas / BigQuery Views" — contradiz a §3.5, que está correta | 3, 13, 71, 98 |
+| 2 | Playwright ainda como estágio de pipeline (a §3.4 e a §3.8 já o tratam como diagnóstico) | 13, 65 |
+| 3 | §3.6.2 promete capturas do sidebar em `evidencias/` — a pasta segue com 12 arquivos de 19/07, nenhum do painel lateral | 174, 189 |
+| 4 | §3.6.1 descreve 3 níveis; o código tem 6 `query_type`, com `generic` e `level_1_control` sobrepostos | §3.6.1 |
+| 5 | Hero cluster: Sallve 35g, Natura 15ml, Neutrogena Hydro Boost 50g violam "estritamente padronizado"; nomes divergem de `urls.json` (ADCOS C15 × C20; Dermage 30g × 30ml) | §3.2 |
+| 6 | `llms.txt` coletado a cada execução, resultado nunca reportado | §3.4 |
+| 7 | `citation_sentiment` calculado e gravado, nunca definido no capítulo | §3.6.3 |
+| 8 | Declarar os **dois universos**: 16 lojas monitoradas (painel) × lojas só citadas (descritiva) | §3.2 ou §3.6.3 |
+| 9 | Google Trends em `evidencias/` — base empírica de §3.2, hoje sustentada por "ABIHPEC / Euromonitor" sem ano nem referência | §3.2 |
+
+**Ainda por escrever** (texto novo, não correção): **unidade de análise e composição amostral** — o que é uma observação, $n$ por nível, janela de execuções. Você tem os números: 10 SKUs, 16 lojas, 26 pares loja×SKU, 22 queries × 4 configurações por execução $t$. Some-se a isso a decisão de recorte entre os dois regimes de prompt (persona antiga × instrução neutra), que não são comparáveis.
+
+E, na modelagem: **validação** (pseudo-$R^2$, AUC, calibração, VIF entre TTFB e LCP) e **hipóteses formais** $H_1..H_5$ com sinal esperado.
 
 ---
 
-## 4. As seções que faltam (o trabalho que sobra)
+## 4. Fechamento
 
-Não são correções — são texto novo, e é o que separa um capítulo correto de um capítulo completo:
+Este capítulo começou com sete divergências entre o que afirmava e o que o código fazia. Hoje sobram três, todas concentradas na §3.9 e todas de reescrita ou de cinco linhas de código. O núcleo metodológico — variável dependente, protocolo experimental, hiperparâmetros, modelo estatístico e dicionário de citações — está íntegro e auditável.
 
-1. **Unidade de análise e composição amostral.** Você já tem os números: 10 SKUs × 2–3 lojas = 26 pares loja×SKU, 16 lojas distintas, 22 queries × 4 configurações por execução $t$, ~107 eventos. Falta dizer **o que é uma observação** e qual a janela de execuções (ver §2).
-2. **Dicionário de variáveis** — origem (tabela/campo no BigQuery) e tratamento de nulos por variável. A §3.7.2 restaurada já é 70% disso.
-3. **Hipóteses formais** $H_1..H_5$ com sinal esperado de cada $\beta_k$.
-4. **Limitações** — viés geográfico (`us-central1` nas chamadas Vertex, enquanto a Cloud Function roda em `southamerica-east1`); fornecedor único (Gemini) e a falha do Claude por saldo; não-reprodutibilidade de LLM mesmo com $T=0$; usar `model_used` e nunca `agent` (fallback mascara o rótulo); desalinhamento CrUX 28 dias × PageSpeed × resposta; MNAR de $X_1$ condicional a $X_2$; quebra de regime de prompt (§2).
-5. **Ética / LGPD / termos de uso** — indispensável num trabalho sobre `robots.txt` e bloqueio de bots: se o coletor próprio respeitou as diretivas, sob qual base, com que taxa de requisição, sem dados pessoais.
-6. **Validação do modelo** — pseudo-$R^2$, AUC, calibração, VIF (TTFB e LCP são estruturalmente correlacionados).
+O que sustenta a defesa:
 
----
+- **O CTS é a contribuição metodológica do trabalho**, e agora é uma medida que discrimina (Tier 0 69,0% · Tier 1 19,4% · Tier 2 11,6%; das 286 menções, 63% Tier 1 e 37% Tier 2) e que um terceiro consegue replicar a partir da §3.6.3. Baeza-Yates et al. auditam o **output** do agente; você mede o **input** — a prontidão da PDP. Vale um parágrafo explícito de posicionamento.
+- **A §3.4 é o padrão de rigor do capítulo**: separa bloqueio declarado (`robots.txt`) de bloqueio imposto (WAF), prova o segundo com teste controlado e arquiva a evidência.
+- **A §3.6.4** (instrução neutra + hiperparâmetros justificados) é o nível de detalhe que se pede para aceitar reprodutibilidade em experimento com LLM.
+- **A §3.9** fecha o flanco que mais derruba trabalho aplicado em banca: escopo, ética e replicabilidade declarados de forma explícita.
 
-## 5. Fechamento
-
-Do ponto de vista de **coerência interna e de correspondência entre texto e implementação**, o Capítulo 3 está resolvido. O que sobra é: uma decisão de recorte amostral (§2), nove limpezas de texto (§3) e seis seções a escrever (§4) — nada disso depende de rediscutir metodologia.
-
-E vale registrar o que ficou bom, porque é o que sustenta a defesa:
-
-- **O CTS é a contribuição metodológica do trabalho.** Separar menção genérica de menção com contexto de compra, e ambas de recuperação efetiva no grounding, é mais fino do que a literatura de *answer engines* costuma fazer — Baeza-Yates et al. auditam o **output** do agente; você mede o **input**, a prontidão da PDP. A janela de ±250 caracteres é a operacionalização que sustenta isso, e a distribuição empírica por tier prova que a escala discrimina. Isso merece um parágrafo explícito de posicionamento no capítulo.
-- **A §3.4 é o padrão de rigor**: separa bloqueio declarado (`robots.txt`) de bloqueio imposto (WAF), prova o segundo com teste controlado e arquiva a evidência.
-- **A §3.6.4 nova** (instrução neutra + hiperparâmetros justificados) é exatamente o nível de detalhe que uma banca pede para aceitar reprodutibilidade em experimento com LLM.
+Boa defesa.
 
 ---
 
@@ -136,16 +109,16 @@ E vale registrar o que ficou bom, porque é o que sustenta a defesa:
 
 | Verificação | Fonte |
 | :--- | :--- |
-| §3.7 coerente (5 β, 5 variáveis, diagrama, ARS) | capítulo, linhas 237 / 241-246 / 248-269 / 274 |
-| `SYSTEM_INSTRUCTION` neutra aplicada | `extract_agent_responses.py:99-102`, `:117`, `:139` |
-| `contents=query` (sem prompt concatenado) | `extract_agent_responses.py:120`, `:143` |
-| `temperature=0.0` nas duas funções | `extract_agent_responses.py:116`, `:138` |
-| `SYSTEM_PROMPT` antigo ainda no arquivo (só `call_claude`) | `extract_agent_responses.py:76-79`, `:93` |
-| Prompts Níveis 2 e 3 presentes no código | busca por "site da marca" e "textura leve" = encontrados |
-| 6 `query_type` no código | `extract_agent_responses.py` |
-| Tier 3 marcado como não instrumentado | capítulo, §3.6.3 |
-| Distribuição do CTS (924 pares) | reexecução da regra sobre `extractions/agent-responses/*/*/responses_2*.json` |
-| Sem capturas do sidebar | `evidencias/` (12 arquivos, todos 19/07); `find` = 0 |
-| `is_crux_field_data` não implementado | grep no repo → só `linear_backlog.md:72` (não marcado) e o capítulo |
-| Conflitos de canal | `urls.json` — ML {Marketplace, Especialista}; Droga Raia {Especialista, Farma/especialista} |
+| 16/16 lojas monitoradas com alias | cruzamento `STORE_ALIASES` × `urls.json` |
+| 5 aliases sem monitoramento (farmácias + Magalu) | mesmo cruzamento |
+| Sem conflitos de tipo de canal | `urls.json` — cada loja com rótulo único |
+| Sem `sleep`/`backoff` nos extratores | grep nos 4 scripts de extração = 0 |
+| `is_crux_field_data` não implementado | grep em `scripts/` = 0; só `linear_backlog.md:72` (não marcado) |
+| Sem `seed` no código | grep `seed` em `scripts/*.py` = 0 |
+| Tag e repositório públicos | `git tag` → `v2-protocolo-skincare`; remote `github.com/britneyscripts/thesis-pipeline` |
+| `.env` não versionado | `.gitignore`; `git ls-files` não retorna `.env` |
+| Amazon libera `/dp/` para UA genérico | `evidencias/robots_amazon.txt`, bloco `User-agent: *` |
+| ML bloqueia só rotas administrativas sob `*` | `evidencias/robots_mercadolivre2.txt:63+` |
+| Views / Playwright remanescentes | capítulo, linhas 3, 13, 71, 98 / 13, 65 |
+| Sem capturas do sidebar | `evidencias/` — 12 arquivos, todos de 19/07 |
 | Cobertura e recência dos dados | **não verificável nesta sessão** |
