@@ -67,12 +67,12 @@ flowchart TD
 
 #### `[EDA-02]` Data Imputation & Fallback Hierarchy (CrUX Field vs. PageSpeed Lab)
 * **Type**: Task | **Priority**: High  
-* **Description**: Establish data quality metrics and document the lab baseline fallback hierarchy when CrUX field data is missing due to low traffic volume.
+* **Description**: Establish data quality metrics, calculate CrUX coverage rates, and document the PageSpeed synthetic lab fallback hierarchy for lower-traffic D2C PDPs.
 * **Subtasks**:
-  - [ ] Calculate CrUX field data coverage rate (% of target store PDPs with valid $p75$ field metrics).
-  - [ ] Evaluate correlation ($r$) between CrUX field TTFB/LCP and PageSpeed synthetic lab metrics across high-traffic retail stores.
-  - [ ] Document PageSpeed lab metrics as the controlled synthetic baseline for lower-traffic D2C PDPs.
-* **Deliverable**: `extractions/eda_crux_coverage_report.csv` & Data Quality Imputation Matrix.
+  - [ ] **Calculate CrUX Coverage Rate**: Measure % of target store PDPs with valid $p75$ CrUX field data vs. NULL/missing due to low traffic.
+  - [ ] **Evaluate Lab vs. Field Correlation**: Compute correlation coefficient ($r$) between CrUX field TTFB/LCP and PageSpeed synthetic lab metrics for high-traffic retail stores.
+  - [ ] **Document Fallback Hierarchy Rule**: Use PageSpeed synthetic lab metrics as the controlled baseline when CrUX field data is NULL for lower-traffic D2C PDPs.
+* **Deliverable**: `extractions/eda_crux_coverage_report.csv` & Data Quality Fallback Matrix in Chapter 4.
 
 #### `[EDA-03]` Security Walls & Bot Accessibility Matrix (WAF & Crawler Policies)
 * **Type**: Task | **Priority**: Medium  
