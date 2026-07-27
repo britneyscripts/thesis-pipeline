@@ -204,12 +204,20 @@ Para resolver a sobreposição de citações e operacionalizar a variável depen
 O metric **CTS** quantifica a riqueza da citação para análises descritivas do Deslocamento de Canal. Para a modelagem econométrica multivariada, aplica-se a **Regra de Binarização**:
 $$Y_{it} = \begin{cases} 1, & \text{se } \text{CTS}_{it} \ge 50 \text{ (Tier 2, 3 ou 4 — Citação Relevante de Canal)} \\ 0, & \text{se } \text{CTS}_{it} < 50 \text{ (Tier 0 ou 1 — Omissão ou Menção Genérica)} \end{cases}$$
 
-### 3.6.4 Modelos Avaliados e Infraestrutura Vertex AI
+### 3.6.4 Modelos Avaliados, Instrução de Sistema e Hiperparâmetros Vertex AI
 As chamadas aos agentes foram executadas via **Google Cloud Vertex AI SDK**, testando 4 configurações experimentais padronizadas para garantir consistência em todas as rodadas $t$:
 1. **`gemini-2.5-flash`**: Modelo leve e otimizado para resposta rápida (Memória Paramétrica pura).
 2. **`gemini-2.5-pro`**: Modelo avançado focado em raciocínio complexo (Memória Paramétrica pura).
-3. **`gemini-2.5-flash-grounded`**: Gemini 2.5 Flash com **Google Search Grounding** ativo.
-4. **`gemini-2.5-pro-grounded`**: Gemini 2.5 Pro com **Google Search Grounding** ativo.
+3. **`gemini-2.5-flash-grounded`**: Gemini 2.5 Flash com **Google Search Grounding** ativo (`types.Tool(google_search=types.GoogleSearch())`).
+4. **`gemini-2.5-pro-grounded`**: Gemini 2.5 Pro com **Google Search Grounding** ativo (`types.Tool(google_search=types.GoogleSearch())`).
+
+#### Parâmetros de Execução e Instrução de Sistema (*System Instruction*)
+Para garantir a reprodutibilidade dos experimentos e afastar contaminações de papel artificial (*Persona Contamination Bias*), fixaram-se rigorosamente as seguintes configurações na API `GenerateContentConfig`:
+- **`system_instruction` (Instrução Neutra de Sistema)**:
+  `"Você é um assistente virtual conversacional. Responda às dúvidas do usuário em português do Brasil de forma clara, objetiva e fundamentada em informações precisas da web."`
+  *Justificativa Metodológica*: Preserva o comportamento orgânico conversacional padrão do Gemini frente a consumidores reais, evitando forçar personas de compras ou formatos artificiais de JSON que distorceriam a distribuição natural de respostas.
+- **`temperature = 0.0`**: Decodificação determinística (gananciosa), eliminando ruídos de amostragem estocástica entre execuções repetidas no tempo $t$.
+- **`location = "us-central1"`**: Endpoint de infraestrutura corporativa do Vertex AI SDK.
 
 ### 3.6.5 Efeito da Memória Paramétrica vs. Google Search Grounding
 Os experimentos revelaram a diferença crítica entre o conhecimento congelado e o rastreamento em tempo real:

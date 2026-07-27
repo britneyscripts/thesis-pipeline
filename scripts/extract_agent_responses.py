@@ -96,29 +96,14 @@ def call_claude(model: str, query: str, api_key: str) -> str:
     return message.content[0].text
 
 
+SYSTEM_INSTRUCTION = (
+    "Você é um assistente virtual conversacional. Responda às dúvidas do usuário "
+    "em português do Brasil de forma clara, objetiva e fundamentada em informações precisas da web."
+)
+
+
 def call_gemini(model: str, query: str, api_key: str = None) -> tuple:
-    """Call Gemini via Vertex AI using Application Default Credentials with temperature=0.0."""
-    from google import genai
-    from google.genai import types
-
-    client = genai.Client(
-        vertexai=True,
-        project="thesisusp",
-        location="us-central1"
-    )
-    config = types.GenerateContentConfig(
-        temperature=0.0
-    )
-    response = client.models.generate_content(
-        model=model,
-        contents=f"{SYSTEM_PROMPT}\n\n{query}",
-        config=config
-    )
-    return response.text, []
-
-
-def call_gemini_grounded(model: str, query: str, api_key: str = None) -> tuple:
-    """Call Gemini via Vertex AI with Google Search Grounding enabled and temperature=0.0."""
+    """Call Gemini via Vertex AI using Application Default Credentials with temperature=0.0 and neutral system_instruction."""
     from google import genai
     from google.genai import types
 
@@ -129,11 +114,34 @@ def call_gemini_grounded(model: str, query: str, api_key: str = None) -> tuple:
     )
     config = types.GenerateContentConfig(
         temperature=0.0,
+        system_instruction=SYSTEM_INSTRUCTION
+    )
+    response = client.models.generate_content(
+        model=model,
+        contents=query,
+        config=config
+    )
+    return response.text, []
+
+
+def call_gemini_grounded(model: str, query: str, api_key: str = None) -> tuple:
+    """Call Gemini via Vertex AI with Google Search Grounding enabled, temperature=0.0 and neutral system_instruction."""
+    from google import genai
+    from google.genai import types
+
+    client = genai.Client(
+        vertexai=True,
+        project="thesisusp",
+        location="us-central1"
+    )
+    config = types.GenerateContentConfig(
+        temperature=0.0,
+        system_instruction=SYSTEM_INSTRUCTION,
         tools=[types.Tool(google_search=types.GoogleSearch())]
     )
     response = client.models.generate_content(
         model=model,
-        contents=f"{SYSTEM_PROMPT}\n\n{query}",
+        contents=query,
         config=config
     )
     
