@@ -7,11 +7,13 @@
 
 ---
 
-## 0. Veredito: o capítulo está pronto no que importa
+## 0. Veredito: o capítulo está pronto — o dicionário de citações, não
 
-O desenho metodológico está **fechado e defensável**. Não há mais nenhuma divergência entre o que o capítulo afirma e o que o código faz nos pontos centrais — variável dependente, protocolo experimental, hiperparâmetros e modelo estatístico.
+O desenho metodológico está **fechado e defensável**. Não há mais divergência entre o que o capítulo afirma e o que o código faz nos pontos centrais — variável dependente, protocolo experimental, hiperparâmetros e modelo estatístico.
 
-Resta **uma questão de comparabilidade de dados** (§2, importante e fácil de tratar em uma frase) e uma lista de **limpezas textuais** (§3). Nenhuma delas é de desenho.
+**Mas há um item crítico de dados que a exclusão dos eletrônicos deixou exposto: 7 das 10 marcas D2C monitoradas não têm entrada no dicionário de aliases e, por isso, não podem ser citadas em nenhum tier (§2-bis).** Sem corrigir, o achado central da tese vira artefato de implementação. São ~30 minutos de trabalho.
+
+Além disso: uma questão de comparabilidade entre regimes de prompt (§2) e limpezas textuais (§3).
 
 **O que fechou nesta rodada:**
 
@@ -56,6 +58,36 @@ Respostas dos dois regimes **não são comparáveis** — o Regime A induzia exp
 Isso também resolve, de uma vez, a questão dos SKUs de eletrônicos: eles ficam do lado do piloto.
 
 *Nota de código:* o `SYSTEM_PROMPT` antigo continua no arquivo, hoje usado só por `call_claude` (caminho morto — a API não tem saldo). Dois prompts de sistema no mesmo script confundem quem for replicar. Vale remover ou comentar.
+
+---
+
+## 2-bis. 🔴 CRÍTICO — o dicionário de citações não cobre as marcas D2C
+
+Consequência direta da decisão de **não usar eletrônicos**: o `STORE_ALIASES` (`load_to_bigquery.py`) ficou dessincronizado do `urls.json`.
+
+**22 lojas no dicionário × 16 lojas monitoradas — e elas não se sobrepõem.**
+
+**(a) 7 das 16 lojas monitoradas não têm alias nenhum** — logo **nunca podem registrar citação**, em nenhum tier:
+
+`ADCOS` · `Beyoung` · `Creamy Skincare` · `Dermage` · `Principia` · `Sallve` · `Boticário (D2C)`
+
+São exatamente as **marcas D2C / DNVB** — a população que a tese existe para estudar. Para todas elas, $Y_{it} = 0$ por construção, independentemente do que o agente responder.
+
+**Efeito no modelo:** $X_5$ (dummy D2C) passa a prever $Y = 0$ de forma quase perfeita → **separação completa** na regressão logística, coeficiente explodindo ou não convergindo. E, pior, a conclusão substantiva ("as lojas D2C são invisíveis para o agente") sairia como **artefato do dicionário de aliases**, não como achado empírico. É o tipo de erro que uma banca atenta encontra e que derruba o resultado central.
+
+*Nota:* `Boticário (D2C)` × alias `Boticário` é só divergência de rótulo entre os dois arquivos — mas produz o mesmo efeito.
+
+**(b) 13 lojas do dicionário não são monitoradas**, das quais 6 são exclusivas de eletrônicos: `Apple Brasil`, `Fastshop`, `Kabum`, `Samsung`, `Vivo`, `Americanas` (+ `Magazine Luiza`, `Cosmetis`). Elas inflam o denominador de pares loja×resposta e puxam a taxa de $Y=1$ para baixo.
+
+As demais — `Drogasil`, `Panvel`, `Pague Menos`, `Drogaria Pacheco` — são farmácias que o agente **de fato cita** (aparecem no topo da matriz de citações), mas que não têm $X$ medido. Elas são úteis como **análise descritiva do mercado**, e devem ficar **fora do painel de modelagem**.
+
+**Ação (~30 min, antes de recarregar `agent_citations`):**
+
+1. Adicionar aliases para as 7 marcas D2C (incluindo variações: `sallve`, `creamy`, `principia`, `vc-10`, `beyoung`, `adcos`, `dermage`, `improve c`, `botik`…).
+2. Alinhar `Boticário (D2C)` entre `urls.json` e `STORE_ALIASES`.
+3. Remover as lojas de eletrônicos do dicionário.
+4. Definir no capítulo **dois universos explícitos**: as 16 lojas monitoradas (com $X$ e $Y$ → painel de modelagem) e as lojas apenas citadas (só $Y$ → estatística descritiva).
+5. Recarregar `agent_citations` e conferir se as D2C passam a aparecer.
 
 ---
 

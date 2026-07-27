@@ -496,28 +496,30 @@ AGENT_CITATIONS_SCHEMA = [
 ]
 
 STORE_ALIASES = {
-    "Apple Brasil": ["apple", "apple brasil", "loja da apple"],
-    "Vivo": ["vivo"],
-    "Fastshop": ["fast shop", "fastshop"],
-    "Americanas": ["americanas", "lojas americanas"],
-    "Kabum": ["kabum", "kabum!"],
+    # D2C Brands & DNVBs (100% Skincare Scope)
+    "Sallve": ["sallve", "sallve.com.br", "loja sallve", "site da sallve"],
+    "Creamy Skincare": ["creamy", "creamy skincare", "creamy.com.br", "loja creamy"],
+    "Principia": ["principia", "principia.com.br", "loja principia", "principiaskin"],
+    "Beyoung": ["beyoung", "beyoung.com.br", "loja beyoung"],
+    "ADCOS": ["adcos", "adcos.com.br", "loja adcos"],
+    "Dermage": ["dermage", "dermage.com.br", "loja dermage"],
+    "La Roche-Posay Brasil": ["la roche", "roche posay", "la roche-posay", "laroche-posay"],
+    "Natura Brasil": ["natura", "natura brasil", "natura.com.br"],
+    "O Boticário": ["boticário", "boticario", "o boticário", "o boticario", "botik"],
+    "Neutrogena": ["neutrogena", "neutrogena.com.br"],
+
+    # Retail Stores, Farmas & Marketplaces
     "Amazon Brasil": ["amazon", "amazon.com.br", "amazon brasil"],
-    "Samsung": ["samsung", "loja da samsung"],
-    "Magazine Luiza": ["magazine luiza", "magalu", "magazineluiza"],
     "Mercado Livre": ["mercado livre", "mercadolivre", "mercado libre"],
-    "Natura Brasil": ["natura", "natura brasil"],
-    "La Roche-Posay Brasil": ["la roche", "roche posay", "la roche-posay", "la roche posay"],
-    "Droga Raia": ["droga raia", "raia"],
-    "Drogasil": ["drogasil"],
-    "Pague Menos": ["pague menos"],
-    "Cosmetis": ["cosmetis"],
-    "Neutrogena": ["neutrogena"],
-    "Boticário": ["boticário", "o boticário", "botik"],
-    "Panvel": ["panvel"],
-    "Beleza na Web": ["beleza na web"],
-    "Época Cosméticos": ["época cosméticos", "epoca cosmeticos"],
-    "Drogaria São Paulo": ["drogaria são paulo", "drogaria sao paulo"],
-    "Drogaria Pacheco": ["pacheco", "drogaria pacheco"]
+    "Magazine Luiza": ["magazine luiza", "magalu", "magazineluiza"],
+    "Droga Raia": ["droga raia", "raia", "drogaraia.com.br"],
+    "Drogasil": ["drogasil", "drogasil.com.br"],
+    "Pague Menos": ["pague menos", "paguemenos.com.br"],
+    "Panvel": ["panvel", "panvel.com.br"],
+    "Beleza na Web": ["beleza na web", "belezanaweb.com.br"],
+    "Época Cosméticos": ["época cosméticos", "epoca cosmeticos", "epocacosmeticos.com.br"],
+    "Drogaria São Paulo": ["drogaria são paulo", "drogaria sao paulo", "drogariasaopaulo.com.br"],
+    "Drogaria Pacheco": ["drogaria pacheco", "pacheco", "drogariapacheco.com.br"]
 }
 
 def get_existing_agent_keys(bq_client, table_id):
