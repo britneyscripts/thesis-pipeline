@@ -14,7 +14,13 @@ SKU_CATEGORIES = {
     "natura-serum-intensivo-antioxidante-chronos-15ml-vitamina-c-15": "skincare",
     "la-roche-posay-pure-vitamin-c12-serum-30ml": "skincare",
     "neutrogena-hydro-boost-water-gel-50g": "skincare",
-    "boticario-botik-serum-alta-potencia-vitamina-c-10-30ml": "skincare"
+    "boticario-botik-serum-alta-potencia-vitamina-c-10-30ml": "skincare",
+    "sallve-antioxidante-hidratante-35g": "skincare",
+    "creamy-skincare-vitamina-c-serum-30g": "skincare",
+    "principia-serum-vitamina-c-10-vc-10-30ml": "skincare",
+    "beyoung-booster-antiaging-serum-30ml": "skincare",
+    "adcos-derma-complex-vitamina-c-20-30ml": "skincare",
+    "dermage-improve-c-20-serum-antioxidante-30ml": "skincare"
 }
 
 def ensure_table(bq_client, table_id, schema):
@@ -343,44 +349,84 @@ def load_all():
     pagespeed_skipped = 0
     
     print("Processing GCS JSON blobs...")
-    for blob in blobs:
-        if not blob.name.endswith(".json"):
-            continue
-            
-        parts = blob.name.split("/")
-        if len(parts) < 3:
-            continue
-            
-        sku = parts[0]
-        run_str = parts[1]
-        filename = parts[2]
-        
-        # Determine category
-        category = SKU_CATEGORIES.get(sku, "unknown")
-        
-        # Read file contents
+    if bucket:
         try:
-            raw_text = blob.download_as_text()
-            data = json.loads(raw_text)
+            blobs = bucket.list_blobs()
+            for blob in blobs:
+                if not blob.name.endswith(".json"):
+                    continue
+                parts = blob.name.split("/")
+                if len(parts) < 3:
+                    continue
+                sku = parts[0]
+                run_str = parts[1]
+                filename = parts[2]
+                category = SKU_CATEGORIES.get(sku, "unknown")
+                try:
+                    raw_text = blob.download_as_text()
+                    data = json.loads(raw_text)
+                except Exception as e:
+                    print(f"Error reading blob {blob.name}: {str(e)}")
+                    continue
+                if not isinstance(data, list):
+                    continue
+                if filename.startswith("content_") and not filename.startswith("content_log_"):
+                    rows, skipped = process_content_json(data, run_str, sku, category, existing_content)
+                    content_to_insert.extend(rows)
+                    content_skipped += skipped
+                elif filename.startswith("crux_") and not filename.startswith("crux_log_"):
+                    rows, skipped = process_crux_json(data, run_str, sku, category, existing_crux)
+                    crux_to_insert.extend(rows)
+                    crux_skipped += skipped
+                elif filename.startswith("pagespeed_") and not filename.startswith("pagespeed_log_"):
+                    rows, skipped = process_pagespeed_json(data, run_str, sku, category, existing_pagespeed)
+                    pagespeed_to_insert.extend(rows)
+                    pagespeed_skipped += skipped
         except Exception as e:
-            print(f"Error reading blob {blob.name}: {str(e)}")
-            continue
-            
-        if not isinstance(data, list):
-            continue
-            
-        if filename.startswith("content_") and not filename.startswith("content_log_"):
-            rows, skipped = process_content_json(data, run_str, sku, category, existing_content)
-            content_to_insert.extend(rows)
-            content_skipped += skipped
-        elif filename.startswith("crux_") and not filename.startswith("crux_log_"):
-            rows, skipped = process_crux_json(data, run_str, sku, category, existing_crux)
-            crux_to_insert.extend(rows)
-            crux_skipped += skipped
-        elif filename.startswith("pagespeed_") and not filename.startswith("pagespeed_log_"):
-            rows, skipped = process_pagespeed_json(data, run_str, sku, category, existing_pagespeed)
-            pagespeed_to_insert.extend(rows)
-            pagespeed_skipped += skipped
+            print(f"Notice: GCS blob listing skipped or unavailable: {str(e)}")
+
+    # 4b. Also scan local extractions directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    base_dir = os.path.dirname(script_dir)
+    extractions_dir = os.path.join(base_dir, "extractions")
+    
+    if os.path.exists(extractions_dir):
+        print(f"Processing local extractions from {extractions_dir}...")
+        for root, dirs, files in os.walk(extractions_dir):
+            for file in files:
+                if not file.endswith(".json"):
+                    continue
+                rel_path = os.path.relpath(os.path.join(root, file), extractions_dir)
+                parts = rel_path.split(os.sep)
+                if len(parts) < 3:
+                    continue
+                sku = parts[0]
+                run_str = parts[1]
+                filename = parts[2]
+                category = SKU_CATEGORIES.get(sku, "unknown")
+                
+                try:
+                    with open(os.path.join(root, file), "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                except Exception as e:
+                    print(f"Error reading local file {rel_path}: {str(e)}")
+                    continue
+                    
+                if not isinstance(data, list):
+                    continue
+                    
+                if filename.startswith("content_") and not filename.startswith("content_log_"):
+                    rows, skipped = process_content_json(data, run_str, sku, category, existing_content)
+                    content_to_insert.extend(rows)
+                    content_skipped += skipped
+                elif filename.startswith("crux_") and not filename.startswith("crux_log_"):
+                    rows, skipped = process_crux_json(data, run_str, sku, category, existing_crux)
+                    crux_to_insert.extend(rows)
+                    crux_skipped += skipped
+                elif filename.startswith("pagespeed_") and not filename.startswith("pagespeed_log_"):
+                    rows, skipped = process_pagespeed_json(data, run_str, sku, category, existing_pagespeed)
+                    pagespeed_to_insert.extend(rows)
+                    pagespeed_skipped += skipped
             
     # 5. Insert rows in batch
     content_inserted = 0
@@ -429,6 +475,7 @@ AGENT_RESPONSES_SCHEMA = [
     bigquery.SchemaField("category", "STRING", mode="REQUIRED"),
     bigquery.SchemaField("query", "STRING", mode="REQUIRED"),
     bigquery.SchemaField("response_text", "STRING", mode="NULLABLE"),
+    bigquery.SchemaField("grounding_uris", "STRING", mode="REPEATED"),
     bigquery.SchemaField("response_length", "INTEGER", mode="NULLABLE"),
     bigquery.SchemaField("latency_ms", "INTEGER", mode="NULLABLE"),
     bigquery.SchemaField("error", "STRING", mode="NULLABLE"),
@@ -442,6 +489,8 @@ AGENT_CITATIONS_SCHEMA = [
     bigquery.SchemaField("agent", "STRING", mode="REQUIRED"),
     bigquery.SchemaField("query_type", "STRING", mode="REQUIRED"),
     bigquery.SchemaField("cited", "BOOLEAN", mode="REQUIRED"),
+    bigquery.SchemaField("citation_tier", "INTEGER", mode="NULLABLE"),
+    bigquery.SchemaField("citation_score", "INTEGER", mode="NULLABLE"),
     bigquery.SchemaField("citation_sentiment", "STRING", mode="NULLABLE"),
     bigquery.SchemaField("timestamp", "TIMESTAMP", mode="REQUIRED"),
 ]
@@ -552,6 +601,7 @@ def process_agent_responses(data, existing_keys):
             "category": item.get("category"),
             "query": item.get("query"),
             "response_text": item.get("response_text"),
+            "grounding_uris": item.get("grounding_uris") or [],
             "response_length": int(item.get("response_length") or 0),
             "latency_ms": int(item.get("latency_ms") or 0),
             "error": item.get("error"),
@@ -562,7 +612,7 @@ def process_agent_responses(data, existing_keys):
     return new_rows, skipped_count
 
 def process_agent_citations(results, existing_keys):
-    """Extract store citations from agent response text using aliases."""
+    """Extract store citations from agent response text & grounding metadata using 5-Tier Scoring System."""
     new_rows = []
     skipped_count = 0
     now_iso = datetime.datetime.now().isoformat()
@@ -573,12 +623,14 @@ def process_agent_citations(results, existing_keys):
         sku = item.get("product") or item.get("sku")
         query_type = item.get("query_type")
         response_text = item.get("response_text") or ""
+        grounding_uris = item.get("grounding_uris") or []
         timestamp = item.get("timestamp") or now_iso
         
         if not run_str or not agent or not sku:
             continue
             
         text_lower = response_text.lower()
+        uris_lower = [u.lower() for u in grounding_uris]
         
         for store, aliases in STORE_ALIASES.items():
             key = (run_str, agent, sku, store)
@@ -586,18 +638,51 @@ def process_agent_citations(results, existing_keys):
                 skipped_count += 1
                 continue
                 
-            # Search for aliases
+            # Compute 5-Tier Citation Hierarchy
+            citation_tier = 0
+            citation_score = 0
             cited = False
+            
+            # Check Tier 4: Exact Grounded URI in grounding_chunks
+            has_grounded_uri = False
+            for uri in uris_lower:
+                for alias in aliases:
+                    if len(alias) > 3 and alias in uri:
+                        has_grounded_uri = True
+                        break
+                if has_grounded_uri:
+                    break
+
+            # Search for alias match in conversational text
+            text_mentioned = False
             for alias in aliases:
-                # Require boundary for short words
                 if len(alias) <= 4:
                     if re.search(rf"\b{re.escape(alias)}\b", text_lower):
-                        cited = True
+                        text_mentioned = True
                         break
                 else:
                     if alias in text_lower:
-                        cited = True
+                        text_mentioned = True
                         break
+            
+            # Assign Tiers & Scores
+            if has_grounded_uri:
+                citation_tier = 4
+                citation_score = 100
+                cited = True
+            elif text_mentioned:
+                # Check for product/store price context (Tier 2 vs Tier 1)
+                if any(kw in text_lower for kw in ["r$", "reais", "preço", "preco", "loja", "site", "comprar"]):
+                    citation_tier = 2
+                    citation_score = 50
+                else:
+                    citation_tier = 1
+                    citation_score = 25
+                cited = True
+            else:
+                citation_tier = 0
+                citation_score = 0
+                cited = False
             
             sentiment = None
             if cited:
@@ -610,6 +695,8 @@ def process_agent_citations(results, existing_keys):
                 "agent": agent,
                 "query_type": query_type,
                 "cited": cited,
+                "citation_tier": citation_tier,
+                "citation_score": citation_score,
                 "citation_sentiment": sentiment,
                 "timestamp": timestamp
             }

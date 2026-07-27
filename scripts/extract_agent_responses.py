@@ -20,6 +20,14 @@ AGENTS = {
     "gemini-2.5-pro": {
         "model": "gemini-2.5-pro",
         "client": "google"
+    },
+    "gemini-2.5-flash-grounded": {
+        "model": "gemini-2.5-flash",
+        "client": "google_grounded"
+    },
+    "gemini-2.5-pro-grounded": {
+        "model": "gemini-2.5-pro",
+        "client": "google_grounded"
     }
 }
 
@@ -28,30 +36,39 @@ AGENTS = {
 # ---------------------------------------------------------------------------
 
 QUERIES = [
+    # --- NEW 3-TIER UNBIASED SKINCARE PROMPTS ---
+    # Level 1 — Problem-Centric / Zero-Knowledge (Baseline Control)
+    {"query": "Tenho pele mista a oleosa com manchas e quero comprar online no Brasil um serum facial de Vitamina C com acao antioxidante. Quais marcas voce recomenda e em quais e-commerces ou farmacias posso comprar", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_1_control"},
+    {"query": "Qual o melhor serum antioxidante com vitamina C para pele mista com manchas vendida em e-commerce no Brasil", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_1_control"},
+
+    # Level 2 — Channel Comparison (D2C Brands vs. Pharmacy E-commerce)
+    {"query": "Quais sao as melhores opcoes de serum vitamina C 30ml vendidos em lojas D2C de marcas nacionais vs grandes farmacias no Brasil", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_2_channel"},
+    {"query": "Onde comprar serum de vitamina C 30ml com melhor preco e cupom: site oficial da marca D2C ou e-commerce de farmacia no Brasil", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_2_channel"},
+
+    # Level 3 — Multi-Constraint Attributes (Active Ingredient + Specific Brands)
+    {"query": "Qual e o melhor preco online hoje para o serum Vitamina C 15 Oil Control da ADCOS ou o VC-10 da Principia de 30ml e em quais e-commerces confiaveis eu encontro", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_3_attributes"},
+    {"query": "Qual o melhor serum antioxidante Vitamina C 30ml para pele oleosa considerando preco e frete no Brasil: Sallve, Creamy, Principia ou Beyoung", "product": "vitamina-c-hero-cluster", "category": "skincare", "query_type": "level_3_attributes"},
+
+    # --- LEGACY COEXISTENCE QUERIES (TRANSITION PERIOD) ---
     # PRODUCT EXACT
-    {"query": "iPhone 17 Pro 512GB laranja cosmico preco disponibilidade Brasil", "product": "iphone-17-pro", "category": "electronics", "query_type": "product_exact"},
-    {"query": "Samsung Galaxy S26 Ultra 512GB preto preco disponibilidade Brasil", "product": "samsung-galaxy-s26", "category": "electronics", "query_type": "product_exact"},
-    {"query": "Samsung Galaxy A56 5G 256GB preto preco disponibilidade Brasil", "product": "samsung-galaxy-a56", "category": "electronics", "query_type": "product_exact"},
     {"query": "Natura Chronos Serum Antioxidante Vitamina C 15ml onde comprar", "product": "natura-chronos", "category": "skincare", "query_type": "product_exact"},
     {"query": "La Roche-Posay Pure Vitamin C12 Serum 30ml preco Brasil", "product": "la-roche-posay-vitamin-c12", "category": "skincare", "query_type": "product_exact"},
     {"query": "Neutrogena Hydro Boost Water Gel 50g preco onde comprar", "product": "neutrogena-hydro-boost", "category": "skincare", "query_type": "product_exact"},
     {"query": "Boticario Botik Serum Vitamina C 10% 30ml onde comprar Brasil", "product": "boticario-botik", "category": "skincare", "query_type": "product_exact"},
+    {"query": "Sallve Antioxidante Hidratante Vitamina C 35g onde comprar Brasil", "product": "sallve-antioxidante-hidratante-35g", "category": "skincare", "query_type": "product_exact"},
+    {"query": "Creamy Skincare Vitamina C Serum 30g onde comprar Brasil", "product": "creamy-skincare-vitamina-c-serum-30g", "category": "skincare", "query_type": "product_exact"},
+    {"query": "Principia VC-10 Serum Vitamina C 10% 30ml onde comprar Brasil", "product": "principia-serum-vitamina-c-10-vc-10-30ml", "category": "skincare", "query_type": "product_exact"},
+    {"query": "Beyoung Vita C 18 Serum 30ml onde comprar Brasil", "product": "beyoung-booster-antiaging-serum-30ml", "category": "skincare", "query_type": "product_exact"},
+    {"query": "ADCOS Vitamina C 15 Oil Control 30ml onde comprar Brasil", "product": "adcos-derma-complex-vitamina-c-20-30ml", "category": "skincare", "query_type": "product_exact"},
+    {"query": "Dermage Improve C 20 Biotic Serum 30g onde comprar Brasil", "product": "dermage-improve-c-20-serum-antioxidante-30ml", "category": "skincare", "query_type": "product_exact"},
 
-    # BRAND
-    {"query": "Apple iPhone 17 Pro melhores lojas para comprar no Brasil", "product": "iphone-17-pro", "category": "electronics", "query_type": "brand"},
-    {"query": "Samsung Galaxy S26 Ultra onde comprar melhor preco Brasil", "product": "samsung-galaxy-s26", "category": "electronics", "query_type": "brand"},
-    {"query": "Samsung Galaxy A56 onde comprar melhor preco Brasil", "product": "samsung-galaxy-a56", "category": "electronics", "query_type": "brand"},
-    {"query": "Natura Chronos serum facial onde comprar", "product": "natura-chronos", "category": "skincare", "query_type": "brand"},
+    # BRAND / CHANNEL DISCOVERY
+    {"query": "Quais sao as melhores marcas brasileiras D2C de serum vitamina C para pele oleosa", "product": "natura-chronos", "category": "skincare", "query_type": "brand"},
     {"query": "La Roche-Posay serum vitamina C onde encontrar Brasil", "product": "la-roche-posay-vitamin-c12", "category": "skincare", "query_type": "brand"},
     {"query": "Neutrogena Hydro Boost hidratante facial onde comprar", "product": "neutrogena-hydro-boost", "category": "skincare", "query_type": "brand"},
     {"query": "O Boticario Botik serum vitamina C onde comprar", "product": "boticario-botik", "category": "skincare", "query_type": "brand"},
 
     # GENERIC
-    {"query": "melhor smartphone premium ate R$12.000 para comprar em 2026", "product": "iphone-17-pro", "category": "electronics", "query_type": "generic"},
-    {"query": "melhor smartphone custo beneficio 5G ate R$4.000 em 2026", "product": "samsung-galaxy-s26", "category": "electronics", "query_type": "generic"},
-    {"query": "melhor smartphone intermediario 5G ate R$3.000 em 2026", "product": "samsung-galaxy-a56", "category": "electronics", "query_type": "generic"},
-    {"query": "melhor serum vitamina C antienvelhecimento pele mista", "product": "natura-chronos", "category": "skincare", "query_type": "generic"},
-    {"query": "melhor serum vitamina C para pele oleosa com manchas", "product": "la-roche-posay-vitamin-c12", "category": "skincare", "query_type": "generic"},
     {"query": "melhor hidratante facial leve para pele oleosa", "product": "neutrogena-hydro-boost", "category": "skincare", "query_type": "generic"},
     {"query": "melhor serum vitamina C custo beneficio farmacia Brasil", "product": "boticario-botik", "category": "skincare", "query_type": "generic"},
 ]
@@ -79,30 +96,72 @@ def call_claude(model: str, query: str, api_key: str) -> str:
     return message.content[0].text
 
 
-def call_gemini(model: str, query: str, api_key: str = None) -> str:
-    """Call Gemini via Vertex AI using Application Default Credentials."""
+def call_gemini(model: str, query: str, api_key: str = None) -> tuple:
+    """Call Gemini via Vertex AI using Application Default Credentials with temperature=0.0."""
     from google import genai
+    from google.genai import types
 
     client = genai.Client(
         vertexai=True,
         project="thesisusp",
         location="us-central1"
     )
+    config = types.GenerateContentConfig(
+        temperature=0.0
+    )
     response = client.models.generate_content(
         model=model,
-        contents=f"{SYSTEM_PROMPT}\n\n{query}"
+        contents=f"{SYSTEM_PROMPT}\n\n{query}",
+        config=config
     )
-    return response.text
+    return response.text, []
 
 
-def call_agent(agent_name: str, model: str, query: str, api_key: str) -> str:
+def call_gemini_grounded(model: str, query: str, api_key: str = None) -> tuple:
+    """Call Gemini via Vertex AI with Google Search Grounding enabled and temperature=0.0."""
+    from google import genai
+    from google.genai import types
+
+    client = genai.Client(
+        vertexai=True,
+        project="thesisusp",
+        location="us-central1"
+    )
+    config = types.GenerateContentConfig(
+        temperature=0.0,
+        tools=[types.Tool(google_search=types.GoogleSearch())]
+    )
+    response = client.models.generate_content(
+        model=model,
+        contents=f"{SYSTEM_PROMPT}\n\n{query}",
+        config=config
+    )
+    
+    # Extract grounding URIs / links if present
+    grounding_uris = []
+    try:
+        if response.candidates and response.candidates[0].grounding_metadata:
+            metadata = response.candidates[0].grounding_metadata
+            if hasattr(metadata, 'grounding_chunks') and metadata.grounding_chunks:
+                for chunk in metadata.grounding_chunks:
+                    if hasattr(chunk, 'web') and chunk.web and hasattr(chunk.web, 'uri'):
+                        grounding_uris.append(chunk.web.uri)
+    except Exception as e:
+        print(f"Notice: Could not parse grounding_metadata URIs: {str(e)}")
+
+    return response.text, grounding_uris
+
+
+def call_agent(agent_name: str, model: str, query: str, api_key: str) -> tuple:
     """Dispatch to the correct API client based on agent name."""
     client_type = AGENTS[agent_name]["client"]
 
     if client_type == "anthropic":
-        return call_claude(model, query, api_key)
+        return call_claude(model, query, api_key), []
     elif client_type == "google":
         return call_gemini(model, query, api_key)
+    elif client_type == "google_grounded":
+        return call_gemini_grounded(model, query, api_key)
     else:
         raise ValueError(f"Unsupported client type: {client_type}")
 
@@ -138,6 +197,7 @@ def query_agent(agent_name: str, agent_cfg: dict, query_info: dict, run_str: str
         "category": query_info["category"],
         "query": query_info["query"],
         "response_text": None,
+        "grounding_uris": [],
         "response_length": 0,
         "latency_ms": 0,
         "error": None,
@@ -147,13 +207,14 @@ def query_agent(agent_name: str, agent_cfg: dict, query_info: dict, run_str: str
     # --- Primary model attempt ---
     try:
         t0 = time.monotonic()
-        text = call_agent(agent_name, primary_model, query_info["query"], api_key)
+        text, uris = call_agent(agent_name, primary_model, query_info["query"], api_key)
         elapsed_ms = int((time.monotonic() - t0) * 1000)
 
         base["response_text"] = text
-        base["response_length"] = len(text)
+        base["grounding_uris"] = uris
+        base["response_length"] = len(text) if text else 0
         base["latency_ms"] = elapsed_ms
-        print(f"  [{agent_name}/{primary_model}] OK — {elapsed_ms} ms, {len(text)} chars")
+        print(f"  [{agent_name}/{primary_model}] OK — {elapsed_ms} ms, {len(text) if text else 0} chars, {len(uris)} URIs")
         return base
 
     except Exception as e:
