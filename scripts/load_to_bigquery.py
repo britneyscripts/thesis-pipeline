@@ -647,37 +647,44 @@ def process_agent_citations(results, existing_keys):
             has_grounded_uri = False
             for uri in uris_lower:
                 for alias in aliases:
-                    if len(alias) > 3 and alias in uri:
-                        has_grounded_uri = True
-                        break
+                    # Require boundary or domain pattern for alias matching in URI
+                    if len(alias) > 3:
+                        if rf"/{alias}" in uri or rf".{alias}." in uri or rf"/{alias}." in uri or rf"={alias}" in uri:
+                            has_grounded_uri = True
+                            break
                 if has_grounded_uri:
                     break
 
-            # Search for alias match in conversational text
+            # Search for alias match in conversational text and evaluate windowed context (+-250 chars)
             text_mentioned = False
+            has_windowed_context = False
+            
             for alias in aliases:
-                if len(alias) <= 4:
-                    if re.search(rf"\b{re.escape(alias)}\b", text_lower):
-                        text_mentioned = True
+                pattern = rf"\b{re.escape(alias)}\b" if len(alias) <= 4 else rf"\b{re.escape(alias)}"
+                for m in re.finditer(pattern, text_lower):
+                    text_mentioned = True
+                    # Inspect window of +-250 characters around the alias match
+                    window = text_lower[max(0, m.start() - 250): min(len(text_lower), m.end() + 250)]
+                    has_product = any(prod_kw in window for prod_kw in ["vitamina c", "serum", "sérum", "30ml", "35g", "30g", "hydro boost", "chronos", "vc-10"])
+                    has_purchase = any(buy_kw in window for buy_kw in ["r$", "reais", "preço", "preco", "comprar", "site oficial", "loja oficial", "oferta", "cupom", "farmácia", "farmacia", "loja"])
+                    if has_product and has_purchase:
+                        has_windowed_context = True
                         break
-                else:
-                    if alias in text_lower:
-                        text_mentioned = True
-                        break
+                if has_windowed_context:
+                    break
             
             # Assign Tiers & Scores
             if has_grounded_uri:
                 citation_tier = 4
                 citation_score = 100
                 cited = True
+            elif text_mentioned and has_windowed_context:
+                citation_tier = 2
+                citation_score = 50
+                cited = True
             elif text_mentioned:
-                # Check for product/store price context (Tier 2 vs Tier 1)
-                if any(kw in text_lower for kw in ["r$", "reais", "preço", "preco", "loja", "site", "comprar"]):
-                    citation_tier = 2
-                    citation_score = 50
-                else:
-                    citation_tier = 1
-                    citation_score = 25
+                citation_tier = 1
+                citation_score = 25
                 cited = True
             else:
                 citation_tier = 0

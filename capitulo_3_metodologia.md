@@ -216,51 +216,17 @@ Os experimentos revelaram a diferença crítica entre o conhecimento congelado e
 - **Sem Search Grounding (Memória Paramétrica)**: O modelo responde baseado unicamente no seu corpus de pré-treino, omitindo disponibilidade de estoque e dados em tempo real de lojas D2C.
 - **Com Search Grounding (Grounded)**: A ativação da busca em tempo real permite a recuperação dinâmica de preços, links de checkout e ofertas atualizadas de séruns de Vitamina C no Brasil, alterando dramaticamente quais lojas são citadas no vetor final de resposta.
 
----
-
 ## 3.7 Especificação do Modelo Estatístico (Agent Readiness Score — ARS)
 
-Para medir quantitativamente o impacto marginal dos fatores técnicos da página sobre a probabilidade de uma loja ser recomendada e citada por um agente de IA ($Y_{it} = 1$), formalizou-se o modelo estatístico multivariado de **Regressão Logística Binomial via Equações de Estimativa Generalizadas (GEE)** com matriz de correlação de trabalho autorregressiva AR(1) para tratar a autocorrelação de medidas repetidas no tempo $t$.
+Para medir quantitativamente o impacto marginal dos fatores técnicos da página sobre a probabilidade de uma loja no tempo $t$ obter citação relevante ($\text{CTS}_{it} \ge 50 \implies Y_{it} = 1$), formalizou-se o modelo estatístico multivariado de **Regressão Logística Binomial via Equações de Estimativa Generalizadas (GEE)** com matriz de correlação de trabalho autorregressiva AR(1) agrupada por loja ($i$).
 
 ### 3.7.1 Formulação Matemática
 
-A probabilidade $P(Y_{it} = 1 | \mathbf{X}_{it})$ de a loja $i$ no tempo $t$ obter citação relevante ($\text{CTS}_{it} \ge 50$) é modelada por:
+A probabilidade $P(Y_{it} = 1 | \mathbf{X}_{it})$ é modelada por:
 
-$$\operatorname{logit}(P(Y_{it} = 1)) = \ln\left(\frac{P(Y_{it} = 1)}{1 - P(Y_{it} = 1)}\right) = \beta_0 + \beta_1 X_{1it} + \beta_2 X_{2it} + \beta_3 X_{3it} + \beta_4 X_{4it} + \varepsilon_{it}$$
+$$\operatorname{logit}(P(Y_{it} = 1)) = \ln\left(\frac{P(Y_{it} = 1)}{1 - P(Y_{it} = 1)}\right) = \beta_0 + \beta_1 X_{1it} + \beta_2 X_{2it} + \beta_3 X_{3it} + \beta_4 X_{4it}$$
 
 Onde:
-- **$Y_i$ (Variável Dependente)**: Indicadora binária de citação ($1 =$ Loja citada na resposta do agente; $0 =$ Loja omitida ou não citada).
-
-### 3.7.2 Variáveis Independentes ($\mathbf{X}_i$)
-1. **$X_{1i}$ (Schema Completeness Score)**: Índice contínuo de 0 a 1 que mede a proporção de campos essenciais do Schema.org presentes no JSON-LD da página (nome, preço, moeda, disponibilidade, marca, gtin).
-2. **$X_{2i}$ (Bot Accessibility Index)**: Variável dummy binária ($1 =$ Loja permite rastreamento por robôs e não bloqueia por WAF/robots.txt; $0 =$ Loja possui bloqueio WAF ou Disallow em robots.txt).
-3. **$X_{3i}$ (Time to First Byte Log — TTFB)**: Logaritmo natural do tempo até o primeiro byte retornado pelos servidores (medido em ms via CrUX API), representando a latência de infraestrutura.
-4. **$X_{4i}$ (Largest Contentful Paint — LCP)**: Tempo de carregamento do maior elemento visual em segundos (dados de campo CrUX p75).
-5. **$X_{5i}$ (Tipo de Canal — D2C Dummy)**: Variável categórica ($1 =$ Loja D2C de Marca / DNVB; $0 =$ Marketplace / Varejo Generalista).
-
-```mermaid
-graph TD
-    subgraph Independent Variables X_i
-        A[Schema Completeness Score X1]
-        B[Bot Accessibility Index X2]
-        C[Time to First Byte - TTFB X3]
-        D[Largest Contentful Paint - LCP X4]
-        E[Canal D2C Dummy X5]
-    end
-
-    subgraph Logistic Regression Model
-        F["logit(P(Y=1)) = β0 + Σ βk Xk"]
-    end
-
-    subgraph Dependent Variable Y_i
-        G[Probability of Citation by AI Agent P(Y=1)]
-        H[Agent Readiness Score - ARS]
-    end
-
-    A & B & C & D & E --> F
-    F --> G
-    G --> H
-```
 
 ### 3.7.3 Construção do Agent Readiness Score (ARS)
 O **Agent Readiness Score (ARS)** é obtido pela transformação logística das probabilidades preditas pelo modelo estimado, normalizado em uma escala de 0 a 100:
