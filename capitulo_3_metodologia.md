@@ -173,7 +173,9 @@ Para afastar vieses de indução (*Prompt Priming Bias*), a pesquisa não utiliz
 ### 3.6.2 Desagregação do Funil Agentício e o Efeito de Deslocamento de Canal (Observação Qualitativa Exploratória)
 Os testes empíricos de interface evidenciaram uma **desagregação estrutural e um deslocamento de canal na resposta do Gemini**, documentados via inspeção visual exploratória e capturas de tela arquivadas em `evidencias/`:
 - **Superfície 1 — Janela de Chat Conversacional ($Y_{1i}$)**: Atua na fase de **Descoberta e Curadoria de Produtos**. Alimentada por Open-Web RAG e síntese vetorial. Concede menção de marca às lojas oficiais D2C no texto conversacional (ex.: *"Onde encontrar melhor preço: Drogasil e loja oficial da Principia"*).
-- **Superfície 2 — Painel Lateral Gemini Shopping ($Y_{2i}$)**: Atua na fase de **Transação e Roteamento Comercial**. Alimentada por feeds da API do Google Merchant Center (GMC) e protocólos de inventário. **Desloca a conversão**, omitindo a loja oficial D2C das opções de compra e exibindo botões de oferta direcionados a marketplaces e farmácias concorrentes (ex.: Amazon, Beleza na Web, Farmácia Preço Popular, Droga Raia).
+- **Superfície 2 — Painel Lateral Gemini Shopping ($Y_{2i}$)**: Atua na fase de **Transação e Roteamento Comercial**. Alimentada por feeds da API do Google Merchant Center (GMC) e protocolos de inventário. **Desloca a conversão**, omitindo a loja oficial D2C das opções de compra e exibindo botões de oferta direcionados a marketplaces e farmácias concorrentes (ex.: Amazon, Beleza na Web, Farmácia Preço Popular, Droga Raia).
+
+> **Ressalva Metodológica de Escopo**: A pesquisa não afere o volume de tráfego real (*click-through rate* — CTR) ou a conversão efetiva de vendas, uma vez que dados de cliques dos usuários são proprietários da plataforma. O estudo avalia estritamente a **fricção estrutural de visibilidade**: a omissão da loja oficial D2C do painel de transação impede a captura direta da venda no domínio próprio da marca.
 
 ```mermaid
 flowchart TD
@@ -184,7 +186,7 @@ flowchart TD
 
     subgraph 2. Painel Lateral Shopping (Transação & GMC API - Y2 - Observação Qualitativa)
         C -->|Clique no Card / Intenção de Compra| D[Google Merchant Center API]
-        D --> E[Deslocamento de Canal: Ofertas de Marketplaces & Farmácias (Arquivado em evidencias/)]
+        D --> E[Fricção Estrutural: Omissão da Loja D2C & Roteamento para Marketplaces (Arquivado em evidencias/)]
     end
 ```
 
