@@ -1,0 +1,21 @@
+steps:
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    args:
+      - gcloud
+      - functions
+      - deploy
+      - run-pipeline
+      - --gen2
+      - --runtime=python312
+      - --region=southamerica-east1
+      - --source=.
+      - --entry-point=run_pipeline
+      - --memory=1Gi
+      - --timeout=3600s
+      - --service-account=ghostprod-pipeline@thesisusp.iam.gserviceaccount.com
+      - --set-env-vars=GCP_PROJECT_ID=thesisusp,GOOGLE_CLOUD_PROJECT=thesisusp,GCS_BUCKET_NAME=ghostprod-extractions
+      - --trigger-http
+      - --no-allow-unauthenticated
+
+options:
+  logging: CLOUD_LOGGING_ONLY
