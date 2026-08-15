@@ -1,0 +1,618 @@
+================================================================================
+FILE KEY: 11VO
+BASENAME: Agentic Commerce Applications How Autonomous AI Is Redefining the Retail and ECommerce Industry.pdf
+================================================================================
+Total pages: 12
+
+--- PAGE 1 ---
+ 
+ 
+ 
+Copyright © IJCESEN 
+ 
+International Journal of Computational and Experimental 
+Science and ENgineering 
+(IJCESEN) 
+ 
+Vol. 12-No.1 (2026) pp. 1551-1562 
+http://www.ijcesen.com ISSN: 2149-9144 
+ Research Article  
+ 
+ 
+ 
+Agentic Commerce Applications: How Autonomous AI Is Redefining the Retail & 
+E-Commerce Industry 
+ 
+Sanjay Basu* 
+ 
+TATA Consultancy Services (TCS), USA 
+* Corresponding Author Email: sanjaybasu.work@gmail.com - ORCID: 0000-0002-3117-0050 
+ 
+Article Info: 
+ 
+DOI: 10.22399/ijcesen.5091 
+Received : 02 January 2026 
+Revised : 01 February 2026 
+Accepted : 02 February 2026 
+ 
+Keywords  
+ 
+Agentic Artificial Intelligence,  
+Large Language Models,  
+E-Commerce Transformation,  
+Retail Automation,  
+Autonomous Systems 
+ 
+Abstract:  
+ 
+Retail and e -commerce have steadily evolved from manual operations and rule -based 
+automation to data -driven analytics and, more recently, generative AI systems that 
+assist human decision -making. The next inflection point in this trajectory is agentic 
+artificial intelligence —systems that can interpret goals, plan multi -step actions, 
+coordinate with other agents, and autonomously execute commercial workflows within 
+defined constraints. This paper introduces the concept of agentic commerce, where 
+autonomous AI agents move beyond recommendation and insight generation to actively 
+manage end -to-end retail processes across customer experience, merchandising, 
+operations, and governance.Drawing on recent advances in large language models, 
+multimodal reasoning, and en terprise AI architectures, the paper synthesizes academic 
+literature and industry practices to propose a structured framework for deploying 
+agentic systems in modern retail ecosystems. We examine how agentic capabilities 
+enable continuous demand sensing, d ynamic assortment and pricing decisions, 
+conversational and anticipatory shopping experiences, and real -time operational 
+orchestration across omnichannel environments. Beyond technical architecture, the 
+paper addresses organizational, ethical, and governan ce considerations required to 
+safely operationalize autonomy at scale.By distinguishing assistive AI from truly 
+agentic systems and outlining progressive levels of autonomy in retail decision -making, 
+this work provides both researchers and practitioners wi th a foundation for 
+understanding how autonomous AI reshapes value creation, competitive advantage, and 
+human roles in digital commerce. The paper concludes by identifying open research 
+challenges and future directions for responsible adoption of agentic c ommerce in high -
+frequency retail environments. 
+ 
+1. Scope 
+ 
+The rapid evolution of artificial intelligence in retail 
+has progressed from descriptive analytics and rule -
+based automation toward predictive modeling, 
+generative content creation, and conversational 
+decision support. While recent advances in large 
+language models (LLMs) and multimodal AI have 
+significantly enhance d retailers’ ability to 
+understand customers, optimize assortments, and 
+streamline operations, most deployed systems 
+remain fundamentally assistive in nature —
+supporting human decision -makers rather than 
+independently executing commercial workflows. 
+As reta il ecosystems grow increasingly complex, 
+fast-moving, and omnichannel, the limitations of 
+purely assistive AI become more pronounced. 
+This paper argues that agentic artificial 
+intelligence represents a qualitative shift in the role 
+of AI within retail and digital commerce. Agentic 
+systems move beyond insight generation and 
+recommendation to exhibit characteristics 
+traditionally associated with agency: goal 
+interpretation, multi-step planning, tool invocation, 
+coordination with other agents, autonomous 
+execution, and continuous learning from outcomes. 
+When applied to retail contexts, these capabilities 
+give rise to what this paper defines as agentic 
+commerce—a paradigm in which autonomous AI 
+agents increasingly manage end -to-end commercial 
+processes across customer experience, 
+merchandising, supply chain, pricing, and 
+operational orchestration. 
+The scope of this paper is threefold. First, it 
+synthesizes existing academic research and 
+
+--- PAGE 2 ---
+Sanjay Basu / IJCESEN 12-1(2026)1551-1562 
+ 
+1552 
+ 
+emerging industry practices to position agentic 
+commerce within the broader historical trajectory 
+of retail technology evolution, distinguishing it 
+clearly from prior waves of automation, analytics, 
+and generative AI. Second, it proposes conceptual 
+and architectura l frameworks —including a multi -
+layer LLM-based value chain model and an Agentic 
+Autonomy Framework —that enable systematic 
+reasoning about where, how, and to what extent 
+autonomy should be introduced into retail decision -
+making. These frameworks are designe d to support 
+both scholarly analysis and practical 
+implementation planning. Third, the paper grounds 
+theory in practice through detailed use -case 
+analysis, demonstrating how coordinated agents 
+operate across demand sensing, pricing, inventory 
+orchestration, fulfillment, and customer experience 
+in real-world retail scenarios. 
+Importantly, this work does not frame agentic 
+commerce as a replacement for human expertise. 
+Instead, it examines how increasing levels of 
+autonomy reconfigure human roles —from manual 
+execution toward supervision, policy definition, 
+ethical oversight, and strategic decision -making. 
+The paper explicitly addresses governance, 
+transparency, bias mitigation, accountability, and 
+regulatory compliance as first -class design 
+considerations, recognizing that autonomy without 
+trust undermines both business value and societal 
+acceptance. 
+From a research perspective, this paper contributes 
+to the literature by bridging gaps between AI 
+systems research, retail operations, and digital 
+commerce strategy . While prior studies have 
+examined recommendation systems, conversational 
+agents, demand forecasting, and supply -chain 
+optimization in isolation, relatively little work has 
+explored how multi-agent, LLM -driven systems 
+reshape the retail value chain holist ically, 
+particularly under conditions of high decision 
+frequency and real -time adaptation. By articulating 
+progressive levels of agentic autonomy and 
+mapping them to concrete retail use cases, this 
+paper provides a foundation for future empirical 
+research, comparative studies, and regulatory 
+analysis. 
+The remainder of the paper is structured as follows. 
+Section 2 introduces a theoretical framework for 
+LLM-based value chain transformation and 
+presents an Agentic Autonomy Framework tailored 
+to retail and e -commerce environments. Section 3 
+provides an end -to-end agentic commerce scenario 
+illustrating coordinated autonomous decision -
+making in response to a real -world demand shock. 
+Section 4 examines the operational backbone 
+underpinning agentic commerce, spannin g 
+inventory management, store operations, 
+fulfillment, and last -mile logistics. Section 5 
+addresses strategic, ethical, and organizational 
+considerations associated with deploying 
+autonomous AI at scale. Section 6 outlines a future 
+research agenda, highlig hting open questions 
+related to agent -to-agent negotiation, regulation, 
+workforce transformation, and consumer trust. The 
+paper concludes by reflecting on the long -term 
+implications of agentic commerce for competitive 
+advantage, human-AI collaboration, and  the future 
+structure of digital retail ecosystems. 
+ 
+2. Background and Historical Development of 
+Retail Technology 
+ 
+2.1 Historical Progress in Retail Innovation 
+ 
+The retail industry has witnessed profound 
+technological transformation across four decades, 
+evolving from manually operated point -of-sale 
+systems into deeply instrumented, data -driven 
+digital ecosystems [1]. Early innovations digitized 
+basic transactions, standardized inventory 
+management, and automated store -level reporting. 
+Predictive analytics, r ecommendation engines, and 
+marketing automation matured over time, yet these 
+systems remained constrained by static rules, 
+narrow task orientation, and limited adaptability to 
+rapidly changing market conditions. Generative AI 
+and multimodal reasoning exten ded capabilities, 
+enabling natural language interfaces, scalable 
+content production, and conversational shopping 
+experiences [2]. Most enterprise use cases remained 
+fundamentally assistive, where AI supported 
+workers rather than executing work autonomously. 
+ 
+2.2 Understanding Agentic Systems in 
+Commerce 
+ 
+Agentic AI represents a distinct inflection point in 
+retail technology evolution [1]. Traditional AI 
+models react to predefined inputs, whereas agentic 
+systems exhibit characteristics associated with 
+agency, includ ing goal interpretation, multi -step 
+planning, tool invocation, reflection, and 
+autonomous action. These systems execute 
+workflows, coordinate with other agents, and 
+trigger changes in real business systems rather than 
+simply providing recommendations or summarizing 
+data. This shift proves transformational for retail, a 
+sector defined by high -volume decisions, 
+fluctuating demand patterns, and operational 
+complexity spanning supply chain, merchandising, 
+marketing, and customer engagement [2]. 
+Contemporary retailers operate across omnichannel 
+environments where assortment changes occur 
+daily, consumer preferences shift hourly, and 
+
+--- PAGE 3 ---
+Sanjay Basu / IJCESEN 12-1(2026)1551-1562 
+ 
+1553 
+ 
+supply chain constraints require real -time 
+adjustments. 
+ 
+2.3 Infrastructure Supporting Autonomous  
+Commerce 
+ 
+Technical enablers of agen tic commerce include 
+large language models, multimodal perception 
+systems, vector databases, event -streaming 
+infrastructures, and API -driven commerce systems 
+[3]. These components collectively allow agents to 
+perceive environments, reason about possible 
+actions, and act across digital touchpoints without 
+human intervention. Architectural integration of 
+human-AI interfaces, orchestration layers, 
+simulation environments, and enterprise data 
+platforms within agentic retail ecosystems clarifies 
+how retail syste ms transition from siloed 
+automation toward interconnected agent networks 
+capable of coordinated decision -making and 
+execution. This architecture demonstrates 
+connections between user interfaces, orchestration 
+layers, simulation sandboxes, and enterprise d ata 
+platforms that support autonomous commercial 
+behaviors. 
+ 
+2.4 Research Scope and Business Impact 
+ 
+Agentic commerce redefines rather than replaces 
+human expertise [3]. Retail professionals, including 
+merchandisers, planners, marketers, and store 
+associates, shift from manual execution toward 
+supervision, strategy, and oversight of autonomous 
+workflows. Some examples of agentic behavior in 
+retail are virtual shoppers who put together outfits 
+or bundles based on personal preference graphs, 
+autonomous price changes within set limits, and 
+multi-agent systems that work out promotion 
+schedules across channels. Business implications 
+prove significant as retailers adopting agentic 
+systems gain the ability to operate with 
+unprecedented speed, precision, and  
+responsiveness. The shift toward agentic commerce 
+presents challenges, including governance 
+frameworks to ensure safe, aligned behavior; 
+technical integration with legacy systems while 
+maintaining auditability; and organizational role 
+redefinition with workforce reskilling. 
+ 
+3. Theoretical Framework: LLM -Based Value 
+Chain Transformation 
+ 
+3.1 Multi-Layered Architecture Design 
+ 
+Integration of large language models into grocery 
+retail and e -commerce represents systemic 
+transformation of how value is created, de livered, 
+and captured across retail ecosystems [3][4]. The 
+proposed framework positions LLMs as central 
+intelligence layers that orchestrate diverse functions 
+spanning online and physical retail channels. 
+Framework definition comprises four layers: 
+Customer Interaction Layer providing 
+conversational, recommendation -driven, and 
+personalization capabilities; Merchandising and 
+Catalog Layer supporting product categorization, 
+dynamic pricing, and assortment optimization; 
+Operations and Supply Chain Layer enabli ng 
+autonomous demand sensing, inventory 
+optimization, and delivery decision support; and 
+Governance and Ethics Layer ensuring responsible 
+AI deployment, data privacy, fairness, 
+transparency, and regulatory compliance. 
+ 
+3.2 Language Model Technical Progress 
+ 
+LLMs based on transformer architectures represent 
+substantial leaps in representational flexibility and 
+reasoning capability [3]. Recent frontier models 
+extend capacities by integrating multimodality, 
+including images, audio, video, and structured data, 
+into unified reasoning frameworks. For retail and e-
+commerce, multimodality proves critical because 
+product understanding relies on diverse signals 
+such as nutritional labels, ingredient lists, 
+packaging images, customer reviews, shelf photos, 
+planograms, and environmental sensor data [4]. 
+Studies show that multimodal LLMs do better than 
+unimodal models at tasks like product 
+categorization, attribute extraction, and 
+recommendation generation. This leads to better 
+customer experiences and operational intelligence. 
+ 
+3.3 Retail-Specific LLM Functionality 
+ 
+Development of agentic LLM systems that plan, 
+decide, and act across tools, APIs, or enterprise 
+workflows represents another major advancement 
+[4]. Such systems autonomously update product 
+metadata, generate substitutions for out -of-stock 
+items, classif y large -scale e -commerce catalogs, 
+and perform SKU -level analytics. This autonomy 
+significantly enhances productivity in digital retail 
+environments with vast assortments and frequent 
+content churn. LLMs demonstrate improvements in 
+natural-language search,  allowing e -commerce 
+platforms to interpret intent -based queries such as 
+kid-friendly gluten-free snacks or budget meals for 
+families. This capability surpasses keyword -based 
+search used in most traditional e-commerce systems 
+and offers versatility, reason ing depth, and 
+multimodal perception that align with the 
+complexity and data richness of e -commerce 
+ecosystems. 
+
+================================================================================
+FILE KEY: 15gj
+BASENAME: Agentic Commerce_ o que é, como funciona e por que vai mudar o varejo - Conversion.pdf
+================================================================================
+Total pages: 13
+
+--- PAGE 1 ---
+GEO / Inteligência Artificial / SEO
+Agentic Commerce: o que é, como funciona e
+por que vai mudar o varejo
+Diego Ivo 14/01/2026 7 min
+Agentic Commerce é um modelo de compra em que agentes de
+IA atuam em nome dos consumidores para pesquisar produtos,
+comparar preços, negociar e completar transações de forma
+autônoma
+O varejo passa por uma transformação significativa. Dados da McKinsey
+indicam que esse novo modelo pode movimentar entre US$ 3 trilhões e US$
+5 trilhões globalmente até 2030. No Brasil, a pesquisa da Conversion em
+parceria com a ESPM revela que 93% dos brasileiros já utilizaram
+ferramentas de inteligência artificial, o que cria um terreno fértil para a
+adoção dessa tecnologia.
+Além disso, o tráfego proveniente de plataformas de IA como ChatGPT e
+Perplexity cresceu 527% nos Estados Unidos entre janeiro e maio de 2025.
+Esse crescimento demonstra uma mudança no comportamento do
+consumidor que busca experiências de compra mais eficientes. O Google,
+por sua vez, lançou o Universal Commerce Protocol
+(https://www.conversion.com.br/blog/universal-commerce-protocal/)
+durante a NRF 2026, sinalizando que as grandes empresas de tecnologia
+apostam nessa tendência.
+Este artigo explora o conceito de agentic commerce, suas aplicações
+práticas, a infraestrutura necessária para sua implementação e o impacto
+esperado nas estratégias de marketing e vendas das empresas brasileiras. A
+(https://www.conversion.com.br)
+3/4/26, 12:07 PM Agentic Commerce: o que é, como funciona e por que vai mudar o varejo - Conversion
+https://www.conversion.com.br/blog/agentic-commerce/ 1/13
+
+--- PAGE 2 ---
+leitura é indicada para profissionais de e-commerce, marketing e tecnologia
+que desejam se preparar para essa nova fase do comércio.
+O que é agentic commerce?
+Agentic commerce é um modelo de transações comerciais em que sistemas
+de inteligência artificial realizam compras de forma autônoma em nome dos
+usuários. Diferentemente dos assistentes virtuais tradicionais que apenas
+recomendam produtos, os agentes de IA nesse modelo podem pesquisar,
+comparar, negociar e finalizar compras sem intervenção humana.
+A PwC define o conceito como sistemas que leem sinais dos consumidores
+— objetivos, preferências e restrições como sensibilidade a preços — para
+navegar, avaliar e recomendar produtos ou serviços em diversos canais.
+Esses agentes completam tarefas que antes exigiam múltiplas etapas
+manuais do consumidor.
+Um exemplo prático ilustra o funcionamento. O usuário pode solicitar ao
+agente: “Encontre o voo mais barato de São Paulo para Lisboa, sem escalas,
+por menos de R$ 4.000ˮ. O agente então pesquisa, compara opções em
+diversas plataformas, reserva a passagem e realiza o pagamento usando as
+credenciais armazenadas. Todo o processo ocorre dentro de uma interface
+conversacional.
+Por isso, o agentic commerce representa uma evolução do conceito de
+conversão (https://www.conversion.com.br/blog/o-que-e-conversao/) no
+comércio pela internet. A jornada de compra deixa de ser uma série de
+etapas separadas e passa a ser um fluxo contínuo conduzido por
+inteligência artificial.
+3/4/26, 12:07 PM Agentic Commerce: o que é, como funciona e por que vai mudar o varejo - Conversion
+https://www.conversion.com.br/blog/agentic-commerce/ 2/13
+
+--- PAGE 3 ---
+Como funciona na prática?
+O funcionamento do agentic commerce depende de três componentes
+principais: os agentes de IA, os protocolos de comunicação e a
+infraestrutura de pagamentos. Cada elemento desempenha uma função
+específica para que as transações ocorram de forma segura e eficiente.
+Os agentes de IA utilizam modelos de linguagem avançados para interpretar
+as solicitações dos usuários. Segundo a Mastercard
+(https://www.mastercard.com/global/en/news-and-
+trends/stories/2025/agentic-commerce-explainer.html), esses sistemas
+podem lembrar preferências anteriores, histórico de compras e restrições do
+consumidor. Dessa forma, cada interação se torna mais personalizada ao
+longo do tempo.
+Além disso, os agentes conseguem realizar tarefas proativas. Um exemplo
+citado pela indústria é a reposição automática de itens domésticos quando o
+estoque está baixo. O agente identifica a necessidade, pesquisa o melhor
+preço, verifica a disponibilidade e efetua a compra sem que o usuário
+precise solicitar.
+Protocolos de comunicação
+O Google lançou o Universal Commerce Protocol (UCP) em janeiro de 2026
+como um padrão aberto para agentic commerce. O protocolo estabelece
+uma linguagem comum para que agentes e sistemas operem juntos entre
+plataformas de consumidores, varejistas e provedores de pagamento.
+O UCP foi desenvolvido em colaboração com Shopify, Etsy, Wayfair, Target e
+Walmart. Empresas como Adyen, American Express, Best Buy, Mastercard,
+Stripe, Visa e Zalando também endossaram o protocolo. Essa ampla adesão
+indica que o mercado busca padronização para viabilizar o modelo em
+escala.
+3/4/26, 12:07 PM Agentic Commerce: o que é, como funciona e por que vai mudar o varejo - Conversion
+https://www.conversion.com.br/blog/agentic-commerce/ 3/13
+
+================================================================================
+FILE KEY: 1Vbm
+BASENAME: the-agentic-commerce-opportunity-how-ai-agents-are-ushering-in-a-new-era-for-consumers-and-merchants_final.pdf
+================================================================================
+Total pages: 27
+
+--- PAGE 1 ---
+October 2025
+The agentic commerce 
+opportunity: How AI 
+agents are ushering in a 
+new era for consumers 
+and merchants
+
+--- PAGE 2 ---
+Copyright © 2025 McKinsey & Company.
+All rights reserved.
+Cover image © Andriy Onufriyenko/Getty Images.
+Confidential and proprietary. Any use of 
+this material without specific permission of 
+McKinsey & Company is strictly prohibited.
+Agentic AI promises to 
+radically remake the entire 
+shopping experience. Here’s 
+a glimpse into the near 
+future—and what merchants, 
+players, and platforms need 
+to know in order to thrive.
+by Katharina Schumacher and Roger Roberts 
+with Katharina Giebel
+
+--- PAGE 3 ---
+Contents
+At a glance  2
+CHAPTER 1  
+A new kind of shopping experience—seamless, 
+efficient, and mediated by AI agents  3
+CHAPTER 2  
+Creating the infrastructure for agentic commerce  7
+CHAPTER 3  
+Business model evolution in the era of agentic commerce  12
+CHAPTER 4  
+Navigating trust and risk: Why responsible AI is key 
+to agentic commerce adoption at scale  18
+CHAPTER 5  
+The challenges and opportunities of agentic commerce  22
+1
+The agentic commerce opportunity: How AI agents are ushering in a new era for consumers and merchants 
+
+================================================================================
+FILE KEY: 1UHUn
+BASENAME: the-automation-curve-in-agentic-commerce_copia.pdf
+================================================================================
+Total pages: 9
+
+--- PAGE 1 ---
+The automation curve in 
+agentic commerce
+Agentic AI is increasingly a part of shopping, but not all transactions will be 
+automated in the same way. Here’s what agents will handle—and the 
+situations that will call for human involvement.
+This article is a collaborative effort by Deepa Mahajan, Hannah Mayer, Katharina Schumacher, and Roger Roberts, 
+with Katharina Giebel, representing views from QuantumBlack, AI by McKinsey.
+January 2026
+
+
+--- PAGE 2 ---
+For many shoppers, this past holiday season may have felt different. Perhaps an AI assistant 
+suggested gifts your relatives might actually like while filtering for items that could arrive before 
+the holidays. Maybe it helped you navigate the specs of three different noise-canceling 
+headphones or scanned five retailers for a specific holiday outfit, assembled a ready-to-buy 
+basket, and politely asked, “Should I go ahead?”
+This is the year AI agents stopped being an experiment and became part of how people shop, 
+not in headline-grabbing ways but in everyday moments—helping shoppers make sense of 
+choices, assemble baskets, resolve trade-offs, and move toward action. Yet what looks like small 
+convenience today is an early signal of a much larger shift in the way we shop. According to our 
+research, even under moderate scenarios, AI agents could mediate $3 trillion to $5 trillion of 
+global consumer commerce by 2030.1 Because agents navigate the same internet as 
+humans—visiting websites, engaging with APIs, and interacting with loyalty programs—they can 
+scale quickly. And as they do, they are reshaping how intent forms, how products are 
+discovered, and where value pools can be found.
+We introduced many of these themes in our report The agentic commerce opportunity: How AI 
+agents are ushering in a new era for consumers and merchants last fall. This article builds on 
+that foundation. Here, we explore what we call the “agentic commerce automation curve,” which 
+illustrates how the shopper experience shifts at different levels of delegation, and outline how 
+retailers can prepare for a world in which the customer is still human but AI agents increasingly 
+mediate key decisions.
+The six-level agentic commerce automation curve
+The rise of agentic commerce reflects the collision of three forces. First, AI agents have reached 
+decision-grade usefulness, allowing consumers to delegate not only inspiration but also 
+shortlisting, assembly, and even execution. Second, the ecosystem now has rails for real 
+autonomy. Open-source protocols—such as MCP, A2A, AP2, ACP, and UCP—enable agents to 
+read data, negotiate with other agents, and transact safely. The Linux Foundation recently 
+established the Agentic AI Foundation—a partner-backed effort including Anthropic, Block, 
+Google, Microsoft, OpenAI, and others—focused on the interoperability, identity, and payments 
+building blocks needed to make autonomous commerce viable at scale.2 Third, intent is shifting 
+upstream. Agents increasingly act when consumer goals surface—such as a conversation about 
+an upcoming birthday party, a calendar reminder for a trip, or a low-supplies signal from a 
+device. For retailers, the implications are stark: If your catalog, policies, and value proposition 
+are not machine-readable, agents—and by extension, shoppers—simply will not find you, no 
+matter how beloved your brand is.
+That said, the rise of AI agents does not represent a single leap from human-driven shopping to 
+full autonomy. Instead, agentic commerce is unfolding along a curve—one defined by how much 
+of the commerce journey consumers are willing to delegate to machines. This automation curve 
+is composed of six distinct levels of automation, each representing a different mode of 
+1 The agentic commerce opportunity: How AI agents are ushering in a new era for consumers and merchants, McKinsey, October 
+17, 2025.
+2 “Linux Foundation announces the formation of the Agentic AI Foundation (AAIF), anchored by new project contributions including 
+Model Context Protocol (MCP), goose and AGENTS.md,” Linux Foundation, December 9, 2025.
+The automation curve in agentic commerce 2
+
+--- PAGE 3 ---
+delegation—from basic rules-based convenience to fully autonomous multiagent coordination. 
+Importantly, these levels describe what agents are technically capable of doing, not what 
+consumers will always choose to allow.
+How agentic commerce plays out in B2B
+At first glance, B2B commerce may seem fundamentally different from consumer shopping. 
+Corporate buying decisions, after all, often involve committees, contracts, compliance, and months-
+long cycles rather than impulse and inspiration. But when viewed through the lens of agentic 
+commerce, the same automation curve applies. It’s the stakes, constraints, and optimization targets 
+that change.
+In consumer commerce, delegation is personal. A shopper authorizes an agent to save time or money. 
+In B2B, delegation is institutional. Authority flows from procurement policies, budget owners, risk 
+teams, and legal frameworks. As a result, autonomy advances more slowly. But once unlocked, it 
+scales far more powerfully.
+At early levels, agents assist buyers by synthesizing complex information and by comparing suppliers 
+against technical specifications, historical performance, sustainability criteria, and contract terms. 
+Assembling a “basket” means constructing a procurement-ready package: products, volumes, pricing 
+tiers, service levels, and obligations ready for approval rather than checkout.
+The real inflection point comes at supervised execution. When agents are authorized to act within 
+clearly defined policies—such as spending thresholds, preferred vendors, and compliance rules—they 
+can manage replenishment, renewals, substitutions, and exceptions automatically, escalating only 
+when something breaks. Here, autonomy optimizes reliability and continuity, not convenience.
+At higher levels, agents can operate on standing enterprise goals codified by leadership, audited by 
+policy, and bounded by reversible authority. Examples include maintaining uptime at the lowest risk-
+adjusted cost, balancing supplier concentration, or hitting environmental, social, and governance 
+targets without disrupting operations. Competition shifts from unit price to predictability, 
+transparency, and policy alignment.
+In consumer commerce, autonomy feels like magic. In B2B, it feels like governance finally catching up 
+with complexity and turning it into an advantage. For enterprise leaders, the question is no longer 
+whether AI can automate buying but whether governance systems are ready to delegate authority 
+without losing control.
+The automation curve in agentic commerce 3
+
+================================================================================
+FILE KEY: 1bhhF
+BASENAME: A new era of agentic commerce is here _ Google Cloud Blog.pdf
+================================================================================
+Total pages: 11
+
+--- PAGE 1 ---
+Contact salesCloud Blog
+3/4/26, 12:02 PM A new era of agentic commerce is here | Google Cloud Blog
+https://cloud.google.com/transform/a-new-era-agentic-commerce-retail-ai 1/11
+
+--- PAGE 2 ---
+Contact salesCloud Blog
+3/4/26, 12:02 PM A new era of agentic commerce is here | Google Cloud Blog
+https://cloud.google.com/transform/a-new-era-agentic-commerce-retail-ai 2/11
+
+--- PAGE 3 ---
+Retail
+A new era of agentic
+commerce is here
+January 11, 2026
+Carrie Tharp
+Vice President, Global
+Solutions & Industries
+Darshan Kantak
+VP of Product, Applied AI
+Google Cloud is driving the shift to agentic
+commerce with autonomous AI that
+Contact salesCloud Blog
+3/4/26, 12:02 PM A new era of agentic commerce is here | Google Cloud Blog
+https://cloud.google.com/transform/a-new-era-agentic-commerce-retail-ai 3/11
+

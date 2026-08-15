@@ -1,0 +1,404 @@
+================================================================================
+MCKINSEY REPORT (1Vbm) - Pages 4-8
+================================================================================
+--- PAGE 4 ---
+ — Agentic commerce— shopping powered by AI agents acting on our behalf—represents a 
+seismic shift in the marketplace. It moves us toward a world in which AI anticipates consumer 
+needs, navigates shopping options, negotiates deals, and executes transactions, all in 
+alignment with human intent yet acting independently via multistep chains of actions enabled 
+by reasoning models.
+ — This isn’t just an evolution of e-commerce. It’s a rethinking of shopping itself in which  
+the boundaries between platforms, services, and experiences give way to an integrated  
+intent-driven flow, through highly personalized consumer journeys that deliver a fast, 
+frictionless outcome.
+ — The stakes are high: By 2030, the US B2C retail market alone could see up to $1 trillion in 
+orchestrated revenue from agentic commerce, with global projections reaching as high as 
+$3 trillion to $5 trillion, according to McKinsey research.
+ — This trend will have the breadth of impact of prior web and mobile-commerce revolutions, but it 
+can move even faster since agents can traverse the same digital paths to purchase as humans, 
+allowing them to “ride on the rails” laid down by these prior revolutions.
+ — This presents both benefits and risks for today’s commerce ecosystem. All kinds of businesses—
+brands, retailers, marketplaces, logistics and commerce services providers, and payments 
+players—will need to adapt to the new paradigm and successfully navigate the challenges of 
+trust, risk, and innovation.
+ — From a technical standpoint, that means mastering and deploying emerging integration enablers 
+like Anthropic’s Model Context Protocol (MCP), Agent-to-Agent (A2A) Protocol, Agent Payments 
+Protocol (AP2), and Agentic Commerce Protocol (ACP) that enable a new era of intelligent, 
+autonomous agents. It also means fundamentally re-architecting approaches to identity 
+management and loyalty. Smart organizations are already beginning to create new, agent-ready 
+sites that provide both strong agentic and consumer experiences.
+ — Business models will also have to change to thrive in an agent-driven economy. This means 
+exploring new monetization strategies and new marketing and customer engagement 
+approaches. For many intermediaries in today’s shopping flow, a key choice will be whether to 
+launch your own agents and when and how to welcome agentic traffic. These could be existential 
+choices for some businesses.
+ — Agentic commerce requires a fundamental rethinking of how value is created, captured, and 
+delivered. Companies that adapt quickly will not only meet evolving consumer expectations but 
+also redefine their industries. Those that hesitate risk losing ground as AI agents become the 
+new gatekeepers of commerce.
+At a glance
+2
+The agentic commerce opportunity: How AI agents are ushering in a new era for consumers and merchants 
+
+--- PAGE 5 ---
+I
+magine that a promising new job opportunity requires you to relocate your family across the 
+country. Chances are that whatever excitement you feel about the new role is soon tempered 
+by the innumerable hassles of moving. You need to find a comfortable home with a manageable 
+commute, decide what to bring and what to sell, and engage a trustworthy moving company to 
+deliver everything on time. Then there’s the issue of finding new doctors, veterinarians for the pets, a 
+gym, and after-school programs for the kids. It’s overwhelming.
+Now imagine that you had an autonomous AI agent to handle these tasks for you. With a deep 
+understanding of your budget, lifestyle, commute preferences, kids’ hobbies, and even your pets’ 
+needs, the agent can get to work. To research neighborhoods and housing options, it synthesizes 
+data from multiple sites and platforms, scanning myriad real estate listings and recommending 
+the most appealing choices. When you e-sign your lease, the agent reviews the terms to ensure 
+anything atypical is highlighted and gets your attention.
+You have a place; now, on to your stuff. Is it worth $700 to ship this dresser, or should you sell it for 
+$200 and buy a new one when you arrive? If the latter, what are the options? You snap photos of 
+your furniture, and the agent assesses resale value, lists items for sale on various platforms, and 
+negotiates sales on your behalf. For new items, it sources local options that fit your style and budget, 
+simulating what fits in your new apartment and offering interior design suggestions, and then 
+makes the purchases once you’ve approved them. As for the move itself, the agent manages it all, 
+coordinating with movers, scouring local retailers for the things you’ll need for your new home, and 
+syncing deliveries so that everything arrives when it should.
+In the traditional world of commerce, accomplishing this would require navigating a dozen different 
+tools, websites, online marketplaces, and retail stores. In the agentic era, the AI agent does much of 
+this for you, serving as your personal strategist, designer, negotiator, and logistics manager. It makes 
+microdecisions across multiple dimensions—budget, aesthetics, logistics—transforming a stressful, 
+fragmented journey into something personalized, highly efficient, and coherent.
+From chaos to coordination: This is agentic commerce
+What is agentic commerce? In the simplest terms, it is shopping powered by intelligent AI agents 
+capable of anticipating, personalizing, and automating every step of the process to create frictionless, 
+proactive experiences (Exhibit 1). Enabled by cutting-edge advancements in AI, agentic commerce 
+represents a transformative shift in the digital marketplace. It will not just enhance the way we 
+buy and sell—it’s a potential paradigm shift that could redefine the entire commercial ecosystem. 
+Consumer behavior is already beginning to change: 44 percent of users who have tried AI-powered 
+search say that it has become their “primary and preferred” source for internet searching, compared 
+with 31 percent who prefer using traditional search, according to recent McKinsey research.1
+1 McKinsey AI Discovery Survey; see also “A new front door to the internet: Winning in the age of AI search,” forthcoming on 
+McKinsey.com.
+A new kind of shopping 
+experience—seamless, efficient, 
+and mediated by AI agents
+CHAPTER 1
+3
+The agentic commerce opportunity: How AI agents are ushering in a new era for consumers and merchants 
+
+--- PAGE 6 ---
+As commerce evolves beyond the human-readable web, agents stand to become a primary interface 
+between users and marketers, fundamentally transforming how consumers interact with products 
+and services. It’s a transformation akin to the e-commerce revolution—only it’s likely to happen 
+quite a bit faster. Consider that in 1999, 100 million internet users2 (just under 2 percent of the global 
+population3) began exploring e-commerce. In 2025, nearly 5.6 billion users4 are connected to the 
+internet, representing approximately 68 percent of the world’s population.5 In this hyperconnected 
+age, dramatic shifts at a much larger scale can occur much more rapidly. In the early days of 
+e-commerce, many who lagged found themselves left behind or even out of business. Now, as then, 
+companies need to figure out how to adapt to this emerging new reality—even if it means rethinking 
+their existing business models—or risk a similar fate.
+2 “Internet users now exceed 100 million,” New York Times, November 12, 1999.
+3 The world at six billion, United Nations, October 12, 1999.
+4 “Internet usage worldwide - statistics & facts,” Statista, April 11, 2025.
+5 “Current world population,” Worldometer, accessed October 1, 2025.
+Web <2025>
+<Agentic commerce>
+Exhibit <1> of <5>
+Potential agentic customer journey
+AI agents promise to transform the consumer experience.
+McKinsey & Company
+Agent prompts 
+customer to
+buy based on 
+upcoming
+event or 
+previous 
+purchase 
+frequency
+Agent /f_inds 
+products based 
+on current 
+context, 
+previous 
+preferences, 
+reviews, delivery 
+times, etc
+Agent searches 
+for lowest 
+prices or 
+discounts or 
+negotiates 
+prices directly 
+with site or 
+other agent
+Agent triages 
+and presents
+a subset of 
+purchase 
+options for 
+review and 
+approval
+Agent 
+auto-completes 
+delivery, loyalty, 
+and payment 
+pro/f_iles and 
+pays using 
+preferred 
+method
+Agent tracks 
+delivery and 
+oﬀers updates 
+on arrival date
+If necessary, 
+agent engages 
+customer 
+support, 
+initiates return, 
+schedules 
+pickup, and 
+alerts user 
+when refund
+is received
+Exhibit 1
+“Companies have spent decades refining consumer 
+journeys, fine-tuning every click, scroll, and tap. But in 
+the era of agentic commerce, the consumer no longer 
+travels alone. Their digital proxies now navigate the 
+commerce ecosystem, making millions of microdecisions 
+daily. To thrive, brands must rethink the full stack 
+of engagement—not for the people they’ve worked to 
+understand but for the agents now acting on their behalf.” 
+—Becca Coggins, McKinsey senior partner and global leader of 
+the Retail and Consumer Packaged Goods Practices
+4
+The agentic commerce opportunity: How AI agents are ushering in a new era for consumers and merchants 
+
+--- PAGE 7 ---
+Agentic commerce is taking shape through three key interaction models: agent to site, agent to 
+agent, and brokered agent to site (Exhibit 2).
+1. Agent to site: Agents interact directly with merchant platforms. For example, a travel agent scans 
+multiple hotel websites, highlighting those that fit your preferences and confirming your interest 
+before booking the room.
+2. Agent to agent: Agents transact autonomously with other agents. For example, a personal-
+shopping agent communicates with the in-house AI commerce agent of a retailer to, say, 
+negotiate a bundle discount across items in different departments.
+3. Brokered agent to site: Intermediary systems facilitate multiagent and multiplatform 
+interactions. For example, a restaurant-booking agent contacts the broker agent of a platform 
+like OpenTable, which finds you a table and applies loyalty discounts based on your profile.
+Website
+Web <2025>
+<Agentic commerce>
+Exhibit <2A> of <5>
+Agentic paths to purchase
+Three possible paths to purchase in an agentic world.
+McKinsey & Company
+1. Agent to site
+User Personal agent Transaction
+Exhibit 2
+Web <2025>
+<Agentic commerce>
+Exhibit <2B> of <5>
+Agentic paths to purchase
+Three possible paths to purchase in an agentic world.
+McKinsey & Company
+2. Agent to agent
+User Personal agent Vendor agent Transaction
+Web <2025>
+<Agentic commerce>
+Exhibit <2C> of <5>
+Agentic paths to purchase
+Three possible paths to purchase in an agentic world.
+McKinsey & Company
+3. Brokered agent to site
+User Personal agent Broker agent
+Vendor agent
+Multivendor
+bundle Transaction
+5
+The agentic commerce opportunity: How AI agents are ushering in a new era for consumers and merchants 
+
+--- PAGE 8 ---
+As these models evolve, the way commerce is structured will shift, with manual search and 
+comparison gradually being replaced by a machine-mediated process, with agents increasingly 
+augmenting human decision-making. While the pace and extent of agentic AI is still unclear, the 
+technology is improving rapidly, and integration is less difficult and expensive than prior platform 
+transitions, so even a scenario with moderate assumptions indicates immense economic value. 
+Considering the growing availability and adoption of AI-powered discovery tools, along with 
+moderate assumptions about merchant readiness for agentic commerce, by 2030, the US B2C retail 
+market alone could represent an opportunity to orchestrate revenue in the range of $900 billion 
+to $1 trillion. Globally, this opportunity is projected to range from $3 trillion to $5 trillion, McKinsey 
+research has found.6 (These figures only reflect goods and do not yet include services; nor do they 
+account for the significant B2B marketplace.)
+The agentic era will see a shift from traditional vertical destinations toward a more integrated, 
+horizontal-agent ecosystem that supports cross-functional and cross-intent consumer behavior. 
+This means that the conventional idea of visiting a specific platform to accomplish a task—say, using 
+Amazon for shopping or Expedia for booking travel—will give way to new modes of commerce. 
+Rather than navigating between platforms based on specific objectives, personal agents, 
+functioning like concierges, will be able to take care of all consumer needs when their intent is 
+first voiced or surfaced. In the corporate world, agents will be embedded in applications—allowing 
+employees, for example, to book business travel within everyday tools, such as Slack, without having 
+to leave the app. This unbundles and “de-verticalizes” shopping for services and goods, forcing 
+companies to rethink and innovate beyond the status quo.
+The broad outline of this world is already taking shape. Half of all consumers now use AI when 
+searching the internet.7 And what begins as AI-mediated discovery increasingly carries through to 
+execution, as AI agents compare options, assemble baskets, and complete checkout via emerging 
+payment protocols and merchant integrations. The AI platform Perplexity, for example, launched 
+an agentic shopping tool, “Perplexity Buy with Pro,” in late 2024. OpenAI’s Operator, launched 
+in January 2025 and now integrated into ChatGPT, uses agents to help users automate tasks 
+like booking travel and restaurant reservations. More recently, OpenAI announced an Agentic 
+Commerce Protocol, codeveloped with Stripe, which allows users to complete purchases within 
+ChatGPT without leaving the chat. Shopify is developing an agentic shopping infrastructure that 
+allows agents to tap into its catalog and build carts across merchants. Amazon, Google, PayPal, 
+Mastercard, and others are also developing agentic shopping services. Collectively, these moves are 
+turning agentic commerce from a concept to an imminent reality.
+For retailers, this is the time to ask bold questions, including:
+ — What opportunities will agentic commerce create, and which ones will it diminish?
+ — How can you build strong bonds with consumers as your shoppers shift to commerce mediated 
+by agents? How can you ensure your systems act on behalf of your customers?
+ — How can your business become indispensable in an agent-driven economy? What new revenue 
+models can you pioneer in a world where agents are the gatekeepers of consumer intent?
+This report will help leaders better understand how to address these questions. The hypothetical 
+cross-country move described above illustrates what the agentic era means for consumers. Next, 
+we’ll address the implications for business models, technology infrastructure, and the business–
+consumer relationship itself.
+6 McKinsey market research early estimations are based on US Census data and forecasted adoption rates.
+7 McKinsey AI Discovery Survey;  see also “A new front door to the internet: Winning in the age of AI search,” forthcoming on 
+McKinsey.com.
+6
+The agentic commerce opportunity: How AI agents are ushering in a new era for consumers and merchants 
+
+================================================================================
+GOOGLE CLOUD BLOG (1bhhF) - Pages 4-7
+================================================================================
+--- PAGE 4 ---
+transforms passive browsing into active,
+personalized shopping.
+AI is fundamentally changing retail, moving us into
+what we call the agentic commerce era, the
+industry’s most significant transformation yet.
+We’re shifting beyond simple digital interactions
+and passive tools to AI agents that are capable of
+executing complex, multi-step actions
+autonomously across every consumer touchpoint.
+For retailers, the opportunity is no longer about
+just being more efficient; it’s about finding the
+right customers and making it easy for them to
+buy. 
+At Google, supporting commerce is in our DNA.
+We’re one of the first places shoppers go to
+discover new brands and products, and people
+shop across Google more than a billion times a
+day. In addition, Google Cloud continues to bring
+the best of Google to our customers — from
+improving search experiences with our Knowledge
+Graph and Shopping Graph, to transforming retail
+businesses with Gemini Enterprise, our Vertex AI
+platform, and other AI tools. 
+This week at the annual National Retail Federation
+(NRF) conference, we are sharing exciting updates
+about what we’re doing to push the boundaries of
+what’s possible for retail and how it’s already
+driving real impact.
+Contact salesCloud Blog
+3/4/26, 12:02 PM A new era of agentic commerce is here | Google Cloud Blog
+https://cloud.google.com/transform/a-new-era-agentic-commerce-retail-ai 4/11
+
+--- PAGE 5 ---
+Google Cloud elevates
+customer experience for
+the agentic commerce era 
+To help our customers seize the potential of
+agentic AI, we are unveiling Gemini Enterprise for
+Customer Experience (CX), which is designed to
+bring shopping and customer service together as
+a single, intelligent agentic platform. Powered by
+our most advanced Gemini models, Gemini
+Enterprise for CX introduces new pre-built and
+configurable agents that can be deployed in days,
+not months, capable of managing the entire
+customer lifecycle — from initial product discovery
+to autonomous post-purchase resolution. These
+agents are much more than simple chatbots
+answering questions: They can independently
+plan, reason, and act on your behalf, under your
+supervision. 
+Our new Shopping agent uses complex reasoning
+and multimodal capabilities to act as a proactive
+digital concierge — processing text, voice, and
+images to autonomously build carts and execute
+consented actions. An enhanced food ordering
+agent allows restaurants like Papa Johns to bring
+natural language ordering to life across mobile,
+kiosks, and in-car systems with intelligent
+upselling and real-time menu synchronization.
+Furthermore, we’ve introduced Customer
+Experience Agent Studio and additional support
+capabilities to Gemini Enterprise for CX, enabling
+businesses to scale 24/7 active problem solving
+while giving human representatives AI-driven
+guidance and real-time quality assurance.
+Contact salesCloud Blog
+3/4/26, 12:02 PM A new era of agentic commerce is here | Google Cloud Blog
+https://cloud.google.com/transform/a-new-era-agentic-commerce-retail-ai 5/11
+
+--- PAGE 6 ---
+We believe Gemini Enterprise for CX is the next big
+milestone towards turning passive browsing into
+active doing — delivering truly personalized
+shopping experiences that make consumers feel
+like every interaction was crafted just for them, no
+matter where they begin their journeys. Kroger,
+Lowe’s, Papa John’s, and Woolworths are all
+using Gemini Enterprise for CX today to deliver
+elevated experiences for their customers.
+2026 AI Agent Trends in Retail and CPG
+Leading retailers and CPG brands are
+moving beyond debating AI's possibilities
+and are now using AI agents to drive
+measurable business value—from delivering
+concierge-like customer experiences to
+running grounded agentic workflows.
+Download the report to discover the five
+trends defining the future of retail.
+Read it now.
+Contact salesCloud Blog
+3/4/26, 12:02 PM A new era of agentic commerce is here | Google Cloud Blog
+https://cloud.google.com/transform/a-new-era-agentic-commerce-retail-ai 6/11
+
+--- PAGE 7 ---
+Retail leaders paving the
+way: Stories from the front
+lines
+The agentic commerce era isn’t just a concept —
+it’s already being built. From department stores to
+leading luxury houses, some of the world’s most
+iconic brands are using Google Cloud to create
+fresh takes on retail experiences that reflect how
+consumers shop today and how they want to shop
+in the future. To thrive in the agentic commerce
+era, global retailers must produce high-fidelity,
+brand-aligned content at a pace that matches
+shifting consumer trends. 
+Authentic Brands Group (Authentic) — owner
+of more than 50 iconic brands including Juicy
+Couture, Reebok and SHAQ — is seizing this
+opportunity through its newly launched “Authentic
+Intelligence” platform. More than 80% of
+Authentic employees use the platform weekly
+across functions—from marketing and creative to
+finance and business development. By integrating
+Google Cloud’s most advanced media models,
+such as Imagen 3 for photorealistic imagery and
+Veo 3.1 for cinematic video, into its intelligence
+stack, Authentic’s 15+ specialized AI agents
+supercharge creativity and collaboration across
+the organization. This widespread adoption
+enables the rapid generation of everything from
+business development prospecting to high-end
+campaign conceptualization.   The impact on
+performance is clear: In early testing, Reebok ad
+creative enhanced by Authentic delivered up to
+Contact salesCloud Blog
+3/4/26, 12:02 PM A new era of agentic commerce is here | Google Cloud Blog
+https://cloud.google.com/transform/a-new-era-agentic-commerce-retail-ai 7/11
+

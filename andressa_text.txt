@@ -1,0 +1,140 @@
+ANALYSIS OF MBA_Andressa.pdf
+Total Pages: 66
+================================================================================
+--- PAGE 1 ---
+UNIVERSIDADE DE SÃO P AULO
+Instituto de Ciências Matemáticas e de Computação
+Andressa Ino Baldini
+Modelo de regressão para predição de pricing em relações comerciais B2B
+São Carlos – SP
+
+--- PAGE 2 ---
+
+
+--- PAGE 3 ---
+Andressa Ino Baldini
+Modelo de regressão para predição de pricing em relações
+comerciais B2B
+Monograﬁa apresentada ao Centro de Ciências
+Matemáticas Aplicadas à Indústria do Instituto
+de Ciências Matemáticas e de Computação,
+Universidade de São Paulo, como parte dos
+requisitos para conclusão do MBA em Ciências de
+Dados. VERSÃO REVISADA
+Área de Concentração: Ciências de Dados
+Orientadora: Profa. Dra. Kalinka Regina Lucas Jaquie
+Castelo Branco
+USP – São Carlos
+Janeiro de 2021
+
+--- PAGE 4 ---
+Ficha catalográfica elaborada pela Biblioteca Prof. Achille Bassi 
+e Seção Técnica de Informática, ICMC/USP, 
+com os dados inseridos pelo(a) autor(a)
+                                       Bibliotecários responsáveis pela estrutura de catalogação da publicação de acordo com a AACR2: 
+                                       Gláucia Maria Saia Cristianini - CRB - 8/4938 
+                                       Juliana de Souza Moraes - CRB - 8/6176
+I58m
+Ino Baldini, Andressa
+   Modelo de regressão para predição de pricing em
+relações comerciais B2B / Andressa Ino Baldini;
+orientadora Kalinka Regina Lucas Jaquie Castelo
+Branco. -- São Carlos, 2021.
+   64 p.
+   Trabalho de conclusão de curso (MBA em Ciência
+de Dados) -- Instituto de Ciências Matemáticas e de
+Computação, Universidade de São Paulo, 2021.
+   1. relacionamento business-to-business. 2.
+precificação orientada a dados. 3. modelo de
+regressão. 4. clustering. I. Regina Lucas Jaquie
+Castelo Branco, Kalinka, orient. II. Título. 
+
+--- PAGE 5 ---
+Andressa Ino Baldini
+Regression model for pricing prediction in B2B commercial
+relations
+Final Paper submitted to the Center for Mathematical
+Sciences Applied to Industry of the Institute of
+Mathematics and Computer Sciences – USP , in partial
+fulﬁllment of the requirements for the MBA in Data
+Science. FINAL VERSION
+Concentration Area: Data Science
+Advisor: Profa. Dra. Kalinka Regina Lucas Jaquie
+Castelo Branco
+USP – São Carlos
+January 2021
+
+--- PAGE 6 ---
+
+
+--- PAGE 7 ---
+AGRADECIMENTOS
+Primeiramente, gostaria de agradecer à Profa. Dra. Kalinka Regina Lucas Jaquie Castelo
+Branco pelo apoio, conﬁança e auxílio essenciais para o desenvolvimento deste trabalho.
+Agradeço à minha família, que sempre acreditou nos meus objetivos e nos meus sonhos.
+Foram meus maiores incentivadores, especialmente neste ano desaﬁador.
+
+--- PAGE 8 ---
+
+
+--- PAGE 9 ---
+“A imaginação é mais importante que a ciência, porque a ciência é limitada,
+ao passo que a imaginação abrange o mundo inteiro.”
+(Albert Einstein)
+
+--- PAGE 10 ---
+
+
+--- PAGE 11 ---
+RESUMO
+BALDINI, A. I. Modelo de regressão para predição de pricing em relações comerciais B2B.
+2021. 64 p. Monograﬁa (MBA em Ciências de Dados) – Instituto de Ciências Matemáticas e de
+Computação, Universidade de São Paulo, São Carlos – SP, 2021.
+Com a maior adoção de sistemas como Customer Relationship Management (CRM) por em-
+presas, a automatização de tomada de decisões, como deﬁnição de preço de venda, é facilitada
+pela alta quantidade de dados disponíveis. Além disso, conceitos relacionados a pricing são
+pouco exploradas por grandes companhias, o que pode fazê-las perder vantagem competitiva.
+Este estudo propõe o estudo do relacionamento business-to-business (B2B), a importância da
+estratégia de pricing, como realizar clusterização de clientes com similaridades e estudar modelos
+de regressão que possam ser utilizados na previsão de vendas futuras. O resultado deste trabalho
+foi a análise de uma base de dados de vendas B2B, a realização do agrupamento dos clientes com
+comportamento de compra semelhantes e a comparação de modelos de regressão para predição
+de preço de venda, no qual o modelo Random Forest demonstrou melhor desempenho.
+Palavras-chave: relacionamento business-to-business, preciﬁcação orientada a dados, modelo
+de regressão, clustering.
+
+--- PAGE 12 ---
+
+
+--- PAGE 13 ---
+ABSTRACT
+BALDINI, A. I.Regression model for pricing prediction in B2B commercial relations. 2021.
+64 p. Monograﬁa (MBA em Ciências de Dados) – Instituto de Ciências Matemáticas e de Compu-
+tação, Universidade de São Paulo, São Carlos – SP, 2021.
+As companies increase adoption of systems such as CRM, the automation for decision-taking,
+such as deﬁnition of sales price, is favored by the high quantity of data available. Furthermore,
+concepts related to pricing are not extensively explored by large companies, which makes them
+lose competitive advantage. This project has the objective to study B2B (business-to-business)
+relationship, the importance of pricing strategy, how to cluster similar customers and analyze
+different regression models that can be used to predict future sales. The result of this project was
+the analysis of a sales dataset from a B2B company, clustering of customers with similar buying
+behaviour and comparison of regression models to predict sales price, in which Random Forest
+had the best performance.
+Keywords: business-to-business relationship, data-driven pricing, regression model, clustering.
+
+--- PAGE 14 ---
+
+
+--- PAGE 15 ---
+LISTA DE ILUSTRAÇÕES
+Figura 1 – Desconto por cliente (cada ponto representa 1 cliente). . . . . . . . . . . . . 30
+Figura 2 – Probabilidade de aceite do cliente em função do preço ofertado, aceito = 1,
+rejeitado = 0. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+Figura 3 – Exemplo de árvore de decisão com ﬂuxo de intenção de compra. . . . . . . 32
+Figura 4 – Histogramas de atributos categóricos. . . . . . . . . . . . . . . . . . . . . . 37
+Figura 5 – Relação da taxa de variância por componentes. . . . . . . . . . . . . . . . . 39
+Figura 6 – Método do cotovelo para localizar o k ótimo. . . . . . . . . . . . . . . . . . 39
+Figura 7 – Comparação entre valor real e predito dos três modelos analisados. . . . . . 41
+Figura 8 – Os 20 principais componentes do modelo Random Forest. . . . . . . . . . . 42
+Figura 9 – Boxplot dos descontos calculados. . . . . . . . . . . . . . . . . . . . . . . 43
+

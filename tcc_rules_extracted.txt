@@ -1,0 +1,494 @@
+================================================================================
+FILE: MBA CD_Met - Módulo 2 - Parte 1 - Modelo USP e Normas_2026.pdf
+================================================================================
+Total pages: 23
+
+--- PAGE 1 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Metodologia e projeto 
+para Ciências de Dados
+Módulo 2 - Normas ABNT e 
+Modelo USP
+Profa. Juliana de Souza Moraes
+ICMC/USP
+jumoraes@icmc.usp.br
+
+--- PAGE 2 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Conteúdo
+● Citações no texto
+● Referências
+● Normas da ABNT
+● Modelo USP de trabalho acadêmico em Word
+
+--- PAGE 3 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+•Citação é a menção no texto de informações extraídas de uma fonte;
+•Nos trabalhos acadêmicos ela embasa e sustenta argumentos, bem como 
+pode trazer dados e histórico sobre o tema estudado;
+•A citação pode estar presente em vários capítulos do trabalho acadêmico, 
+mas especialmente no referencial teórico, metodologia e na análise e 
+discussão dos dados;
+•A menção da fonte é obrigatória, dando o devido crédito ao(s) autor(es) e 
+respeitando os direitos autorais.
+CITAÇÕES – ABNT NBR 10520, atualizada em 2023
+
+
+--- PAGE 4 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Citação: sistema autor-data ou alfabético
+Fonte do exemplo: MORAES, J.S. Contribuição para a construção de linguagem documentária em Inteligência Artificial. 2000. Dissertação (Mestrado em Biblioteconomia). Faculdade de Biblioteconomia, Pontifícia Universidade Católica, Campinas, 2000.
+
+
+--- PAGE 5 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Citação: sistema numérico
+Fonte do exemplo: https://www.teses.usp.br/teses/disponiveis/5/5169/tde-06022024-135139/publico/KaioJiaBin.pdf
+
+--- PAGE 6 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+•Citação direta: transcrição exata de um texto.
+•Citação indireta: transcrição das ideias de um autor, dispensa o uso de aspas.
+•Citação de citação: menção de um documento obtido através da citação de outro autor. Utiliza-se o termo apud, que significa “citado por”.
+•Notas de rodapé: indicações, observações ou aditamentos ao texto feitos pelo autor, tradutor ou editor, podendo também aparecer na margem esquerda ou direita da mancha gráfica. 
+TIPOS DE CITAÇÃO
+
+--- PAGE 7 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+● Reprodução integral de trecho da publicação, conservando grafia e as 
+pontuações.
+● Até 3 linhas = entre aspas duplas
+■ Aspas simples para citação dentro da citação
+● Mais de 3 linhas = qualquer recuo da margem esquerda*, 
+recomenda-se 4 cm, sem aspas, fonte menor e espaço simples
+* Atualização da norma em 2023.
+CITAÇÃO DIRETA
+
+--- PAGE 8 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+CITAÇÃO DIRETA: exemplos
+Citação direta com 3 linhas e o 
+autor não faz parte do discurso. 
+Atenção: a graﬁa correta do 
+sobrenome a partir de 2023 é 
+(Castro, 2002, p.417).
+Citação direta com 3 linhas e o 
+autor faz parte do discurso. 
+(Castro, 2002, p.417).
+Fonte do exemplo: https://www.signiﬁcados.com.br/citacao/
+
+--- PAGE 9 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+CITAÇÃO DIRETA COM MAIS DE 3 LINHAS
+Fonte do exemplo: https://www.teses.usp.br/teses/disponiveis/8/8156/tde-18052023-145208/publico/2023_AndreDeGodoyBueno_VCorrig.pdf
+
+--- PAGE 10 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+● Reprodução das ideias e conteúdo do autor consultado, 
+com produção de novo texto.
+● Dispensa o uso das aspas duplas e simples.
+CITAÇÃO INDIRETA
+
+--- PAGE 11 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+CITAÇÃO INDIRETA: exemplos
+Observe que,  
+pela recém 
+atualização da 
+norma de 
+citação, todos os 
+sobrenomes são 
+redigidos 
+normalmente, 
+isto é, apenas a 
+1a. inicial é 
+maiúscula. 
+Entretanto, eles 
+se mantém com 
+todas as letras 
+maiúsculas na 
+lista de 
+Referências.
+Fonte do exemplo: 
+https://www.teses.usp.br/teses/di
+sponiveis/44/44142/tde-06032024
+-074438/publico/Dissertacao_Val
+entina_Alzate_Rubio.pdf
+
+--- PAGE 12 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+● É a citação direta ou indireta de um texto que se refere a 
+um documento original, que não se teve acesso.
+● Uso obrigatório da expressão latina apud , que significa 
+“citado por”.
+CITAÇÃO DE CITAÇÃO
+Deleuze é a obra lida; deve 
+constar da lista de Referências.
+Foucault é o autor citado, mas 
+não lido; deve constar na nota 
+de rodapé.
+Fonte do exemplo: https://www.signiﬁcados.com.br/citacao/
+
+--- PAGE 13 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+● Não é recomendada;
+● Colocar em rodapé a fonte não lida;
+● A forma como as citações são mencionadas no texto devem seguir 
+obrigatoriamente a mesma forma utilizada nas Referências ou nas Notas de 
+rodapé;
+● Qualquer fonte é passível de citação: sites, informação verbal, informação 
+pessoal, e-mails, etc. e todas devem ser referenciadas.
+CITAÇÃO DE CITAÇÃO
+
+
+--- PAGE 14 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+EXEMPLOS DE USO DE NOTAS DE RODAPÉ
+Fonte do exemplo: https://www.teses.usp.br/teses/disponiveis/8/8156/tde-18052023-145208/publico/2023_AndreDeGodoyBueno_VCorrig.pdf
+Citação direta com 3 
+linhas = uso de aspas 
+duplas. Está com 
+destaque itálico pois é 
+trecho traduzido, 
+conforme aponta o 
+autor dentro dos 
+parênteses. O trecho 
+original segue em nota 
+de rodapé.Nota de rodapé 
+utilizada para explicar 
+a expressão utilizada.
+
+--- PAGE 15 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Importante lembrar…
+Fonte do exemplo: https://www.teses.usp.br/teses/disponiveis/8/8156/tde-18052023-145208/publico/2023_AndreDeGodoyBueno_VCorrig.pdf
+● Deve haver na lista de Referências exatamente o mesmo número de 
+publicações citadas ao longo do trabalho;
+● Nenhuma fonte citada deve ficar sem referência, independente do tipo de 
+fonte que seja;
+● Publicações lidas, mas não citadas não são registradas em nenhum capítulo do 
+trabalho acadêmico;
+● Se houver referências nas notas de rodapé essas não são duplicadas na lista de 
+Referências.
+
+--- PAGE 16 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Referência
+● Conjunto padronizado de elementos descritivos, retirados de um documento 
+[ou de qualquer fonte de informação], que permite sua identificação 
+individual;
+● Existem diferentes padrões para registrar as referências; cada instituição deve 
+escolher um padrão que mais se adeque às suas necessidades;
+● No Brasil, o padrão mais utilizado no meio acadêmico é o da ABNT; 
+● Lista de Referências: capítulo onde estão registradas todas as fontes de 
+informação citadas ao longo do trabalho acadêmico. Capítulo obrigatório.
+
+--- PAGE 17 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+ABNT – Informação e Documentação
+○ NBR 6023 – Referências
+○ NBR 6024 – Numeração progressiva
+○ NBR 6027 – Sumário
+○ NBR 6028 – Resumos
+○ NBR 10520 – Citações em documentos
+○ NBR 14724 – Trabalhos acadêmicos
+
+--- PAGE 18 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+T E M P L A T E S
+
+--- PAGE 19 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Modelo USP de trabalho acadêmico - Word
+
+
+--- PAGE 20 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Geração da ficha catalográfica
+● Conjunto de elementos de descrição técnica do  documento, a ser 
+elaborada pela biblioteca da instituição
+● Item obrigatório nos trabalhos de conclusão de curso
+● Geração automática a partir do site da Biblioteca do ICMC
+○ Serviços > Elaboração de ficha catalográfica
+○ https://www.icmc.usp.br/institucional/estrutura-  
+administrativa/biblioteca/servicos/ficha
+
+--- PAGE 21 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+
+
+--- PAGE 22 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Obrigada!
+jumoraes@icmc.usp.br
+
+
+--- PAGE 23 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Referências
+ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. NBR 6023: informação e documentação: referências: elaboração. Rio de Janeiro, 2018.
+ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. NBR 6024: informação e documentação: numeração progressiva das seções de um 
+documento. Rio de Janeiro, 2012.
+ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. NBR 6027: informação e documentação: sumário: apresentação. Rio de Janeiro, 2012.
+ASSOCIAÇÃO BRASILEIRA DE NORMA TÉCNICAS. NBR 6028: informação e documentação: resumo: apresentação. Rio de Janeiro, 2003.
+ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. NBR 10520: informação e documentação: citações em documentos: apresentação. Rio de 
+Janeiro, 2023.
+ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. NBR 14724: informação e documentação: trabalhos acadêmicos: apresentação. Rio de 
+Janeiro, 2024.
+UNIVERSIDADE DE SÃO PAULO. Agência de Bibliotecas e Coleções Digitais. Diretrizes para apresentação de dissertações e teses da USP: 
+parte I (ABNT). 5.ed. São Paulo: USP/ABCD, 2024.
+
+================================================================================
+FILE: MBA CD_Met  - Módulo 2 - Parte 2 - LaTex_2026.pdf
+================================================================================
+Total pages: 31
+
+--- KEYWORD SEARCH RESULTS (Long PDF) ---
+[p. 2] (min): ▪ Cadapessoa pode programá-lo para que seudocumento tenha determinado
+[p. 4] (capítulo): ou capítulos; citações e referências; geração automática de sumários,
+[p. 4] (pág): de diferentes estilos de página (para a capa, folha de rosto, parte
+[p. 4] (pág): pré-textual, parte textual, páginas iniciais de capítulo, apêndice, etc.)
+[p. 6] (min): ▪ É necessário uma dose de paciência e dedicação para dominar o
+[p. 8] (pag): TexPage - texpage.com
+[p. 18] (pág): Arquivos com as páginas pré-textuais
+[p. 27] (pag): pages={122981},
+[p. 28] (pág): Arquivos com as páginas pós-textuais
+
+================================================================================
+FILE: MBA CD_Met  - Módulo 2 - Parte 3 - Turnitin_2026.pdf
+================================================================================
+Total pages: 22
+
+--- PAGE 1 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Metodologia e projeto 
+para Ciências de Dados
+Módulo 2 - Aula Turnitin
+Profa. Juliana de Souza Moraes
+ICMC/USP
+jumoraes@icmc.usp.br
+
+--- PAGE 2 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Conceituando 
+● Similaridade: característica, estado ou natureza do que é similar; semelhança. 
+Particularidade dos objetos e/ou das coisas similares.
+● Plágio: apresentação que alguém faz de algo, como se fosse de própria autoria, 
+quando na verdade foi criado ou pertence a outrem; cópia, imitação: plágio de 
+um livro, trecho de música, de uma pintura, etc.
+Fonte: Dicionário Aurélio
+
+--- PAGE 3 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Softwares antiplágio e detecção de escrita por IA
+● Undetectable AI - https://undetectable.ai/pt-br
+● Originality AI - https://originality.ai/
+● Grammarly - https://www.grammarly.com/ai-detector
+● CopyLeaks - https://copyleaks.com/
+● GPTZero - https://gptzero.me/
+● CopySpider - https://copyspider.com.br
+● Plagium  - https://www.plagium.com/pt/detectordeplagio
+● Plagiarism - https://plagiarismcheck.org/
+● Turnitin - http://www.turnitin.com Assinado 
+para alunos 
+USP
+
+
+--- PAGE 4 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Turnitin - assinado pela USP
+● Considerado o melhor detector de similaridade para textos acadêmicos; é 
+utilizado por 16 mil instituições acadêmicas no mundo todo.
+● Plataforma que oferece serviço de verificação de originalidade e prevenção 
+de plágio por meio de análise de documentos textuais, checando erros de 
+citação, cópia inadequada e escrita por IA (no caso da USP , disponível 
+somente para professores).
+● Os textos submetidos são comparados com bilhões de documentos e dados 
+da internet, dados que não estão mais disponíveis na web ativa, 
+repositórios locais, coleções de periódicos e outras publicações.
+
+--- PAGE 5 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Turnitin
+● O documento de comparação é chamado de Relatório de Similaridade. 
+Esse documento detalha o texto enviado ao Turnitin assinalando os trechos 
+onde há correspondência com outros documentos do banco de dados e 
+identificando-os. 
+● Cabe ao autor checar cada um dos trechos assinalados, analisando se estão 
+registrados e utilizados de forma correta ou não.
+● O Turnitin não identifica o plágio e sim a similaridade dos textos.
+Fonte: Similaridade de textos: qual é o percentual aceitável?
+
+--- PAGE 6 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Turnitin: como utilizar
+● O próprio aluno checa o seu trabalho na plataforma Turnitin.
+● Cadastrar pedido de acesso via site da Biblioteca do ICMC na opção:
+○  Apoio ao Pesquisador > Integridade e Prevenção de Plágio
+● Aguardar o recebimento da confirmação por e-mail, que conterá login 
+e senha.
+● Acessar a plataforma em Turnitin.com.
+
+
+--- PAGE 7 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+
+
+--- PAGE 8 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Turnitin: como utilizar
+
+
+--- PAGE 9 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Após o cadastro na Biblioteca do ICMC… 
+… você receberá uma mensagem em seu e-mail!
+
+
+--- PAGE 10 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Acesse a Aula “Estação de Autochecagem do ICMC” 
+Essa é a sua página inicial. Para enviar um trabalho, 
+clique no botão "Enviar". Para visualizar o documento 
+que você enviou, clique no botão "Visualizar".
+
+--- PAGE 11 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Envie o arquivo do trabalho
+
+
+--- PAGE 12 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Upload realizado! Confirme o arquivo
+
+
+--- PAGE 13 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Arquivo submetido, envio concluído!
+Clique no Botão “Retornar à lista 
+de trabalhos”
+
+--- PAGE 14 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Aguarde o processamento do Relatório de 
+Similaridade
+
+
+--- PAGE 15 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Visualize o Relatório de Similaridade
+Clique sobre o percentual (66%) para 
+visualizar o Relatório de Similaridade
+
+--- PAGE 16 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Relatório de Similaridade
+
+
+--- PAGE 17 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Relatório de Similaridade
+
+
+--- PAGE 18 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Informações importantes
+● Todos os textos submetidos são sobrepostos, assim não há como 
+gerenciar diferentes versões e diferentes textos ao mesmo tempo. Todos 
+os textos submetidos não são integrados ao banco de dados da 
+plataforma Turnitin.
+● Cada aluno pode submeter até 3 textos em 24 horas. Caso um quarto 
+texto seja submetido dentro desse período, ele será processado 24 horas 
+depois.
+● No total, cada aluno pode submeter 50 vezes. Depois desse número, a 
+conta no Turnitin ficará inativa e será necessário fazer um novo cadastro.
+
+--- PAGE 19 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Turnitin: tutorial para o aluno
+
+
+--- PAGE 20 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Dúvidas?
+Procure a Biblioteca do ICMC
+E-mail: biblio@icmc.usp.br
+Whatsapp: +55 16 3373 9637
+Atendimento online: http://biblioteca.icmc.usp.br/livechat/
+
+
+--- PAGE 21 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Obrigada
+jumoraes@icmc.usp.br
+
+
+--- PAGE 22 ---
+Copyright © 2024. Todos os direitos reservados ao CeMEAI-USP. Proibida a cópia e reprodução sem autorização
+Referências
+UNIVERSIDADE DE SÃO PAULO. Agência USP de Gestão da Informação Acadêmica. Integridade e prevenção do Plágio. Turnitin. 
+Disponível em: 
+https://www.abcd.usp.br/apoio-pesquisador/integridade-prevencao-plagio/turnitin-ferramenta-prevencao-plagio/.  Acesso em: 
+18 junho 2026.
+UNIVERSIDADE DE SÃO PAULO. Agência USP de Gestão da Informação Acadêmica. Similaridade de texto: qual é o percentual 
+aceitável? Disponível em:  
+https://www.abcd.usp.br/noticias/similaridade-de-textos-qual-e-o-percentual-aceitavel/#:~:text=O%20documento%20de%20c
+ompara%C3%A7%C3%A3o%20%C3%A9,sim%20a%20similaridade%20de%20textos. Acesso em: 18 junho 2026.
+UNIVERSIDADE DE SÃO PAULO. Agência USP de Gestão da Informação Acadêmica. Turnitin - Aluno verifica o seu trabalho. São 
+Paulo: USP/AGUIA, [2019-2020]. 11 slides. Disponível em: 
+https://areatecnica.aguia.usp.br/images/e/ea/ALUNO_-_Envio_do_Trabalho_ao_Turnitin_AGUIA_USP_2019-2020.pptx. Acesso 
+em: 18 junho 2026.
+
+================================================================================
+FILE: Norma NBR 14724 atualizada - 2024.pdf
+================================================================================
+Total pages: 16
+
+--- PAGE 1 ---
+
+
+--- PAGE 2 ---
+
+
+--- PAGE 3 ---
+
+
+--- PAGE 4 ---
+
+
+--- PAGE 5 ---
+
+
+--- PAGE 6 ---
+
+
+--- PAGE 7 ---
+
+
+--- PAGE 8 ---
+
+
+--- PAGE 9 ---
+
+
+--- PAGE 10 ---
+
+
+--- PAGE 11 ---
+
+
+--- PAGE 12 ---
+
+
+--- PAGE 13 ---
+
+
+--- PAGE 14 ---
+
+
+--- PAGE 15 ---
+
+
+--- PAGE 16 ---
+
+

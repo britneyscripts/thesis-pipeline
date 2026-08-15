@@ -1,0 +1,6 @@
+{
+    "python.defaultInterpreterPath": "/opt/anaconda3/envs/tcc_usp/bin/python",
+    "dbt.pythonPath": "/opt/anaconda3/envs/tcc_usp/bin/python",
+    "dbt.dbtPath": "/opt/anaconda3/envs/tcc_usp/bin/dbt",
+    "dbt.sqlfluffPath": "/opt/anaconda3/envs/tcc_usp/bin/sqlfluff"
+}
